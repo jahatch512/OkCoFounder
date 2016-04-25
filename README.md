@@ -1,6 +1,6 @@
 # OkCoFounder
 
-CURRENTLY LOOKING AT SOME GIT REPOSITORIES FOR PAST OKCUPID CLONES AND REALIZING I SET A LOT OF THINGS UP WRONG. PROBABLY GOING TO SPEND THE DAY COMPLETELY REVAMPING MY PROPOSAL BUT I ALSO HAVE SOME QUESTIONS ABOUT THE FUNDAMENTAL STRUCTURE. 
+CURRENTLY LOOKING AT SOME GIT REPOSITORIES FOR PAST OKCUPID CLONES AND REALIZING I SET A LOT OF THINGS UP WRONG. PROBABLY GOING TO SPEND THE DAY COMPLETELY REVAMPING MY PROPOSAL BUT I ALSO HAVE SOME QUESTIONS ABOUT THE FUNDAMENTAL STRUCTURE.
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
@@ -33,7 +33,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Select to "connect" with another user (MVP)
 - [ ] View a list of mutual "connections" (MVP)
 - [ ] Narrow down the browse/index page with selection specs bar (expected, non-MVP)
-- [ ] Apply complex styling to notes while editing (expected, non-MVP)
+
 
 ## Design Docs
 * [View Wireframes][views]

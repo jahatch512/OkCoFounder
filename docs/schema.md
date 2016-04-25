@@ -20,3 +20,14 @@ received_id     | integer   | not null, foreign key (references users)
 hours_question  | text      | not null
 question_two    | text      | not null
 question_three  | text      | not null
+
+
+## connections
+
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+liker_id        | string    | not null, indexed, unique
+likee_id        | string    | not null
+session_token   | string    | not null, indexed, unique
+title           | string    | not null
