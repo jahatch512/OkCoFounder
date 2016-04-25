@@ -1,4 +1,4 @@
-# FresherNote
+# OkCoFounder
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
@@ -6,29 +6,32 @@
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote that will be build using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+OkCoFounder is a web application inspired by OkCupid that will be built using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
 - [ ] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
-- [ ] The minimally necessary features for an Evernote-inspired site: note creation and saving, note editing, and notes organized into notebooks
+- [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), select to "connect" with another user, view all "connections"
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
 
 ## Product Goals and Priorities
 
-FresherNote will allow users to do the following:
+OkCoFounder will allow users to do the following:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account (MVP)
 - [ ] Log in / Log out, including as a Guest/Demo User (MVP)
-- [ ] Create, read, edit, and delete notes (MVP)
-- [ ] Organize notes within Notebooks (MVP)
-- [ ] Tag notes with multiple tags (expected feature, but not MVP)
-- [ ] Apply complex styling to notes while editing (expected feature, but not MVP)
+- [ ] Update Profile information ("About" and "Q&A(form)") (MVP)
+- [ ] Browse an index of potential "connections" (MVP)
+- [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
+- [ ] Select to "connect" with another user (MVP)
+- [ ] View a list of mutual "connections" (MVP)
+- [ ] Narrow down the browse/index page with selection specs bar (expected, non-MVP)
+- [ ] Apply complex styling to notes while editing (expected, non-MVP)
 
 ## Design Docs
 * [View Wireframes][views]
@@ -45,44 +48,46 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ## Implementation Timeline
 
-### Phase 1: Backend setup and User Authentication (0.5 days)
+### Phase 1: Backend setup and User Authentication (1 days)
 
-**Objective:** Functioning rails project with Authentication
+**Objective:** Functioning rails project with Authentication. Splash page for initial visit (not signed in).
 
-- [ ] create new project
 - [ ] create `User` model
 - [ ] authentication
-- [ ] user signup/signin pages
+- [ ] pre-sign up page ("I am a CFO/CEO/Developer(choose one)")
+- [ ] user signup/signin forms
 - [ ] blank landing page after signin
 
-### Phase 2: Notes Model, API, and basic APIUtil (1.5 days)
+### Phase 2: User Controller, API, and basic APIUtil (1.5 days)
 
-**Objective:** Notes can be created, read, edited and destroyed through
-the API.
+**Objective:** Users can be created, read(index/show), updated, and destroyed through the API
 
-- [ ] create `Note` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`NotesController`)
-- [ ] jBuilder views for notes
+- [ ] CRUD API for Users (`UsersController`)
+- [ ] jBuilder views for users
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
-### Phase 3: Flux Architecture and Router (1.5 days)
+### Phase 3: Flux Architecture and Router (3 days)
 
-**Objective:** Notes can be created, read, edited and destroyed with the
+**Objective:** Users can be created, read, edited and destroyed(will I ever want to destroy a user? This would be the equivalent of deleting an account...) with the
 user interface.
 
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
-- implement each note component, building out the flux loop as needed.
-  - [ ] `NotesIndex`
-  - [ ] `NoteIndexItem`
-  - [ ] `NoteForm`
-- [ ] save Notes to the DB when the form loses focus or is left idle
-  after editing.
+  - [ ] route to individual show pages for users
+- implement each User component, building out the flux loop as needed.
+  - User Index Page
+    - [ ] `UsersIndex`
+    - [ ] `UserIndexItem`
+  - User Show Page
+    - [ ] `Profile Info`
+    - [ ] `AboutDetail`
+    - [ ] `ProfileUpdateForm`
 
-### Phase 4: Start Styling (0.5 days)
+
+### Phase 4: Start Styling (1 days)
 
 **Objective:** Existing pages (including singup/signin) will look good.
 
@@ -90,42 +95,26 @@ user interface.
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 5: Notebooks (1 day)
+### Phase 5: Connections (2 day)
 
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
+**Objective:** Users can send and receive "connection" requests and when there is mutual interest, a connection is formed. Users can visit their "Connections" page to view connections as well as sent/received requests.
 
-- [ ] create `Notebook` model
-- build out API, Flux loop, and components for:
-  - [ ] Notebook CRUD
-  - [ ] adding notes requires a notebook
-  - [ ] moving notes to a different notebook
-  - [ ] viewing notes by notebook
+- [ ] Implement the Connections components:
+  - Connections Index
+    - [ ] `ConnectionIndexItem`
+    - [ ] `SentItem`
+    - [ ] `ReceivedItem`
 - Use CSS to style new views
 
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
-which has its own `Index` view.
+### Phase 6: Questions Tab on UserPage (1.5 days)
 
-### Phase 6: Tags (1.5 days)
+**Objective:** Users can fill out a short questionnaire that is visible on their show page.
 
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
-
-- [ ] create `Tag` model and join table
-- build out API, Flux loop, and components for:
-  - [ ] fetching tags for notebook
-  - [ ] adding tags to notebook
-  - [ ] creating tags while adding to notebooks
-  - [ ] searching notebooks by tag
+- [ ] add QuestionDetail component to UserPage
+- [ ] show the current_user's answers inline
 - [ ] Style new elements
 
-### Phase 7: Allow Complex Styling in Notes (0.5 days)
-
-**objective:** Enable complex styling of notes.
-
-- [ ] Integrate `react-quill` (based on Quill.js).
-- [ ] Use Rails helpers to sanitize HTML before rendering.
-- [ ] Style the new Quill elements.
-
-### Phase 8: Styling Cleanup and Seeding (1 day)
+### Phase 7: Styling Cleanup and Seeding (2 day)
 
 **objective:** Make the site feel more cohesive and awesome.
 
@@ -133,12 +122,19 @@ which has its own `Index` view.
 - [ ] Refactor HTML classes & CSS rules
 - [ ] Add modals, transitions, and other styling flourishes.
 
+### Phase 8: FilterBar Component (1 day)
+
+**objective:** Add a FilterBar component on the UsersIndex page that allows a user to filter the index results
+
+- [ ] Implement FilterBar and FilterBarItem components
+- [ ] Style new elements
+
+
 ### Bonus Features (TBD)
-- [ ] Search through notes for blocks of text
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
-- [ ] Multiple sessions
+- [ ] View a map with pins of all other potential "connections", showing a link to their profile on hover
+- [ ] Send/receive messages with other users (expected, non-MVP)
+- [ ] Pagination / infinite scroll for Users Index
+
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md

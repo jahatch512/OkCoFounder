@@ -1,22 +1,23 @@
 # View Wireframes
 
 ## New User
-![new-user]
+![SignUpDetail]
 
 ## New Session
-![new-session]
+![SignIn]
 
-## NotesIndex / NoteIndexItem / NoteForm
-![notes]
+## UsersIndex / UserIndexItem / FilterBar / FilterBarItem
+![UsersIndex]
 
-## NotebooksIndex / NotebookIndexItem
-![notebooks]
+## UserPage / Profile Info / AboutDetail / QuestionDetail / ProfileUpdateForm
 
-## NotebookForm
-![notebook-form]
+![UserShowPage]
 
-[new-user]: ./wireframes/new_user.png
-[new-session]: ./wireframes/new_session.png
-[notes]: ./wireframes/root_notes.png
-[notebooks]: ./wireframes/root_notebooks.png
-[notebook-form]: ./wireframes/notebook_form.png
+## ProfileUpdateForm
+![ProfileUpdateForm]
+
+[SignUpDetail]: ./wireframes/SignUpDetail.png
+[SignIn]: ./wireframes/SignIn.png
+[UsersIndex]: ./wireframes/UsersIndex.png
+[UserShowPage]: ./wireframes/UserShowPage.png
+[ProfileUpdateForm]: ./wireframes/ProfileUpdateForm.png
