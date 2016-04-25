@@ -18,3 +18,7 @@
     * `ConnectionIndexItem`
     * `SentItem`
     * `ReceivedItem`
+  * `MessagesIndex`
+    * `MessageIndexItem`
+    * `MessageDetailIndex`
+      * `MessageDetailItem`
