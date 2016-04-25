@@ -13,6 +13,7 @@
     * `ProfileInfo`
     * `AboutDetail`
     * `QuestionDetail`
+    * `QuestionUpdateForm`
     * `ProfileUpdateForm`
   * `ConnectionsIndex`
     * `ConnectionIndexItem`
