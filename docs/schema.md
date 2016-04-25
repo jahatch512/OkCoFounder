@@ -9,9 +9,12 @@ username        | string    | not null, indexed, unique
 password_digest | string    | not null
 session_token   | string    | not null, indexed, unique
 title           | string    | not null
-location        | string    | not null
-about           | text      | not null
+zipcode         | integer   | not null
 image_url       | string    | not null
+about_one       | text      | not null
+about_two       | text      | not null
+about_three     | text      | not null
+about_four      | text      | not null
 
 
 
@@ -42,7 +45,7 @@ id              | integer   | not null, primary key
 content         | string    | not null
 
 
-## answers
+## answer_choices
 
 column name     | data type | details
 ----------------|-----------|-----------------------
@@ -50,7 +53,7 @@ id              | integer   | not null, primary key
 question_id     | integer   | not null, foreign key (references questions)
 content         | string    | not null
 
-## user_answer_choices
+## user_answers
 
 column name     | data type | details
 ----------------|-----------|-----------------------

@@ -11,7 +11,8 @@
       * `FilterBarItem`
   * `UserPage`
     * `ProfileInfo`
-    * `AboutDetail`
+    * `AboutDetail`  
+      * `AboutDetailForm`  
     * `QuestionDetail`
     * `QuestionUpdateForm`
     * `ProfileUpdateForm`
