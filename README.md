@@ -84,8 +84,9 @@ user interface.
     - [ ] `UsersIndex`
     - [ ] `UserIndexItem`
   - User Show Page
-    - [ ] `Profile Info`
+    - [ ] `ProfileInfo`
     - [ ] `AboutDetail`
+    - [ ] `QuestionDetail` (this might come later)
     - [ ] `ProfileUpdateForm`
 
 
@@ -99,7 +100,7 @@ user interface.
 
 ### Phase 5: Connections (2 day)
 
-**Objective:** Users can send and receive "connection" requests and when there is mutual interest, a connection is formed. Users can visit their "Connections" page to view connections as well as sent/received requests.
+**Objective:** Users can send and receive "connection" requests and when there is mutual interest, a match is formed. Users can visit their "Matches" page to view matches as well as sent/received requests.
 
 - [ ] Implement the Connections components:
   - Connections Index
