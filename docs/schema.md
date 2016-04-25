@@ -25,13 +25,13 @@ matcher_id      | string    | not null, foreign key (references users), indexed
 matchee_id      | string    | not null, foreign key (references users), indexed
 
 
-## likes
+## connections
 
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
-liker_id        | string    | not null, foreign key (references users), indexed
-likee_id        | string    | not null, foreign key (references users), indexed
+connector_id    | string    | not null, foreign key (references users), indexed
+connectee_id    | string    | not null, foreign key (references users), indexed
 
 
 ## questions
@@ -66,3 +66,4 @@ id              | integer   | not null, primary key
 sender_id       | integer   | not null, foreign key (references users)
 receiver_id     | integer   | not null, foreign key (references users)
 body            | string    | not null
+time            | string    | not null

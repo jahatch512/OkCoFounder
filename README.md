@@ -31,7 +31,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Browse an index of potential "connections" (MVP)
 - [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
 - [ ] Select to "connect" with another user (MVP)
-- [ ] View a list of mutual "connections" (MVP)
+- [ ] View a list of matches (both have connected with each other) (MVP)
 - [ ] Narrow down the browse/index page with selection specs bar (expected, non-MVP)
 
 
