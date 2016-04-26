@@ -8,12 +8,12 @@ CURRENTLY LOOKING AT SOME GIT REPOSITORIES FOR PAST OKCUPID CLONES AND REALIZING
 
 ## Minimum Viable Product
 
-OkCoFounder is a web application inspired by OkCupid that will be built using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+OkCoFounder is a web application inspired by OkCupid that will be built using Ruby on Rails and React.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
 - [ ] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
-- [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), select to "connect" with another user, view all "connections"
+- [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), select to "connect" with another user, view all requests and matches.
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
@@ -27,8 +27,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account (MVP)
 - [ ] Log in / Log out, including as a Guest/Demo User (MVP)
-- [ ] Update Profile information ("About" and "Q&A(form)") (MVP)
-- [ ] Browse an index of potential "connections" (MVP)
+- [ ] Update Profile information ("About(form))" and "Q&A(form)") (MVP)
+- [ ] Browse an index of other users (MVP)
 - [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
 - [ ] Select to "connect" with another user (MVP)
 - [ ] View a list of matches (both have connected with each other) (MVP)
@@ -55,19 +55,20 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 **Objective:** Functioning rails project with Authentication. Splash page for initial visit (not signed in).
 
 - [ ] create `User` model
+- [ ] create `User` Controller
 - [ ] authentication
 - [ ] pre-sign up page ("I am a CFO/CEO/Developer(choose one)")
 - [ ] user signup/signin forms
 - [ ] blank landing page after signin
 
-### Phase 2: User Controller, API, and basic APIUtil (1.5 days)
+### Phase 2: User API and basic APIUtil (1.5 days)
 
-**Objective:** Users can be created, read(index/show), updated, and destroyed through the API
+**Objective:** Users can be read(index/show) and updated through the API
 
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for Users (`UsersController`)
 - [ ] jBuilder views for users
 - [ ] setup Webpack & Flux scaffold
+- [ ] setup `User` Store
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
