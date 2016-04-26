@@ -11,7 +11,7 @@ OkCoFounder is a web application inspired by OkCupid that will be built using Ru
 - [ ] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
-- [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), select to "connect" with another user, view all requests and matches.
+- [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), answer scrolling questions on user index page, select to "connect" with another user, view all connections.
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
@@ -25,11 +25,12 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account (MVP)
 - [ ] Log in / Log out, including as a Guest/Demo User (MVP)
-- [ ] Update Profile information ("About(form))" and "Q&A(form)") (MVP)
+- [ ] Update Profile information: location, title, about (MVP)
 - [ ] Browse an index of other users (MVP)
 - [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
+- [ ] Answer scrolling questions on the UserIndex page while you browse (MVP)
 - [ ] Select to "connect" with another user (MVP)
-- [ ] View a list of matches (both have connected with each other) (MVP)
+- [ ] View a list of connections (MVP)
 - [ ] Narrow down the browse/index page with selection specs bar (expected, non-MVP)
 
 
@@ -72,8 +73,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 ### Phase 3: Flux Architecture and Router (3 days)
 
-**Objective:** Users can be created, read, edited and destroyed(will I ever want to destroy a user? This would be the equivalent of deleting an account...) with the
-user interface.
+**Objective:** Can view an index of all the users and click on one to visit the individual show page, revealing all of their profile information, through the user interface.
 
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
@@ -97,7 +97,17 @@ user interface.
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 5: Connections (2 day)
+### Phase 5: Questions Tab on UserPage (2 days)
+
+**Objective:** Users can fill out a short questionnaire that is visible on their show page.
+
+- [ ] add `QuestionDetail` component to UserPage
+- [ ] add `Question` Component on UserIndex page
+      -- scrolling questions
+- [ ] display a "match" % based on answered questions
+- [ ] Style new elements
+
+### Phase 6: Connections (2 day)
 
 **Objective:** Users can send and receive "connection" requests and when there is mutual interest, a match is formed. Users can visit their "Matches" page to view matches as well as sent/received requests.
 
@@ -108,13 +118,6 @@ user interface.
     - [ ] `ReceivedItem`
 - Use CSS to style new views
 
-### Phase 6: Questions Tab on UserPage (1.5 days)
-
-**Objective:** Users can fill out a short questionnaire that is visible on their show page.
-
-- [ ] add QuestionDetail component to UserPage
-- [ ] show the current_user's answers inline
-- [ ] Style new elements
 
 ### Phase 7: Styling Cleanup and Seeding (2 day)
 

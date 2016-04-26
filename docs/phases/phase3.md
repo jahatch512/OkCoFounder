@@ -1,13 +1,22 @@
-# Phase 3: Notebooks and Tags (2 days)
+# Phase 3: Questions and Answers (2 days)
 
 ## Rails
+
 ### Models
 
 
 ### Controllers
 
-### Views
 
+### Views
+- User Index
+  `UsersIndex`
+  `UserIndexItem`
+- User Show Page
+  `ProfileInfo`
+  `AboutDetail`
+  `QuestionDetail` (this might come later)
+  `ProfileUpdateForm`
 
 ## Flux
 ### Views (React Components)

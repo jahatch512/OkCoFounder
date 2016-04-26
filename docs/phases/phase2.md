@@ -1,4 +1,4 @@
-# Phase 2: Flux Architecture and Note CRUD (2 days)
+# Phase 2: Flux Architecture (3 days)
 
 ## Rails
 ### Models
@@ -14,19 +14,22 @@
 
 ### Stores
 * User
+* Current User
 
 ### Actions
 * ApiActions.receiveAllUsers -> triggered by ApiUtil
 * ApiActions.receiveSingleUser
-* ApiActions.deleteNote
+* ApiActions.receiveCurrentUser
 * UserActions.fetchAllUsers -> triggers ApiUtil
 * UserActions.fetchSingleUser
+* UserActions.fetchCurrentUser
 * UserActions.editUser
 
 
 ### ApiUtil
 * ApiUtil.fetchAllUsers
 * ApiUtil.fetchSingleUser
+* ApiUtil.fetchCurrentUser
 * ApiUtil.editUser
 
 ## Gems/Libraries
