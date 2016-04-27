@@ -1,4 +1,5 @@
-var ServerActions = require('../actions/serverActions.js');
+var ServerActions = require('../actions/serverActions.js'),
+  hashHistory = require('react-router').hashHistory;
 
 module.exports = {
   loginUser: function(user) {
@@ -8,6 +9,7 @@ module.exports = {
       data: user,
       success: function(returnUser) {
         ServerActions.loginUser(returnUser);
+        hashHistory.push('/users');
       },
       error: function(error) {
         console.log(error.responseText);

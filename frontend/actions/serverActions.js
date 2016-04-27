@@ -30,5 +30,19 @@ module.exports = {
       actionType: UserConstants.ERROR_RECEIVED,
       error: error
     });
+  },
+
+  receiveUsers: function (users) {
+    Dispatcher.dispatch({
+      actionType: UserConstants.RECEIVE_USERS,
+      users: users
+    });
+  },
+
+  receiveSingleUser: function (user) {
+    Dispatcher.dispatch({
+      actionType: UserConstants.RECEIVE_SINGLE_USER,
+      user: user
+    });
   }
 };

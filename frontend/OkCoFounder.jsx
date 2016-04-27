@@ -6,12 +6,11 @@ var ReactRouter = require('react-router'),
     Router = ReactRouter.Router,
     Route = ReactRouter.Route,
     IndexRoute = ReactRouter.IndexRoute,
-    hashHistory = ReactRouter.hashHistory;
+    hashHistory = require('react-router').hashHistory;
 //Components
 var App = require('./components/app'),
     SessionStore = require('./stores/sessionStore'),
-    SignUp = require('./components/authentication/signUp'),
-    SignIn = require('./components/authentication/signIn');
+    UsersIndex = require('./components/usersIndex');
 
 //Mixins
 // var CurrentUserState = require('./mixins/current_user_state');
@@ -20,6 +19,9 @@ var App = require('./components/app'),
 var RouterComponent = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
+      <Route path="users" component={UsersIndex}>
+
+      </Route>
     </Route>
   </Router>
 );

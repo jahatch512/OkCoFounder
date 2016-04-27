@@ -11,12 +11,34 @@ module.exports = {
         ServerActions.loginUser(user);
       },
       error: function(error) {
-        console.log(error);
+        console.log("ServerActions " + error);
 
         ServerActions.receiveError(error.responseText);
       }
     });
   },
+
+  fetchUsers: function () {
+    $.ajax({
+      url: "api/users",
+      type: "GET",
+      success: function (users) {
+        ServerActions.receiveUsers(users);
+      }
+    });
+  },
+
+  fetchSingleUser: function (id) {
+    $.ajax({
+      url: "api/users" + id,
+      type: "GET",
+      success: function (user) {
+        ServerActions.receiveSingleUser(user);
+      }
+    });
+  }
+
+
 
   //  createAbout: function (formData) {
   //     $.ajax({

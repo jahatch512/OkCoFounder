@@ -8,9 +8,9 @@ class Api::UsersController < ApplicationController
 
     if @user.save!
       login_user!(@user)
-      render :index
+      render :create
     else
-      render json: "you messed up"
+      render :errors
     end
   end
 
@@ -30,6 +30,7 @@ class Api::UsersController < ApplicationController
 
   def index
     @users = User.all
+    render :index
   end
 
   private

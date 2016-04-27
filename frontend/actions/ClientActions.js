@@ -17,6 +17,10 @@ module.exports = {
 
   loginUser: function(user) {
     SessionApi.loginUser(user);
+  },
+
+  fetchUsers: function() {
+    UserApi.fetchUsers();
   }
 
 

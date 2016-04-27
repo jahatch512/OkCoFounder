@@ -13,7 +13,6 @@ var SignIn = React.createClass({
       username: this.state.username,
       password: this.state.password
     }};
-    console.log("submitted");
     ClientActions.loginUser(user);
     this.props.parent.closeModal();
   },

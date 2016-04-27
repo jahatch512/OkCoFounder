@@ -52,26 +52,29 @@
 	    Router = ReactRouter.Router,
 	    Route = ReactRouter.Route,
 	    IndexRoute = ReactRouter.IndexRoute,
-	    hashHistory = ReactRouter.hashHistory;
+	    hashHistory = __webpack_require__(186).hashHistory;
 	//Components
 	var App = __webpack_require__(245),
 	    SessionStore = __webpack_require__(258),
-	    SignUp = __webpack_require__(257),
-	    SignIn = __webpack_require__(247);
+	    UsersIndex = __webpack_require__(278);
 	
 	//Mixins
 	// var CurrentUserState = require('./mixins/current_user_state');
 	
 	var RouterComponent = React.createElement(
-	    Router,
-	    { history: hashHistory },
-	    React.createElement(Route, { path: '/', component: App })
+	  Router,
+	  { history: hashHistory },
+	  React.createElement(
+	    Route,
+	    { path: '/', component: App },
+	    React.createElement(Route, { path: 'users', component: UsersIndex })
+	  )
 	);
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    Modal.setAppElement('#root');
-	    var root = document.getElementById('root');
-	    ReactDOM.render(RouterComponent, root);
+	  Modal.setAppElement('#root');
+	  var root = document.getElementById('root');
+	  ReactDOM.render(RouterComponent, root);
 	});
 
 /***/ },
@@ -27441,6 +27444,7 @@
 	
 	  componentDidMount: function () {
 	    this.sessionListener = SessionStore.addListener(this.onChange);
+	    ClientActions.fetchUsers();
 	  },
 	
 	  onChange: function () {
@@ -27508,7 +27512,6 @@
 	        username: this.state.username,
 	        password: this.state.password
 	      } };
-	    console.log("submitted");
 	    ClientActions.loginUser(user);
 	    this.props.parent.closeModal();
 	  },
@@ -27574,6 +27577,10 @@
 	
 	  loginUser: function (user) {
 	    SessionApi.loginUser(user);
+	  },
+	
+	  fetchUsers: function () {
+	    UserApi.fetchUsers();
 	  }
 	
 	};
@@ -27582,7 +27589,8 @@
 /* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ServerActions = __webpack_require__(250);
+	var ServerActions = __webpack_require__(250),
+	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	module.exports = {
 	  loginUser: function (user) {
@@ -27592,6 +27600,7 @@
 	      data: user,
 	      success: function (returnUser) {
 	        ServerActions.loginUser(returnUser);
+	        hashHistory.push('/users');
 	      },
 	      error: function (error) {
 	        console.log(error.responseText);
@@ -27653,6 +27662,20 @@
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.ERROR_RECEIVED,
 	      error: error
+	    });
+	  },
+	
+	  receiveUsers: function (users) {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.RECEIVE_USERS,
+	      users: users
+	    });
+	  },
+	
+	  receiveSingleUser: function (user) {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.RECEIVE_SINGLE_USER,
+	      user: user
 	    });
 	  }
 	};
@@ -27982,7 +28005,9 @@
 	  ERROR_RECEIVED: "RECEIVE_ERROR",
 	  LOGOUT_USER: "LOGOUT_USER",
 	  DESTROY_USER: "DESTROY_USER",
-	  CREATE_USER: "CREATE_USER"
+	  CREATE_USER: "CREATE_USER",
+	  RECEIVE_USERS: "RECEIVE_USERS",
+	  RECEIVE_SINGLE_USER: "RECEIVE_SINGLE_USER"
 	};
 
 /***/ },
@@ -28002,12 +28027,43 @@
 	        ServerActions.loginUser(user);
 	      },
 	      error: function (error) {
-	        console.log(error);
+	        console.log("ServerActions " + error);
 	
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
+	  },
+	
+	  fetchUsers: function () {
+	    $.ajax({
+	      url: "api/users",
+	      type: "GET",
+	      success: function (users) {
+	        ServerActions.receiveUsers(users);
+	      }
+	    });
+	  },
+	
+	  fetchSingleUser: function (id) {
+	    $.ajax({
+	      url: "api/users" + id,
+	      type: "GET",
+	      success: function (user) {
+	        ServerActions.receiveSingleUser(user);
+	      }
+	    });
 	  }
+	
+	  //  createAbout: function (formData) {
+	  //     $.ajax({
+	  //     url: "api/abouts",
+	  //   type: "POST",
+	  //   data: formData,
+	  //   success: function (data) {
+	  //     ServerActions.createAbout(data);
+	  //   }
+	  //   });
+	  //   }
 	
 	};
 
@@ -34838,6 +34894,87 @@
 	});
 	
 	module.exports = SplashPage;
+
+/***/ },
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(279),
+	    ClientActions = __webpack_require__(248);
+	
+	var PropTypes = React.PropTypes;
+	
+	var UsersIndex = React.createClass({
+	  displayName: 'UsersIndex',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'Users Index Page'
+	    );
+	  }
+	
+	});
+	
+	module.exports = UsersIndex;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(259).Store;
+	var Dispatcher = __webpack_require__(251);
+	var UserConstants = __webpack_require__(255);
+	
+	var UserStore = new Store(Dispatcher);
+	
+	var _users = {};
+	var _newUserErrors = [];
+	
+	UserStore.all = function () {
+	  return Object.assign({}, _users);
+	};
+	
+	var addUser = function (user) {
+	  _users[user.id] = user;
+	};
+	
+	var findUser = function (id) {
+	  return _users[id];
+	};
+	
+	UserStore.clearErrors = function () {
+	  _newUserErrors = [];
+	};
+	
+	UserStore.allErrors = function () {
+	  return _newUserErrors;
+	};
+	
+	var recieveError = function (error) {
+	  var errors = JSON.parse(error);
+	  if (errors.length >= 1) {
+	    errors.forEach(function (message) {
+	      _newUserErrors.push(message);
+	    });
+	  } else {
+	    _newUserErrors.push(errors);
+	  }
+	  UserStore.__emitChange();
+	};
+	
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case UserConstants.CREATE_USER:
+	      addUser(payload.user);
+	      break;
+	  }
+	};
 
 /***/ }
 /******/ ]);
