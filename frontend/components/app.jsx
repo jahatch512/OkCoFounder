@@ -1,4 +1,5 @@
 var React = require('react'),
+    SplashPage = require('./splashPage'),
     NavBar = require('./navBar');
 
 var App = React.createClass({
@@ -7,6 +8,7 @@ var App = React.createClass({
       <div>
         <header><h1>OkCoFounder React</h1></header>
         <NavBar/>
+        <SplashPage/>
         {this.props.children}
       </div>
     );

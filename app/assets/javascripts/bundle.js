@@ -27393,6 +27393,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
+	    SplashPage = __webpack_require__(277),
 	    NavBar = __webpack_require__(246);
 	
 	var App = React.createClass({
@@ -27412,6 +27413,7 @@
 	        )
 	      ),
 	      React.createElement(NavBar, null),
+	      React.createElement(SplashPage, null),
 	      this.props.children
 	    );
 	  }
@@ -27425,97 +27427,39 @@
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SignIn = __webpack_require__(247),
-	    SignUp = __webpack_require__(257),
 	    SessionStore = __webpack_require__(258),
-	    ModalStyling = __webpack_require__(276),
-	    ClientActions = __webpack_require__(248),
-	    Modal = __webpack_require__(166);
+	    ClientActions = __webpack_require__(248);
 	
-	var NavBar = React.createClass({
-	  displayName: 'NavBar',
+	var navBar = React.createClass({
+	  displayName: 'navBar',
 	
 	  getInitialState: function () {
 	    return {
-	      modalIsOpen: false,
-	      clickedSignUp: false,
-	      logInClicked: false,
-	      current_user: SessionStore.currentUser()
+	      currentUser: SessionStore.currentUser()
 	    };
 	  },
 	
-	  getErrors: function () {
-	    var errors = SessionStore.allErrors();
-	  },
-	
 	  componentDidMount: function () {
-	    SessionStore.addListener(this.onChange);
+	    this.sessionListener = SessionStore.addListener(this.onChange);
 	  },
 	
 	  onChange: function () {
-	    this.setState({ current_user: SessionStore.currentUser() });
+	    this.setState({ currentUser: SessionStore.currentUser() });
 	  },
 	
 	  logoutUser: function () {
 	    ClientActions.logoutUser();
 	  },
 	
-	  openModal: function (event) {
-	    var state = {};
-	    if (event.target.id === "clickedSignUp") {
-	      this.setState({ modalIsOpen: true, clickedSignUp: true });
-	    } else if (event.target.id === "logInClicked") {
-	      this.setState({ modalIsOpen: true, logInClicked: true });
-	    }
-	  },
-	
-	  afterModalOpen: function () {
-	    this.refs.subtitle.style.color = '#f00';
-	  },
-	
-	  closeModal: function () {
-	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false });
-	  },
-	
 	  render: function () {
 	
-	    var modalContents = null;
-	    if (this.state.clickedSignUp === true) {
-	      modalContents = React.createElement(SignUp, { parent: this });
-	    } else if (this.state.logInClicked === true) {
-	      modalContents = React.createElement(SignIn, { parent: this });
-	    }
-	
-	    var navBarContents = React.createElement(
-	      'ul',
-	      null,
-	      React.createElement(
-	        'li',
-	        { className: 'navbar_buttons' },
-	        React.createElement(
-	          'button',
-	          { onClick: this.openModal, id: 'clickedSignUp' },
-	          'Sign Up'
-	        )
-	      ),
-	      React.createElement(
-	        'li',
-	        { className: 'navbar_buttons' },
-	        React.createElement(
-	          'button',
-	          { onClick: this.openModal, id: 'logInClicked' },
-	          'Sign In'
-	        )
-	      )
-	    );
-	
-	    if (this.state.current_user !== null) {
-	      navBarContents = React.createElement(
+	    if (this.state.currentUser !== null) {
+	      var navBarSessionButton = React.createElement(
 	        'ul',
 	        null,
 	        React.createElement(
 	          'li',
-	          { className: 'navbar_buttons' },
+	          { className: 'nav_bar_buttons' },
 	          React.createElement(
 	            'button',
 	            { onClick: this.logoutUser, id: 'logoutClicked' },
@@ -27523,40 +27467,25 @@
 	          )
 	        )
 	      );
-	    }
-	
-	    var errors = SessionStore.allErrors();
-	
-	    if (errors.length > 0) {
-	      var errorMessage = errors[0];
 	    } else {
-	      errorMessage = "";
+	      navBarSessionButton = "";
 	    }
 	
 	    return React.createElement(
-	      'ul',
-	      { className: 'navbar' },
-	      navBarContents,
-	      errorMessage,
+	      'div',
+	      { className: 'navBar' },
 	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.modalIsOpen,
-	          onAfterOpen: this.afterModalOpen,
-	          onRequestClose: this.closeModal,
-	          style: ModalStyling.CONTENT_STYLE },
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeModal },
-	          'close'
-	        ),
-	        modalContents
-	      )
+	        'h1',
+	        { className: 'logo' },
+	        'OkCoFounderLogo'
+	      ),
+	      navBarSessionButton
 	    );
 	  }
+	
 	});
 	
-	module.exports = NavBar;
+	module.exports = navBar;
 
 /***/ },
 /* 247 */
@@ -28243,12 +28172,16 @@
 	var myStorage = localStorage;
 	var SessionStore = new Store(Dispatcher);
 	
-	var _currentUser = myStorage.getItem("currentUser");
+	var _currentUser = JSON.parse(myStorage.getItem("currentUser"));
 	var _authenticationErrors = [];
 	var _loggedIn = false;
 	
 	SessionStore.currentUser = function () {
-	  return _currentUser;
+	  if (myStorage.getItem("currentUser") === "false") {
+	    return null;
+	  } else {
+	    return _currentUser;
+	  }
 	};
 	
 	SessionStore.clearErrors = function () {
@@ -28261,13 +28194,15 @@
 	
 	var loginUser = function (user) {
 	  _currentUser = user;
+	  myStorage.setItem("currentUser", JSON.stringify(user));
 	  _loggedIn = true;
 	  SessionStore.clearErrors();
 	  SessionStore.__emitChange();
 	};
 	
 	var logoutUser = function () {
-	  console.log('SessioniStore user logged out!');
+	  console.log('SessionStore user logged out!');
+	  myStorage.setItem("currentUser", "false");
 	  _loggedIn = false;
 	  _currentUser = null;
 	
@@ -34770,12 +34705,139 @@
 	    WebkitOverflowScrolling: 'touch',
 	    borderRadius: '4px',
 	    outline: 'none',
-	    padding: '20px'
-	
+	    padding: '20px',
+	    color: '#4c4c4c'
 	  }
 	};
 	
 	module.exports = CONTENT_STYLE;
+
+/***/ },
+/* 277 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SignIn = __webpack_require__(247),
+	    SignUp = __webpack_require__(257),
+	    SessionStore = __webpack_require__(258),
+	    ModalStyling = __webpack_require__(276),
+	    ClientActions = __webpack_require__(248),
+	    Modal = __webpack_require__(166);
+	
+	var SplashPage = React.createClass({
+	  displayName: 'SplashPage',
+	
+	  getInitialState: function () {
+	    return {
+	      modalIsOpen: false,
+	      clickedSignUp: false,
+	      logInClicked: false,
+	      currentUser: SessionStore.currentUser()
+	    };
+	  },
+	
+	  getErrors: function () {
+	    var errors = SessionStore.allErrors();
+	  },
+	
+	  componentDidMount: function () {
+	    this.sessionListener = SessionStore.addListener(this.onChange);
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.sessionListener.remove();
+	  },
+	
+	  onChange: function () {
+	    this.setState({ currentUser: SessionStore.currentUser() });
+	  },
+	
+	  openModal: function (event) {
+	    var state = {};
+	    if (event.target.id === "clickedSignUp") {
+	      this.setState({ modalIsOpen: true, clickedSignUp: true });
+	    } else if (event.target.id === "logInClicked") {
+	      this.setState({ modalIsOpen: true, logInClicked: true });
+	    }
+	  },
+	
+	  afterOpenModal: function () {
+	    // this.refs.sessionForm.style.color = '#f00';
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false });
+	  },
+	
+	  render: function () {
+	
+	    var modalContents = null;
+	    if (this.state.clickedSignUp === true) {
+	      modalContents = React.createElement(SignUp, { ref: 'sessionForm', parent: this });
+	    } else if (this.state.logInClicked === true) {
+	      modalContents = React.createElement(SignIn, { ref: 'sessionForm', parent: this });
+	    }
+	
+	    var splashPageContents = React.createElement(
+	      'ul',
+	      null,
+	      React.createElement(
+	        'li',
+	        { className: 'splash_page_buttons' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openModal, id: 'clickedSignUp' },
+	          'Sign Up'
+	        )
+	      ),
+	      React.createElement(
+	        'li',
+	        { className: 'splash_page_buttons' },
+	        React.createElement(
+	          'button',
+	          { onClick: this.openModal, id: 'logInClicked' },
+	          'Sign In'
+	        )
+	      )
+	    );
+	
+	    if (this.state.currentUser !== null) {
+	      splashPageContents = "";
+	    }
+	
+	    var errors = SessionStore.allErrors();
+	
+	    if (errors.length > 0) {
+	      var errorMessage = errors[0];
+	    } else {
+	      errorMessage = "";
+	    }
+	
+	    return React.createElement(
+	      'ul',
+	      { className: 'splash_page' },
+	      splashPageContents,
+	      errorMessage,
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.modalIsOpen,
+	          style: ModalStyling.CONTENT_STYLE,
+	          onAfterOpen: this.afterOpenModal,
+	          onRequestClose: this.closeModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeModal },
+	          'close'
+	        ),
+	        modalContents
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SplashPage;
 
 /***/ }
 /******/ ]);

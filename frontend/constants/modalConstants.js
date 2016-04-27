@@ -19,8 +19,8 @@ var CONTENT_STYLE = {
     WebkitOverflowScrolling    : 'touch',
     borderRadius               : '4px',
     outline                    : 'none',
-    padding                    : '20px'
-
+    padding                    : '20px',
+    color                      : '#4c4c4c'
   }
 };
 

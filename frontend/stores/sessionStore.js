@@ -4,12 +4,16 @@ var UserConstants = require('../constants/userConstants.js');
 var myStorage = localStorage;
 var SessionStore = new Store(Dispatcher);
 
-var _currentUser = myStorage.getItem("currentUser");
+var _currentUser = JSON.parse(myStorage.getItem("currentUser"));
 var _authenticationErrors = [];
 var _loggedIn = false;
 
 SessionStore.currentUser = function() {
-  return _currentUser;
+  if (myStorage.getItem("currentUser") === "false"){
+    return null;
+  } else {
+    return _currentUser;
+  }
 };
 
 SessionStore.clearErrors = function() {
@@ -22,16 +26,18 @@ SessionStore.allErrors = function() {
 
 var loginUser = function(user) {
   _currentUser = user;
+  myStorage.setItem("currentUser", JSON.stringify(user));
   _loggedIn = true;
   SessionStore.clearErrors();
   SessionStore.__emitChange();
 };
 
 var logoutUser = function() {
-  console.log('SessioniStore user logged out!');
+  console.log('SessionStore user logged out!');
+  myStorage.setItem("currentUser", "false");
   _loggedIn = false;
   _currentUser = null;
-  
+
   SessionStore.clearErrors();
   SessionStore.__emitChange();
 };
