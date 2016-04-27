@@ -26786,19 +26786,32 @@
 	
 	    var basename = options.basename;
 	
-	    // Automatically use the value of <base href> in HTML
-	    // documents as basename if it's not explicitly given.
-	    if (basename == null && _ExecutionEnvironment.canUseDOM) {
-	      var base = document.getElementsByTagName('base')[0];
+	    var checkedBaseHref = false;
 	
-	      if (base) {
-	        process.env.NODE_ENV !== 'production' ? _warning2['default'](false, 'Automatically setting basename using <base href> is deprecated and will ' + 'be removed in the next major release. The semantics of <base href> are ' + 'subtly different from basename. Please pass the basename explicitly in ' + 'the options to createHistory') : undefined;
-	
-	        basename = base.getAttribute('href');
+	    function checkBaseHref() {
+	      if (checkedBaseHref) {
+	        return;
 	      }
+	
+	      // Automatically use the value of <base href> in HTML
+	      // documents as basename if it's not explicitly given.
+	      if (basename == null && _ExecutionEnvironment.canUseDOM) {
+	        var base = document.getElementsByTagName('base')[0];
+	        var baseHref = base && base.getAttribute('href');
+	
+	        if (baseHref != null) {
+	          basename = baseHref;
+	
+	          process.env.NODE_ENV !== 'production' ? _warning2['default'](false, 'Automatically setting basename using <base href> is deprecated and will ' + 'be removed in the next major release. The semantics of <base href> are ' + 'subtly different from basename. Please pass the basename explicitly in ' + 'the options to createHistory') : undefined;
+	        }
+	      }
+	
+	      checkedBaseHref = true;
 	    }
 	
 	    function addBasename(location) {
+	      checkBaseHref();
+	
 	      if (basename && location.basename == null) {
 	        if (location.pathname.indexOf(basename) === 0) {
 	          location.pathname = location.pathname.substring(basename.length);
@@ -26814,6 +26827,8 @@
 	    }
 	
 	    function prependBasename(location) {
+	      checkBaseHref();
+	
 	      if (!basename) return location;
 	
 	      if (typeof location === 'string') location = _PathUtils.parsePath(location);
@@ -27492,70 +27507,7 @@
 	module.exports = navBar;
 
 /***/ },
-/* 247 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var React = __webpack_require__(1);
-	var ClientActions = __webpack_require__(248);
-	
-	var SignIn = React.createClass({
-	  displayName: 'SignIn',
-	
-	  getInitialState: function () {
-	    return { username: "", password: "" };
-	  },
-	
-	  handleSubmit: function (event) {
-	    event.preventDefault();
-	    var user = { user: {
-	        username: this.state.username,
-	        password: this.state.password
-	      } };
-	    ClientActions.loginUser(user);
-	    this.props.parent.closeModal();
-	  },
-	
-	  onChange: function (event) {
-	    var state = {};
-	    state[event.target.id] = event.target.value;
-	    this.setState(state);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'form',
-	      { className: 'login', onSubmit: this.handleSubmit },
-	      React.createElement(
-	        'label',
-	        { className: 'formLabel' },
-	        'Username:',
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text',
-	          value: this.state.username,
-	          onChange: this.onChange,
-	          id: 'username' })
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { className: 'formLabel' },
-	        'Password:',
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'password',
-	          value: this.state.password,
-	          onChange: this.onChange,
-	          id: 'password' })
-	      ),
-	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'SignIn' })
-	    );
-	  }
-	});
-	
-	module.exports = SignIn;
-
-/***/ },
+/* 247 */,
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27603,7 +27555,6 @@
 	        hashHistory.push('/users');
 	      },
 	      error: function (error) {
-	        console.log(error.responseText);
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
@@ -27614,12 +27565,10 @@
 	      url: 'api/session',
 	      method: 'DELETE',
 	      success: function () {
-	        console.log("we logged out!");
-	
 	        ServerActions.logoutUser();
+	        hashHistory.push('/');
 	      },
 	      error: function (error) {
-	        // console.log(error.responseText);
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
@@ -27638,7 +27587,6 @@
 	module.exports = {
 	
 	  loginUser: function (user) {
-	    console.log("user logged in!");
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.LOGIN_USER,
 	      user: user
@@ -28040,6 +27988,9 @@
 	      type: "GET",
 	      success: function (users) {
 	        ServerActions.receiveUsers(users);
+	      },
+	      error: function (errors) {
+	        console.log("userApi fetch " + errors.responseText);
 	      }
 	    });
 	  },
@@ -28068,157 +28019,7 @@
 	};
 
 /***/ },
-/* 257 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ClientActions = __webpack_require__(248);
-	
-	var SignUp = React.createClass({
-	  displayName: 'SignUp',
-	
-	  getInitialState: function () {
-	    return { username: "",
-	      password: "",
-	      summary: "",
-	      current_work: "",
-	      previous_exp: "",
-	      title: "",
-	      age: "",
-	      zipcode: ""
-	    };
-	  },
-	
-	  handleSubmit: function (event) {
-	    event.preventDefault();
-	    var user = { user: {
-	        username: this.state.username,
-	        password: this.state.password,
-	        title: this.state.title,
-	        age: parseInt(this.state.age),
-	        zipcode: parseInt(this.state.zipcode)
-	      } };
-	    var about = { about: {
-	        summary: this.state.summary,
-	        current_work: this.state.current_work,
-	        previous_exp: this.state.previous_exp
-	      } };
-	    ClientActions.createUser(user);
-	    // ClientActions.createAbout(about);
-	    this.props.parent.closeModal();
-	  },
-	
-	  onChange: function (event) {
-	    var state = {};
-	    state[event.target.id] = event.target.value;
-	    this.setState(state);
-	  },
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'signupForm' },
-	      React.createElement(
-	        'form',
-	        { className: 'signup', onSubmit: this.handleSubmit },
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Username:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.username,
-	            onChange: this.onChange,
-	            id: 'username' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Password:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'password',
-	            value: this.state.password,
-	            onChange: this.onChange,
-	            id: 'password' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Title:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.title,
-	            onChange: this.onChange,
-	            id: 'title' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Age:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.age,
-	            onChange: this.onChange,
-	            id: 'age' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Zipcode:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.zipcode,
-	            onChange: this.onChange,
-	            id: 'zipcode' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Summary:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.summary,
-	            onChange: this.onChange,
-	            id: 'summary' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Current Work:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.current_work,
-	            onChange: this.onChange,
-	            id: 'current_work' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Previous Experience:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.previous_exp,
-	            onChange: this.onChange,
-	            id: 'previous_exp' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Create Profile' })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = SignUp;
-
-/***/ },
+/* 257 */,
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -34774,8 +34575,8 @@
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SignIn = __webpack_require__(247),
-	    SignUp = __webpack_require__(257),
+	    SignIn = __webpack_require__(280),
+	    SignUp = __webpack_require__(281),
 	    SessionStore = __webpack_require__(258),
 	    ModalStyling = __webpack_require__(276),
 	    ClientActions = __webpack_require__(248),
@@ -34973,8 +34774,225 @@
 	    case UserConstants.CREATE_USER:
 	      addUser(payload.user);
 	      break;
+	    case UserConstants.RECEIVE_USERS:
+	      updateUsers(payload.users);
 	  }
 	};
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var React = __webpack_require__(1);
+	var ClientActions = __webpack_require__(248);
+	
+	var SignIn = React.createClass({
+	  displayName: 'SignIn',
+	
+	  getInitialState: function () {
+	    return { username: "", password: "" };
+	  },
+	
+	  handleSubmit: function (event) {
+	    event.preventDefault();
+	    var user = { user: {
+	        username: this.state.username,
+	        password: this.state.password
+	      } };
+	    ClientActions.loginUser(user);
+	    this.props.parent.closeModal();
+	  },
+	
+	  onChange: function (event) {
+	    var state = {};
+	    state[event.target.id] = event.target.value;
+	    this.setState(state);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { className: 'login', onSubmit: this.handleSubmit },
+	      React.createElement(
+	        'label',
+	        { className: 'formLabel' },
+	        'Username:',
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'text',
+	          value: this.state.username,
+	          onChange: this.onChange,
+	          id: 'username' })
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'label',
+	        { className: 'formLabel' },
+	        'Password:',
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'password',
+	          value: this.state.password,
+	          onChange: this.onChange,
+	          id: 'password' })
+	      ),
+	      React.createElement('br', null),
+	      React.createElement('input', { type: 'submit', value: 'SignIn' })
+	    );
+	  }
+	});
+	
+	module.exports = SignIn;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ClientActions = __webpack_require__(248);
+	
+	var SignUp = React.createClass({
+	  displayName: 'SignUp',
+	
+	  getInitialState: function () {
+	    return { username: "",
+	      password: "",
+	      summary: "",
+	      current_work: "",
+	      previous_exp: "",
+	      title: "",
+	      age: "",
+	      zipcode: ""
+	    };
+	  },
+	
+	  handleSubmit: function (event) {
+	    event.preventDefault();
+	    var user = { user: {
+	        username: this.state.username,
+	        password: this.state.password,
+	        title: this.state.title,
+	        age: parseInt(this.state.age),
+	        zipcode: parseInt(this.state.zipcode)
+	      } };
+	    var about = { about: {
+	        summary: this.state.summary,
+	        current_work: this.state.current_work,
+	        previous_exp: this.state.previous_exp
+	      } };
+	    ClientActions.createUser(user);
+	    // ClientActions.createAbout(about);
+	    this.props.parent.closeModal();
+	  },
+	
+	  onChange: function (event) {
+	    var state = {};
+	    state[event.target.id] = event.target.value;
+	    this.setState(state);
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'signupForm' },
+	      React.createElement(
+	        'form',
+	        { className: 'signup', onSubmit: this.handleSubmit },
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Username:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.username,
+	            onChange: this.onChange,
+	            id: 'username' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Password:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'password',
+	            value: this.state.password,
+	            onChange: this.onChange,
+	            id: 'password' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Title:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.title,
+	            onChange: this.onChange,
+	            id: 'title' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Age:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.age,
+	            onChange: this.onChange,
+	            id: 'age' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Zipcode:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.zipcode,
+	            onChange: this.onChange,
+	            id: 'zipcode' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Summary:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.summary,
+	            onChange: this.onChange,
+	            id: 'summary' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Current Work:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.current_work,
+	            onChange: this.onChange,
+	            id: 'current_work' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Previous Experience:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.previous_exp,
+	            onChange: this.onChange,
+	            id: 'previous_exp' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Create Profile' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SignUp;
 
 /***/ }
 /******/ ]);

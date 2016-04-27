@@ -5,7 +5,6 @@ var UserConstants = require('../constants/userConstants.js');
 module.exports = {
 
   loginUser: function (user) {
-    console.log("user logged in!");
     Dispatcher.dispatch({
       actionType: UserConstants.LOGIN_USER,
       user: user

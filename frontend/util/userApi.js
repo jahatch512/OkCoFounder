@@ -24,6 +24,9 @@ module.exports = {
       type: "GET",
       success: function (users) {
         ServerActions.receiveUsers(users);
+      },
+      error: function (errors) {
+        console.log("userApi fetch " + errors.responseText);
       }
     });
   },

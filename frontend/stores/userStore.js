@@ -44,5 +44,7 @@ UserStore.__onDispatch = function (payload) {
     case UserConstants.CREATE_USER:
       addUser(payload.user);
       break;
+    case UserConstants.RECEIVE_USERS:
+      updateUsers(payload.users)
   }
 };

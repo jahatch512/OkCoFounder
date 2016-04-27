@@ -12,7 +12,6 @@ module.exports = {
         hashHistory.push('/users');
       },
       error: function(error) {
-        console.log(error.responseText);
         ServerActions.receiveError(error.responseText);
       }
     });
@@ -23,12 +22,10 @@ module.exports = {
       url: 'api/session',
       method: 'DELETE',
       success: function() {
-        console.log("we logged out!");
-
         ServerActions.logoutUser();
+        hashHistory.push('/');
       },
       error: function(error) {
-        // console.log(error.responseText);
         ServerActions.receiveError(error.responseText);
       }
     });

@@ -22,6 +22,7 @@ var navBar = React.createClass({
 
   logoutUser: function() {
     ClientActions.logoutUser();
+    
   },
 
   render: function() {
