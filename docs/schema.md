@@ -2,24 +2,30 @@
 
 
 ## users
+
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 username        | string    | not null, indexed, unique
 password_digest | string    | not null
-session_token   | string    | not null, indexed, unique
+session_token   | string    | not null, indexed
 title           | string    | not null
 zipcode         | integer   | not null
-image_url       | string    | not null
-about_one       | text      | not null
-about_two       | text      | not null
-about_three     | text      | not null
-about_four      | text      | not null
+age             | integer   | not null
+image_url       | string    |
 
 
+## abouts
 
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+user_id         | integer   | not null, foreign key (references users), indexed
+summary         | text      |
+previous_exp    | text      |
+current_work    | text      |
 
-## Matches
+## matches
 
 column name     | data type | details
 ----------------|-----------|-----------------------
@@ -53,7 +59,7 @@ id              | integer   | not null, primary key
 question_id     | integer   | not null, foreign key (references questions)
 content         | string    | not null
 
-## user_answers
+## responses
 
 column name     | data type | details
 ----------------|-----------|-----------------------
