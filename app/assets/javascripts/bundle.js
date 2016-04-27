@@ -27444,6 +27444,10 @@
 	    };
 	  },
 	
+	  getErrors: function () {
+	    var errors = SessionStore.allErrors();
+	  },
+	
 	  componentDidMount: function () {
 	    SessionStore.addListener(this.onChange);
 	  },
@@ -27474,6 +27478,7 @@
 	  },
 	
 	  render: function () {
+	
 	    var modalContents = null;
 	    if (this.state.clickedSignUp === true) {
 	      modalContents = React.createElement(SignUp, { parent: this });
@@ -27481,7 +27486,7 @@
 	      modalContents = React.createElement(SignIn, { parent: this });
 	    }
 	
-	    var navbarContents = React.createElement(
+	    var navBarContents = React.createElement(
 	      'ul',
 	      null,
 	      React.createElement(
@@ -27505,7 +27510,7 @@
 	    );
 	
 	    if (this.state.current_user !== null) {
-	      navbarContents = React.createElement(
+	      navBarContents = React.createElement(
 	        'ul',
 	        null,
 	        React.createElement(
@@ -27520,10 +27525,19 @@
 	      );
 	    }
 	
+	    var errors = SessionStore.allErrors();
+	
+	    if (errors.length > 0) {
+	      var errorMessage = errors[0];
+	    } else {
+	      errorMessage = "";
+	    }
+	
 	    return React.createElement(
 	      'ul',
 	      { className: 'navbar' },
-	      navbarContents,
+	      navBarContents,
+	      errorMessage,
 	      React.createElement(
 	        Modal,
 	        {
@@ -27651,6 +27665,7 @@
 	        ServerActions.loginUser(returnUser);
 	      },
 	      error: function (error) {
+	        console.log(error.responseText);
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
@@ -27666,7 +27681,7 @@
 	        ServerActions.logoutUser();
 	      },
 	      error: function (error) {
-	        console.log('something went wrong');
+	        // console.log(error.responseText);
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
@@ -27707,7 +27722,7 @@
 	
 	  receiveError: function (error) {
 	    Dispatcher.dispatch({
-	      actionType: UserConstants.RECEIVE_ERROR,
+	      actionType: UserConstants.ERROR_RECEIVED,
 	      error: error
 	    });
 	  }
@@ -28225,10 +28240,10 @@
 	var Store = __webpack_require__(259).Store;
 	var Dispatcher = __webpack_require__(251);
 	var UserConstants = __webpack_require__(255);
-	
+	var myStorage = localStorage;
 	var SessionStore = new Store(Dispatcher);
 	
-	var _currentUser = null;
+	var _currentUser = myStorage.getItem("currentUser");
 	var _authenticationErrors = [];
 	var _loggedIn = false;
 	
@@ -28246,26 +28261,25 @@
 	
 	var loginUser = function (user) {
 	  _currentUser = user;
-	  console.log(_currentUser);
 	  _loggedIn = true;
+	  SessionStore.clearErrors();
 	  SessionStore.__emitChange();
 	};
 	
 	var logoutUser = function () {
-	  console.log('user logged out!');
+	  console.log('SessioniStore user logged out!');
 	  _loggedIn = false;
 	  _currentUser = null;
+	
+	  SessionStore.clearErrors();
+	  SessionStore.__emitChange();
 	};
 	
 	var recieveError = function (error) {
-	  var errors = JSON.parse(error);
-	  if (errors.length >= 1) {
-	    errors.forEach(function (message) {
-	      _authenticationErrors.push(message);
-	    });
-	  } else {
-	    _authenticationErrors.push(errors);
-	  }
+	  var errorMessage = JSON.parse(error).message;
+	
+	  _authenticationErrors.push(errorMessage);
+	
 	  SessionStore.__emitChange();
 	};
 	
@@ -28276,9 +28290,11 @@
 	      break;
 	    case UserConstants.LOGOUT_USER:
 	      logoutUser();
-	      SessionStore.__emitChange();
 	      break;
 	    case UserConstants.ERROR_RECEIVED:
+	      // console.log("Session Store" + JSON.parse(payload.error).message);
+	      // console.log("errorMessage " + payload.error["message"]);
+	
 	      recieveError(payload.error);
 	      break;
 	  }

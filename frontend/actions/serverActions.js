@@ -27,7 +27,7 @@ module.exports = {
 
   receiveError: function(error) {
     Dispatcher.dispatch({
-      actionType: UserConstants.RECEIVE_ERROR,
+      actionType: UserConstants.ERROR_RECEIVED,
       error: error
     });
   }

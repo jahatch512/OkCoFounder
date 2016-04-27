@@ -17,6 +17,10 @@ var NavBar = React.createClass({
     };
   },
 
+  getErrors: function() {
+    var errors = SessionStore.allErrors();
+  },
+
   componentDidMount: function() {
     SessionStore.addListener(this.onChange);
   },
@@ -47,6 +51,7 @@ var NavBar = React.createClass({
   },
 
   render: function() {
+
     var modalContents = null;
     if (this.state.clickedSignUp === true) {
       modalContents = <SignUp parent={this} />;
@@ -54,7 +59,7 @@ var NavBar = React.createClass({
       modalContents = <SignIn parent={this} />;
     }
 
-    var navbarContents =
+    var navBarContents =
     <ul>
        <li className="navbar_buttons">
           <button onClick={this.openModal} id='clickedSignUp'>Sign Up</button>
@@ -65,7 +70,7 @@ var NavBar = React.createClass({
     </ul>;
 
     if (this.state.current_user !== null) {
-      navbarContents =
+      navBarContents =
       <ul>
         <li className="navbar_buttons">
           <button onClick={this.logoutUser} id='logoutClicked'>Logout</button>
@@ -73,9 +78,18 @@ var NavBar = React.createClass({
       </ul>;
     }
 
+    var errors = SessionStore.allErrors();
+
+    if (errors.length > 0) {
+      var errorMessage = errors[0];
+    } else {
+      errorMessage = "";
+    }
+
     return (
       <ul className="navbar">
-        {navbarContents}
+        {navBarContents}
+        {errorMessage}
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterModalOpen}

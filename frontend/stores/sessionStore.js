@@ -1,10 +1,10 @@
 var Store = require('flux/utils').Store;
 var Dispatcher = require('../dispatcher/dispatcher.js');
 var UserConstants = require('../constants/userConstants.js');
-
+var myStorage = localStorage;
 var SessionStore = new Store(Dispatcher);
 
-var _currentUser = null;
+var _currentUser = myStorage.getItem("currentUser");
 var _authenticationErrors = [];
 var _loggedIn = false;
 
@@ -22,27 +22,26 @@ SessionStore.allErrors = function() {
 
 var loginUser = function(user) {
   _currentUser = user;
-  console.log(_currentUser);
   _loggedIn = true;
+  SessionStore.clearErrors();
   SessionStore.__emitChange();
 };
 
 var logoutUser = function() {
-  console.log('user logged out!');
+  console.log('SessioniStore user logged out!');
   _loggedIn = false;
   _currentUser = null;
+  
+  SessionStore.clearErrors();
+  SessionStore.__emitChange();
 };
 
 
 var recieveError = function(error) {
-  var errors = JSON.parse(error);
-  if (errors.length >= 1) {
-    errors.forEach(function(message) {
-      _authenticationErrors.push(message);
-    });
-  } else {
-    _authenticationErrors.push(errors);
-  }
+  var errorMessage = JSON.parse(error).message;
+
+  _authenticationErrors.push(errorMessage);
+
   SessionStore.__emitChange();
 };
 
@@ -54,9 +53,11 @@ SessionStore.__onDispatch = function (payload) {
       break;
     case UserConstants.LOGOUT_USER:
       logoutUser();
-      SessionStore.__emitChange();
       break;
     case UserConstants.ERROR_RECEIVED:
+      // console.log("Session Store" + JSON.parse(payload.error).message);
+      // console.log("errorMessage " + payload.error["message"]);
+
       recieveError(payload.error);
       break;
   }

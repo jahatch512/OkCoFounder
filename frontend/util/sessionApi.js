@@ -10,6 +10,7 @@ module.exports = {
         ServerActions.loginUser(returnUser);
       },
       error: function(error) {
+        console.log(error.responseText);
         ServerActions.receiveError(error.responseText);
       }
     });
@@ -25,7 +26,7 @@ module.exports = {
         ServerActions.logoutUser();
       },
       error: function(error) {
-        console.log('something went wrong');
+        // console.log(error.responseText);
         ServerActions.receiveError(error.responseText);
       }
     });
