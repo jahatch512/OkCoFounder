@@ -2,7 +2,7 @@
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
-[heroku]: http://www.herokuapp.com
+[heroku]: https://okcofounder.herokuapp.com/
 
 ## Minimum Viable Product
 
@@ -23,8 +23,9 @@ OkCoFounder will allow users to do the following:
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
-- [ ] Create an account (MVP)
-- [ ] Log in / Log out, including as a Guest/Demo User (MVP)
+- [x] Create an account (MVP)
+- [x] Log in / Log out
+- [ ] Guest/Demo User (MVP)
 - [ ] Update Profile information: location, title, about (MVP)
 - [ ] Browse an index of other users (MVP)
 - [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
@@ -53,11 +54,11 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Functioning rails project with Authentication. Splash page for initial visit (not signed in).
 
-- [ ] create `User` model
-- [ ] create `User` Controller
-- [ ] authentication
+- [x] create `User` model
+- [x] create `User` Controller
+- [x] authentication
 - [ ] pre-sign up page ("I am a CFO/CEO/Developer(choose one)")
-- [ ] user signup/signin forms
+- [x] user signup/signin forms
 - [ ] blank landing page after signin
 
 ### Phase 2: User API and basic APIUtil (1.5 days)

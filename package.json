@@ -31,5 +31,14 @@
     "react-modal": "^1.2.1",
     "react-router": "^2.3.0",
     "webpack": "^1.13.0"
+  },
+
+  "engines": {
+  "node": "5.7.2",
+  "npm": "3.6.0"
+  },
+
+  "scripts": {
+    "postinstall": "./node_modules/.bin/webpack"
   }
 }

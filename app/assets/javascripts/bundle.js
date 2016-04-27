@@ -68,9 +68,6 @@
 	    React.createElement(Route, { path: '/', component: App })
 	);
 	
-	window.sessionUtil = __webpack_require__(249);
-	window.userUtil = __webpack_require__(256);
-	
 	document.addEventListener('DOMContentLoaded', function () {
 	    Modal.setAppElement('#root');
 	    var root = document.getElementById('root');
@@ -27645,13 +27642,13 @@
 	var ServerActions = __webpack_require__(250);
 	
 	module.exports = {
-	  loginUser: function (formData) {
+	  loginUser: function (user) {
 	    $.ajax({
 	      url: 'api/session',
 	      method: 'POST',
-	      data: formData,
-	      success: function (user) {
-	        ServerActions.loginUser(user);
+	      data: user,
+	      success: function (returnUser) {
+	        ServerActions.loginUser(returnUser);
 	      },
 	      error: function (error) {
 	        ServerActions.receiveError(error.responseText);
@@ -27664,9 +27661,12 @@
 	      url: 'api/session',
 	      method: 'DELETE',
 	      success: function () {
+	        console.log("we logged out!");
+	
 	        ServerActions.logoutUser();
 	      },
 	      error: function (error) {
+	        console.log('something went wrong');
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
@@ -28033,7 +28033,13 @@
 /* 255 */
 /***/ function(module, exports) {
 
-
+	module.exports = {
+	  LOGIN_USER: "LOGIN_USER",
+	  ERROR_RECEIVED: "RECEIVE_ERROR",
+	  LOGOUT_USER: "LOGOUT_USER",
+	  DESTROY_USER: "DESTROY_USER",
+	  CREATE_USER: "CREATE_USER"
+	};
 
 /***/ },
 /* 256 */
@@ -28249,7 +28255,6 @@
 	  console.log('user logged out!');
 	  _loggedIn = false;
 	  _currentUser = null;
-	  SessionStore.__emitChange();
 	};
 	
 	var recieveError = function (error) {
@@ -28271,6 +28276,7 @@
 	      break;
 	    case UserConstants.LOGOUT_USER:
 	      logoutUser();
+	      SessionStore.__emitChange();
 	      break;
 	    case UserConstants.ERROR_RECEIVED:
 	      recieveError(payload.error);

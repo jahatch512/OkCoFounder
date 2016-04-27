@@ -24,8 +24,6 @@ var RouterComponent = (
   </Router>
 );
 
-window.sessionUtil = require('./util/sessionApi');
-window.userUtil = require('./util/userApi');
 
 document.addEventListener('DOMContentLoaded', function(){
   Modal.setAppElement('#root');

@@ -31,7 +31,6 @@ var logoutUser = function() {
   console.log('user logged out!');
   _loggedIn = false;
   _currentUser = null;
-  SessionStore.__emitChange();
 };
 
 
@@ -55,6 +54,7 @@ SessionStore.__onDispatch = function (payload) {
       break;
     case UserConstants.LOGOUT_USER:
       logoutUser();
+      SessionStore.__emitChange();
       break;
     case UserConstants.ERROR_RECEIVED:
       recieveError(payload.error);
