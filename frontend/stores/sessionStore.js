@@ -65,10 +65,8 @@ SessionStore.__onDispatch = function (payload) {
       logoutUser();
       break;
     case UserConstants.ERROR_RECEIVED:
-      console.log("Session Store" + JSON.parse(payload.error).message);
-      console.log("Session Store errorMessage " + payload.error["message"]);
-
       recieveError(payload.error);
+      _authenticationErrors = [];
       break;
   }
 

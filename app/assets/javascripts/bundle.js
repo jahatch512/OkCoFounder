@@ -57,7 +57,8 @@
 	var App = __webpack_require__(245),
 	    SessionStore = __webpack_require__(258),
 	    UsersIndex = __webpack_require__(279),
-	    SplashPage = __webpack_require__(246);
+	    SplashPage = __webpack_require__(246),
+	    UserPage = __webpack_require__(282);
 	
 	//Mixins
 	// var CurrentUserState = require('./mixins/current_user_state');
@@ -69,7 +70,8 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: SplashPage }),
-	    React.createElement(Route, { path: 'users', component: UsersIndex })
+	    React.createElement(Route, { path: 'users', component: UsersIndex }),
+	    React.createElement(Route, { path: 'users/:userId', component: UserPage })
 	  )
 	);
 	
@@ -27445,6 +27447,7 @@
 	    ModalStyling = __webpack_require__(276),
 	    ClientActions = __webpack_require__(248),
 	    Modal = __webpack_require__(166),
+	    Errors = __webpack_require__(283),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var SplashPage = React.createClass({
@@ -27455,12 +27458,9 @@
 	      modalIsOpen: false,
 	      clickedSignUp: false,
 	      logInClicked: false,
-	      currentUser: SessionStore.currentUser()
+	      currentUser: SessionStore.currentUser(),
+	      errors: SessionStore.allErrors()
 	    };
-	  },
-	
-	  getErrors: function () {
-	    var errors = SessionStore.allErrors();
 	  },
 	
 	  componentDidMount: function () {
@@ -27472,10 +27472,12 @@
 	
 	  componentWillUnmount: function () {
 	    this.sessionListener.remove();
+	    this.closeModal();
 	  },
 	
 	  onChange: function () {
-	    this.setState({ currentUser: SessionStore.currentUser() });
+	    this.setState({ currentUser: SessionStore.currentUser(),
+	      errors: SessionStore.allErrors() });
 	  },
 	
 	  openModal: function (event) {
@@ -27496,7 +27498,6 @@
 	  },
 	
 	  render: function () {
-	
 	    var modalContents = null;
 	    if (this.state.clickedSignUp === true) {
 	      modalContents = React.createElement(SignUp, { ref: 'sessionForm', parent: this });
@@ -27508,30 +27509,25 @@
 	      'div',
 	      null,
 	      React.createElement(
-	        'button',
+	        'div',
 	        { onClick: this.openModal, id: 'clickedSignUp' },
 	        'Sign Up'
 	      ),
 	      React.createElement(
-	        'button',
+	        'div',
 	        { onClick: this.openModal, id: 'logInClicked' },
 	        'Sign In'
 	      )
 	    );
 	
-	    var errors = SessionStore.allErrors();
-	
-	    if (errors.length > 0) {
-	      var errorMessage = errors[0];
-	    } else {
-	      errorMessage = "";
+	    if (this.state.errors.length > 0) {
+	      var errorMessages = React.createElement(Errors, { errors: this.state.errors });
 	    }
 	
 	    return React.createElement(
 	      'div',
 	      { className: 'splash_page' },
 	      splashPageContents,
-	      errorMessage,
 	      React.createElement(
 	        Modal,
 	        {
@@ -27539,11 +27535,7 @@
 	          style: ModalStyling.CONTENT_STYLE,
 	          onAfterOpen: this.afterOpenModal,
 	          onRequestClose: this.closeModal },
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeModal },
-	          'close'
-	        ),
+	        errorMessages,
 	        modalContents
 	      )
 	    );
@@ -27574,7 +27566,7 @@
 	        password: this.state.password
 	      } };
 	    ClientActions.loginUser(user);
-	    this.props.parent.closeModal();
+	    // this.props.parent.closeModal();
 	  },
 	
 	  onChange: function (event) {
@@ -28169,7 +28161,7 @@
 	      } };
 	    ClientActions.createUser(user);
 	    // ClientActions.createAbout(about);
-	    this.props.parent.closeModal();
+	    // this.props.parent.closeModal();
 	  },
 	
 	  onChange: function (event) {
@@ -28351,10 +28343,8 @@
 	      logoutUser();
 	      break;
 	    case UserConstants.ERROR_RECEIVED:
-	      console.log("Session Store" + JSON.parse(payload.error).message);
-	      console.log("Session Store errorMessage " + payload.error["message"]);
-	
 	      recieveError(payload.error);
+	      _authenticationErrors = [];
 	      break;
 	  }
 	};
@@ -34810,27 +34800,27 @@
 
 	var CONTENT_STYLE = {
 	  overlay: {
-	    position: 'fixed',
-	    top: 200,
-	    left: 200,
-	    right: 200,
-	    bottom: 200,
-	    backgroundColor: 'rgba(255, 255, 255, 0.75)'
+	    backgroundColor: 'rgba(30,30,30,0.85)',
+	    zIndex: 10
 	  },
+	
 	  content: {
-	    position: 'absolute',
-	    top: '40px',
-	    left: '40px',
-	    right: '40px',
-	    bottom: '40px',
-	    border: '1px solid #ccc',
-	    background: '#fff',
-	    overflow: 'auto',
-	    WebkitOverflowScrolling: 'touch',
-	    borderRadius: '4px',
-	    outline: 'none',
+	    position: 'fixed',
+	    top: '25%',
+	    bottom: '25%',
+	    left: '40%',
+	    right: '40%',
+	    display: 'flex',
+	    flexDirection: 'column',
+	    justifyContent: 'center',
+	    alignItems: 'center',
+	    borderRadius: '30px',
+	    backgroundColor: '#F4F4F4',
 	    padding: '20px',
-	    color: '#4c4c4c'
+	    zIndex: '11',
+	    opacity: '0',
+	    transition: 'opacity 1.5s',
+	    minHeight: '250px'
 	  }
 	};
 	
@@ -34846,7 +34836,9 @@
 	    SignIn = __webpack_require__(247),
 	    ModalStyling = __webpack_require__(276),
 	    Modal = __webpack_require__(166),
-	    ClientActions = __webpack_require__(248);
+	    ClientActions = __webpack_require__(248),
+	    Errors = __webpack_require__(283),
+	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var navBar = React.createClass({
 	  displayName: 'navBar',
@@ -34855,7 +34847,8 @@
 	    return {
 	      modalIsOpen: false,
 	      logInClicked: false,
-	      currentUser: SessionStore.currentUser()
+	      currentUser: SessionStore.currentUser(),
+	      errors: SessionStore.allErrors()
 	    };
 	  },
 	
@@ -34873,20 +34866,32 @@
 	  },
 	
 	  openModal: function (event) {
-	    var state = {};
-	    if (event.target.id === "clickedSignUp") {
-	      this.setState({ modalIsOpen: true, clickedSignUp: true });
-	    } else if (event.target.id === "logInClicked") {
-	      this.setState({ modalIsOpen: true, logInClicked: true });
-	    }
+	    this.setState({ modalIsOpen: true, logInClicked: true, errors: SessionStore.allErrors() });
 	  },
 	
 	  afterOpenModal: function () {
-	    // this.refs.sessionForm.style.color = '#f00';
+	    ModalStyling.content.opacity = 100;
 	  },
 	
 	  closeModal: function () {
-	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false });
+	    this.setState({ modalIsOpen: false, logInClicked: false, errors: [] });
+	  },
+	
+	  logoClick: function () {
+	    hashHistory.push('/');
+	  },
+	
+	  componentDidUpdate: function () {
+	    if (this.state.currentUser && this.state.modalIsOpen) {
+	      console.log("navbar updated");
+	
+	      this.closeModal();
+	    }
+	  },
+	
+	  sessionClick: function (event) {
+	    event.preventDefault();
+	    this.state.currentUser ? ClientActions.logoutUser() : this.openModal();
 	  },
 	
 	  render: function () {
@@ -34897,26 +34902,20 @@
 	
 	    if (this.state.currentUser !== null) {
 	      var navBarSessionButton = React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'li',
-	          { className: 'navbar_buttons' },
-	          React.createElement(
-	            'button',
-	            { onClick: this.logoutUser, id: 'logoutClicked' },
-	            'Logout'
-	          )
-	        )
+	        'div',
+	        { id: 'logoutClicked' },
+	        'Logout'
 	      );
 	    } else {
 	      navBarSessionButton = React.createElement(
 	        'div',
-	        {
-	          onClick: this.openModal,
-	          id: 'logInClicked' },
+	        { id: 'logInClicked' },
 	        'Sign In'
 	      );
+	    }
+	
+	    if (this.state.errors.length > 0) {
+	      var errorMessages = React.createElement(Errors, { errors: this.state.errors });
 	    }
 	
 	    return React.createElement(
@@ -34924,27 +34923,30 @@
 	      { className: 'navBar' },
 	      React.createElement(
 	        'div',
-	        { id: 'nav-logo' },
+	        { id: 'nav-logo', onClick: this.logoClick },
 	        'OkCoFounderLogo'
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'nav-session-buttons' },
+	        {
+	          className: 'nav-session-buttons',
+	          onClick: this.sessionClick },
 	        navBarSessionButton
 	      ),
 	      React.createElement(
 	        Modal,
 	        {
 	          isOpen: this.state.modalIsOpen,
-	          style: ModalStyling.CONTENT_STYLE,
+	          style: ModalStyling,
 	          onAfterOpen: this.afterOpenModal,
 	          onRequestClose: this.closeModal },
+	        errorMessages,
+	        modalContents,
 	        React.createElement(
 	          'button',
 	          { onClick: this.closeModal },
 	          'close'
-	        ),
-	        modalContents
+	        )
 	      )
 	    );
 	  }
@@ -34985,7 +34987,9 @@
 	    SessionStore = __webpack_require__(258),
 	    UserStore = __webpack_require__(280),
 	    ClientActions = __webpack_require__(248),
-	    UserIndexItem = __webpack_require__(281);
+	    UserIndexItem = __webpack_require__(281),
+	    UserPage = __webpack_require__(282),
+	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var UsersIndex = React.createClass({
 	  displayName: 'UsersIndex',
@@ -35000,7 +35004,6 @@
 	  componentDidMount: function () {
 	    this.sessionListener = SessionStore.addListener(this.onSessionChange);
 	    this.userStoreListener = UserStore.addListener(this.onUserChange);
-	    console.log("UsersINdex did mount");
 	  },
 	
 	  componentWillUnmount: function () {
@@ -35013,27 +35016,22 @@
 	  },
 	
 	  onUserChange: function () {
-	    console.log("UsersIndex Store Change");
 	
 	    this.setState({ users: UserStore.all() });
 	  },
 	
 	  render: function () {
-	    console.log("userindex render");
 	
 	    var renderUsers = this.state.users.map(function (user) {
 	      return React.createElement(UserIndexItem, { className: 'user_index_item',
-	        key: user.id, user: user });
+	        key: user.id,
+	        user: user });
 	    });
 	    return React.createElement(
 	      'div',
 	      { className: 'user_index' },
-	      React.createElement(
-	        'div',
-	        { className: 'user_index_list' },
-	        renderUsers
-	      ),
-	      'UsersIndexPage'
+	      'UsersIndexPage',
+	      renderUsers
 	    );
 	  }
 	
@@ -35105,44 +35103,42 @@
 	    ReactDOM = __webpack_require__(32),
 	    SessionStore = __webpack_require__(258),
 	    UserStore = __webpack_require__(280),
-	    ClientActions = __webpack_require__(248);
+	    ClientActions = __webpack_require__(248),
+	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var UserIndexItem = React.createClass({
 	  displayName: 'UserIndexItem',
 	
+	  handleClick: function (event) {
+	    console.log("usersIndex succesful click");
+	
+	    event.preventDefault();
+	    hashHistory.push('/users/' + this.props.user.id);
+	  },
 	
 	  render: function () {
+	    var pic = this.props.image_url;
+	    console.log(pic);
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'user_index_item' },
+	      { className: 'user_index_item',
+	        onClick: this.handleClick },
+	      React.createElement('img', { src: this.props.user.image_url }),
 	      React.createElement(
 	        'div',
-	        { className: 'user_item_list' },
-	        React.createElement(
-	          'div',
-	          null,
-	          '"Username " ',
-	          this.props.user.username
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          '"Title " ',
-	          this.props.user.title
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          '"Age " ',
-	          this.props.user.age
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          '"Zipcode " ',
-	          this.props.user.zipcode
-	        )
+	        null,
+	        'Username: ',
+	        this.props.user.username
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'basic_info' },
+	        this.props.user.title,
+	        ' - ',
+	        this.props.user.age,
+	        ' - ',
+	        this.props.user.zipcode
 	      )
 	    );
 	  }
@@ -35150,6 +35146,66 @@
 	});
 	
 	module.exports = UserIndexItem;
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var UserPage = React.createClass({
+	  displayName: 'UserPage',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'UserPage'
+	    );
+	  }
+	
+	});
+	
+	module.exports = UserPage;
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(32);
+	var HashHistory = __webpack_require__(186).hashHistory;
+	
+	var Errors = React.createClass({
+	  displayName: "Errors",
+	
+	
+	  render: function () {
+	    var key = 0;
+	    var errorsList = this.props.errors.map(function (error) {
+	      key += 1;
+	      return React.createElement(
+	        "li",
+	        { key: key },
+	        error
+	      );
+	    });
+	
+	    return React.createElement(
+	      "ul",
+	      null,
+	      errorsList
+	    );
+	  }
+	});
+	
+	module.exports = Errors;
 
 /***/ }
 /******/ ]);

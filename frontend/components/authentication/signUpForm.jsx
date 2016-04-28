@@ -32,7 +32,7 @@ var SignUp = React.createClass({
     }};
     ClientActions.createUser(user);
     // ClientActions.createAbout(about);
-    this.props.parent.closeModal();
+    // this.props.parent.closeModal();
   },
 
   onChange: function(event) {

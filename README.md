@@ -66,7 +66,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Users can be read(index/show) and updated through the API
 
-- [ ] seed the database with a small amount of test data
+- [x] seed the database with a small amount of test data
 - [x] jBuilder views for users
 - [x] setup Webpack & Flux scaffold
 - [x] setup `User` Store

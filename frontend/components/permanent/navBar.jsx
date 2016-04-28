@@ -4,7 +4,10 @@ var React = require('react'),
     SignIn = require('../authentication/signInForm'),
     ModalStyling = require('../../constants/modalConstants'),
     Modal = require('react-modal'),
-    ClientActions = require('../../actions/ClientActions');
+    ClientActions = require('../../actions/ClientActions'),
+    Errors = require('../errors'),
+    hashHistory = require('react-router').hashHistory;
+
 
 
 var navBar = React.createClass({
@@ -12,7 +15,8 @@ var navBar = React.createClass({
     return {
       modalIsOpen: false,
       logInClicked: false,
-      currentUser: SessionStore.currentUser()
+      currentUser: SessionStore.currentUser(),
+      errors: SessionStore.allErrors()
     };
   },
 
@@ -31,20 +35,32 @@ var navBar = React.createClass({
   },
 
   openModal: function(event) {
-    var state = {};
-    if (event.target.id === "clickedSignUp") {
-      this.setState({modalIsOpen: true, clickedSignUp: true});
-    } else if (event.target.id === "logInClicked") {
-      this.setState({modalIsOpen: true, logInClicked: true});
-    }
+    this.setState({modalIsOpen: true, logInClicked: true, errors: SessionStore.allErrors()});
   },
 
   afterOpenModal: function() {
-    // this.refs.sessionForm.style.color = '#f00';
+    ModalStyling.content.opacity = 100;
   },
 
   closeModal: function() {
-    this.setState({modalIsOpen: false, logInClicked: false, clickedSignUp: false});
+    this.setState({modalIsOpen: false, logInClicked: false, errors: []});
+  },
+
+  logoClick: function() {
+    hashHistory.push('/');
+  },
+
+  componentDidUpdate: function() {
+   if (this.state.currentUser && this.state.modalIsOpen) {
+     console.log("navbar updated");
+
+     this.closeModal();
+   }
+  },
+
+  sessionClick: function(event) {
+    event.preventDefault();
+    this.state.currentUser ? ClientActions.logoutUser() : this.openModal();
   },
 
   render: function() {
@@ -56,33 +72,40 @@ var navBar = React.createClass({
     if (this.state.currentUser !== null) {
       var navBarSessionButton =
 
-      <ul>
-        <li className="navbar_buttons">
-          <button onClick={this.logoutUser} id='logoutClicked'>Logout</button>
-        </li>
-      </ul>;
+      <div id='logoutClicked'>
+          Logout
+      </div>
+      ;
     } else {
       navBarSessionButton =
-      <div
-        onClick={this.openModal}
-        id="logInClicked">
+
+      <div id="logInClicked">
           Sign In
       </div>
       ;
     }
 
+    if (this.state.errors.length > 0) {
+      var errorMessages = <Errors errors={this.state.errors}/>;
+    }
+
     return (
     <div className="navBar">
-      <div id="nav-logo">OkCoFounderLogo</div>
-        <div className="nav-session-buttons">{navBarSessionButton}</div>
+      <div id="nav-logo" onClick={this.logoClick}>OkCoFounderLogo</div>
+        <div
+          className="nav-session-buttons"
+          onClick={this.sessionClick}>
+            {navBarSessionButton}
+        </div>
       <Modal
         isOpen={this.state.modalIsOpen}
-        style={ModalStyling.CONTENT_STYLE}
+        style={ModalStyling}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal} >
 
-        <button onClick={this.closeModal}>close</button>
+        {errorMessages}
         {modalContents}
+        <button onClick={this.closeModal}>close</button>
       </Modal>
     </div>
     );

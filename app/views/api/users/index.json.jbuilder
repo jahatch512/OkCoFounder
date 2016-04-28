@@ -4,4 +4,5 @@ json.array! @users do |user|
   json.title user.title
   json.age user.age
   json.zipcode user.zipcode
+  json.image_url user.image_url
 end

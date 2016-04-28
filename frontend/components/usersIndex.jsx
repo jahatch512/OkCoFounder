@@ -3,7 +3,10 @@ var React = require('react'),
     SessionStore = require('../stores/sessionStore'),
     UserStore = require('../stores/userStore'),
     ClientActions = require('../actions/ClientActions'),
-    UserIndexItem = require('./userIndexItem');
+    UserIndexItem = require('./userIndexItem'),
+    UserPage = require('./userPage'),
+    hashHistory = require('react-router').hashHistory;
+
 
 
 
@@ -18,7 +21,6 @@ var UsersIndex = React.createClass({
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
     this.userStoreListener = UserStore.addListener(this.onUserChange);
-    console.log("UsersINdex did mount");
 
   },
 
@@ -32,26 +34,23 @@ var UsersIndex = React.createClass({
   },
 
   onUserChange: function() {
-    console.log("UsersIndex Store Change");
 
     this.setState({users: UserStore.all()});
   },
 
   render: function() {
-    console.log("userindex render");
 
     var renderUsers = this.state.users.map(function(user){
       return (<UserIndexItem className="user_index_item"
-              key={user.id} user={user} />);
+              key={user.id}
+              user={user} />);
     });
     return (
       <div className="user_index">
+        UsersIndexPage
       {
-        <div className="user_index_list">
-          {renderUsers}
-        </div>
+        renderUsers
       }
-      UsersIndexPage
       </div>
     );
   }

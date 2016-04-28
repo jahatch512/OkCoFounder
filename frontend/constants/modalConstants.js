@@ -1,26 +1,26 @@
 var CONTENT_STYLE = {
   overlay : {
-    position          : 'fixed',
-    top               : 200,
-    left              : 200,
-    right             : 200,
-    bottom            : 200,
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+    backgroundColor : 'rgba(30,30,30,0.85)',
+    zIndex          : 10,
   },
+
   content : {
-    position                   : 'absolute',
-    top                        : '40px',
-    left                       : '40px',
-    right                      : '40px',
-    bottom                     : '40px',
-    border                     : '1px solid #ccc',
-    background                 : '#fff',
-    overflow                   : 'auto',
-    WebkitOverflowScrolling    : 'touch',
-    borderRadius               : '4px',
-    outline                    : 'none',
-    padding                    : '20px',
-    color                      : '#4c4c4c'
+    position        : 'fixed',
+    top             : '25%',
+    bottom          : '25%',
+    left            : '40%',
+    right           : '40%',
+    display         : 'flex',
+    flexDirection   : 'column',
+    justifyContent  : 'center',
+    alignItems      : 'center',
+    borderRadius    :  '30px',
+    backgroundColor : '#F4F4F4',
+    padding         : '20px',
+    zIndex          : '11',
+    opacity         : '0',
+    transition      : 'opacity 1.5s',
+    minHeight       : '250px',
   }
 };
 

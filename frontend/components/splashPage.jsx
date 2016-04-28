@@ -6,6 +6,7 @@ var React = require('react'),
     ModalStyling = require('../constants/modalConstants'),
     ClientActions = require('../actions/ClientActions'),
     Modal = require('react-modal'),
+    Errors = require('./errors'),
     hashHistory = require('react-router').hashHistory;
 
 var SplashPage = React.createClass({
@@ -14,12 +15,9 @@ var SplashPage = React.createClass({
       modalIsOpen: false,
       clickedSignUp: false,
       logInClicked: false,
-      currentUser: SessionStore.currentUser()
+      currentUser: SessionStore.currentUser(),
+      errors: SessionStore.allErrors()
     };
-  },
-
-  getErrors: function() {
-    var errors = SessionStore.allErrors();
   },
 
   componentDidMount: function () {
@@ -31,10 +29,12 @@ var SplashPage = React.createClass({
 
   componentWillUnmount: function () {
     this.sessionListener.remove();
+    this.closeModal();
   },
 
   onChange: function() {
-    this.setState({currentUser: SessionStore.currentUser()});
+    this.setState({currentUser: SessionStore.currentUser(),
+                   errors: SessionStore.allErrors()});
   },
 
   openModal: function(event) {
@@ -55,7 +55,6 @@ var SplashPage = React.createClass({
   },
 
   render: function() {
-
     var modalContents = null;
     if (this.state.clickedSignUp === true) {
       modalContents = <SignUp ref="sessionForm" parent={this} />;
@@ -65,29 +64,23 @@ var SplashPage = React.createClass({
 
     var splashPageContents =
     <div>
-          <button onClick={this.openModal} id='clickedSignUp'>Sign Up</button>
-          <button onClick={this.openModal} id='logInClicked'>Sign In</button>
+          <div onClick={this.openModal} id='clickedSignUp'>Sign Up</div>
+          <div onClick={this.openModal} id='logInClicked'>Sign In</div>
     </div>;
 
-    var errors = SessionStore.allErrors();
-
-    if (errors.length > 0) {
-      var errorMessage = errors[0];
-    } else {
-      errorMessage = "";
+    if (this.state.errors.length > 0) {
+      var errorMessages = <Errors errors={this.state.errors}/>;
     }
 
     return (
       <div className="splash_page">
         {splashPageContents}
-        {errorMessage}
         <Modal
           isOpen={this.state.modalIsOpen}
           style={ModalStyling.CONTENT_STYLE}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal} >
-
-          <button onClick={this.closeModal}>close</button>
+          {errorMessages}
           {modalContents}
         </Modal>
       </div>

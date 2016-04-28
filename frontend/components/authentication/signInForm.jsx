@@ -14,7 +14,7 @@ var SignIn = React.createClass({
       password: this.state.password
     }};
     ClientActions.loginUser(user);
-    this.props.parent.closeModal();
+    // this.props.parent.closeModal();
   },
 
   onChange: function(event) {
@@ -48,7 +48,6 @@ var SignIn = React.createClass({
         <br/>
 
         <input type="submit" value="SignIn"/>
-
       </form>
     );
   }
