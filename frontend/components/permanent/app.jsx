@@ -8,7 +8,7 @@ var App = React.createClass({
     return (
       <div className="app">
         <NavBar/>
-        <SplashPage/>
+        {this.props.children}
         <Footer/>
       </div>
     );

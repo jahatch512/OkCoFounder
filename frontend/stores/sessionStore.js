@@ -24,6 +24,10 @@ SessionStore.allErrors = function() {
   return _authenticationErrors;
 };
 
+SessionStore.loggedIn = function() {
+  return _loggedIn;
+};
+
 var loginUser = function(user) {
   _currentUser = user;
   myStorage.setItem("currentUser", JSON.stringify(user));

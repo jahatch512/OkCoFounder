@@ -55,6 +55,7 @@ var navBar = React.createClass({
 
     if (this.state.currentUser !== null) {
       var navBarSessionButton =
+
       <ul>
         <li className="navbar_buttons">
           <button onClick={this.logoutUser} id='logoutClicked'>Logout</button>
@@ -62,19 +63,18 @@ var navBar = React.createClass({
       </ul>;
     } else {
       navBarSessionButton =
-      <ul>
-        <li className="navbar_buttons">
-          Already have an account? Sign in here
-           <button onClick={this.openModal} id='logInClicked'>Sign In</button>
-        </li>
-      </ul>
+      <div
+        onClick={this.openModal}
+        id="logInClicked">
+          Sign In
+      </div>
       ;
     }
 
     return (
     <div className="navBar">
-        <h1 className="logo">OkCoFounderLogo</h1>
-        {navBarSessionButton}
+      <div id="nav-logo">OkCoFounderLogo</div>
+        <div className="nav-session-buttons">{navBarSessionButton}</div>
       <Modal
         isOpen={this.state.modalIsOpen}
         style={ModalStyling.CONTENT_STYLE}

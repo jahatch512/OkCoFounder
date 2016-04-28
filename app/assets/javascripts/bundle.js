@@ -54,9 +54,10 @@
 	    IndexRoute = ReactRouter.IndexRoute,
 	    hashHistory = __webpack_require__(186).hashHistory;
 	//Components
-	var App = __webpack_require__(283),
+	var App = __webpack_require__(245),
 	    SessionStore = __webpack_require__(258),
-	    UsersIndex = __webpack_require__(278);
+	    UsersIndex = __webpack_require__(279),
+	    SplashPage = __webpack_require__(246);
 	
 	//Mixins
 	// var CurrentUserState = require('./mixins/current_user_state');
@@ -67,6 +68,7 @@
 	  React.createElement(
 	    Route,
 	    { path: '/', component: App },
+	    React.createElement(IndexRoute, { component: SplashPage }),
 	    React.createElement(Route, { path: 'users', component: UsersIndex })
 	  )
 	);
@@ -27407,9 +27409,214 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 245 */,
-/* 246 */,
-/* 247 */,
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    SplashPage = __webpack_require__(246),
+	    NavBar = __webpack_require__(277),
+	    Footer = __webpack_require__(278);
+	
+	var App = React.createClass({
+	  displayName: 'App',
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      { className: 'app' },
+	      React.createElement(NavBar, null),
+	      this.props.children,
+	      React.createElement(Footer, null)
+	    );
+	  }
+	});
+	
+	module.exports = App;
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SignIn = __webpack_require__(247),
+	    SignUp = __webpack_require__(257),
+	    SessionStore = __webpack_require__(258),
+	    ModalStyling = __webpack_require__(276),
+	    ClientActions = __webpack_require__(248),
+	    Modal = __webpack_require__(166),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var SplashPage = React.createClass({
+	  displayName: 'SplashPage',
+	
+	  getInitialState: function () {
+	    return {
+	      modalIsOpen: false,
+	      clickedSignUp: false,
+	      logInClicked: false,
+	      currentUser: SessionStore.currentUser()
+	    };
+	  },
+	
+	  getErrors: function () {
+	    var errors = SessionStore.allErrors();
+	  },
+	
+	  componentDidMount: function () {
+	    this.sessionListener = SessionStore.addListener(this.onChange);
+	    if (this.state.currentUser !== null) {
+	      hashHistory.push('/users');
+	    }
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.sessionListener.remove();
+	  },
+	
+	  onChange: function () {
+	    this.setState({ currentUser: SessionStore.currentUser() });
+	  },
+	
+	  openModal: function (event) {
+	    var state = {};
+	    if (event.target.id === "clickedSignUp") {
+	      this.setState({ modalIsOpen: true, clickedSignUp: true });
+	    } else if (event.target.id === "logInClicked") {
+	      this.setState({ modalIsOpen: true, logInClicked: true });
+	    }
+	  },
+	
+	  afterOpenModal: function () {
+	    // this.refs.sessionForm.style.color = '#f00';
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false });
+	  },
+	
+	  render: function () {
+	
+	    var modalContents = null;
+	    if (this.state.clickedSignUp === true) {
+	      modalContents = React.createElement(SignUp, { ref: 'sessionForm', parent: this });
+	    } else if (this.state.logInClicked === true) {
+	      modalContents = React.createElement(SignIn, { ref: 'sessionForm', parent: this });
+	    }
+	
+	    var splashPageContents = React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'button',
+	        { onClick: this.openModal, id: 'clickedSignUp' },
+	        'Sign Up'
+	      ),
+	      React.createElement(
+	        'button',
+	        { onClick: this.openModal, id: 'logInClicked' },
+	        'Sign In'
+	      )
+	    );
+	
+	    var errors = SessionStore.allErrors();
+	
+	    if (errors.length > 0) {
+	      var errorMessage = errors[0];
+	    } else {
+	      errorMessage = "";
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'splash_page' },
+	      splashPageContents,
+	      errorMessage,
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.modalIsOpen,
+	          style: ModalStyling.CONTENT_STYLE,
+	          onAfterOpen: this.afterOpenModal,
+	          onRequestClose: this.closeModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeModal },
+	          'close'
+	        ),
+	        modalContents
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SplashPage;
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	var React = __webpack_require__(1);
+	var ClientActions = __webpack_require__(248);
+	
+	var SignIn = React.createClass({
+	  displayName: 'SignIn',
+	
+	  getInitialState: function () {
+	    return { username: "", password: "" };
+	  },
+	
+	  handleSubmit: function (event) {
+	    event.preventDefault();
+	    var user = { user: {
+	        username: this.state.username,
+	        password: this.state.password
+	      } };
+	    ClientActions.loginUser(user);
+	    this.props.parent.closeModal();
+	  },
+	
+	  onChange: function (event) {
+	    var state = {};
+	    state[event.target.id] = event.target.value;
+	    this.setState(state);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { className: 'login', onSubmit: this.handleSubmit },
+	      React.createElement(
+	        'label',
+	        { className: 'formLabel' },
+	        'Username:',
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'text',
+	          value: this.state.username,
+	          onChange: this.onChange,
+	          id: 'username' })
+	      ),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'label',
+	        { className: 'formLabel' },
+	        'Password:',
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'password',
+	          value: this.state.password,
+	          onChange: this.onChange,
+	          id: 'password' })
+	      ),
+	      React.createElement('br', null),
+	      React.createElement('input', { type: 'submit', value: 'SignIn' })
+	    );
+	  }
+	});
+	
+	module.exports = SignIn;
+
+/***/ },
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27516,6 +27723,8 @@
 	  },
 	
 	  receiveUsers: function (users) {
+	    console.log(users);
+	
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.RECEIVE_USERS,
 	      users: users
@@ -27923,7 +28132,157 @@
 	};
 
 /***/ },
-/* 257 */,
+/* 257 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ClientActions = __webpack_require__(248);
+	
+	var SignUp = React.createClass({
+	  displayName: 'SignUp',
+	
+	  getInitialState: function () {
+	    return { username: "",
+	      password: "",
+	      summary: "",
+	      current_work: "",
+	      previous_exp: "",
+	      title: "",
+	      age: "",
+	      zipcode: ""
+	    };
+	  },
+	
+	  handleSubmit: function (event) {
+	    event.preventDefault();
+	    var user = { user: {
+	        username: this.state.username,
+	        password: this.state.password,
+	        title: this.state.title,
+	        age: parseInt(this.state.age),
+	        zipcode: parseInt(this.state.zipcode)
+	      } };
+	    var about = { about: {
+	        summary: this.state.summary,
+	        current_work: this.state.current_work,
+	        previous_exp: this.state.previous_exp
+	      } };
+	    ClientActions.createUser(user);
+	    // ClientActions.createAbout(about);
+	    this.props.parent.closeModal();
+	  },
+	
+	  onChange: function (event) {
+	    var state = {};
+	    state[event.target.id] = event.target.value;
+	    this.setState(state);
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'signupForm' },
+	      React.createElement(
+	        'form',
+	        { className: 'signup', onSubmit: this.handleSubmit },
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Username:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.username,
+	            onChange: this.onChange,
+	            id: 'username' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Password:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'password',
+	            value: this.state.password,
+	            onChange: this.onChange,
+	            id: 'password' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Title:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.title,
+	            onChange: this.onChange,
+	            id: 'title' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Age:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.age,
+	            onChange: this.onChange,
+	            id: 'age' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Zipcode:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.zipcode,
+	            onChange: this.onChange,
+	            id: 'zipcode' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Summary:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.summary,
+	            onChange: this.onChange,
+	            id: 'summary' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Current Work:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.current_work,
+	            onChange: this.onChange,
+	            id: 'current_work' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'label',
+	          { className: 'formLabel' },
+	          'Previous Experience:',
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            value: this.state.previous_exp,
+	            onChange: this.onChange,
+	            id: 'previous_exp' })
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'submit', value: 'Create Profile' })
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = SignUp;
+
+/***/ },
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -27951,6 +28310,10 @@
 	
 	SessionStore.allErrors = function () {
 	  return _authenticationErrors;
+	};
+	
+	SessionStore.loggedIn = function () {
+	  return _loggedIn;
 	};
 	
 	var loginUser = function (user) {
@@ -34479,548 +34842,8 @@
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SignIn = __webpack_require__(280),
-	    SignUp = __webpack_require__(281),
 	    SessionStore = __webpack_require__(258),
-	    ModalStyling = __webpack_require__(276),
-	    ClientActions = __webpack_require__(248),
-	    Modal = __webpack_require__(166);
-	
-	var SplashPage = React.createClass({
-	  displayName: 'SplashPage',
-	
-	  getInitialState: function () {
-	    return {
-	      modalIsOpen: false,
-	      clickedSignUp: false,
-	      logInClicked: false,
-	      currentUser: SessionStore.currentUser()
-	    };
-	  },
-	
-	  getErrors: function () {
-	    var errors = SessionStore.allErrors();
-	  },
-	
-	  componentDidMount: function () {
-	    this.sessionListener = SessionStore.addListener(this.onChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.sessionListener.remove();
-	  },
-	
-	  onChange: function () {
-	    this.setState({ currentUser: SessionStore.currentUser() });
-	  },
-	
-	  openModal: function (event) {
-	    var state = {};
-	    if (event.target.id === "clickedSignUp") {
-	      this.setState({ modalIsOpen: true, clickedSignUp: true });
-	    } else if (event.target.id === "logInClicked") {
-	      this.setState({ modalIsOpen: true, logInClicked: true });
-	    }
-	  },
-	
-	  afterOpenModal: function () {
-	    // this.refs.sessionForm.style.color = '#f00';
-	  },
-	
-	  closeModal: function () {
-	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false });
-	  },
-	
-	  render: function () {
-	
-	    var modalContents = null;
-	    if (this.state.clickedSignUp === true) {
-	      modalContents = React.createElement(SignUp, { ref: 'sessionForm', parent: this });
-	    } else if (this.state.logInClicked === true) {
-	      modalContents = React.createElement(SignIn, { ref: 'sessionForm', parent: this });
-	    }
-	
-	    var splashPageContents = React.createElement(
-	      'ul',
-	      null,
-	      React.createElement(
-	        'li',
-	        { className: 'splash_page_buttons' },
-	        React.createElement(
-	          'button',
-	          { onClick: this.openModal, id: 'clickedSignUp' },
-	          'Sign Up'
-	        )
-	      ),
-	      React.createElement(
-	        'li',
-	        { className: 'splash_page_buttons' },
-	        React.createElement(
-	          'button',
-	          { onClick: this.openModal, id: 'logInClicked' },
-	          'Sign In'
-	        )
-	      )
-	    );
-	
-	    if (this.state.currentUser !== null) {
-	      splashPageContents = "";
-	    }
-	
-	    var errors = SessionStore.allErrors();
-	
-	    if (errors.length > 0) {
-	      var errorMessage = errors[0];
-	    } else {
-	      errorMessage = "";
-	    }
-	
-	    return React.createElement(
-	      'ul',
-	      { className: 'splash_page' },
-	      splashPageContents,
-	      errorMessage,
-	      React.createElement(
-	        Modal,
-	        {
-	          isOpen: this.state.modalIsOpen,
-	          style: ModalStyling.CONTENT_STYLE,
-	          onAfterOpen: this.afterOpenModal,
-	          onRequestClose: this.closeModal },
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeModal },
-	          'close'
-	        ),
-	        modalContents
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = SplashPage;
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(279),
-	    ClientActions = __webpack_require__(248),
-	    UserIndexItem = __webpack_require__(282);
-	
-	var PropTypes = React.PropTypes;
-	
-	var UsersIndex = React.createClass({
-	  displayName: 'UsersIndex',
-	
-	  getInitialState: function () {
-	    return {
-	      users: UserStore.all(),
-	      currentUser: SessionStore.currentUser()
-	    };
-	  },
-	
-	  componentDidMount: function () {
-	    this.sessionListener = SessionStore.addListener(this.onSessionChange);
-	    this.userStoreListener = UserStore.addListener(this.onUserChange);
-	  },
-	
-	  componentWillUnmount: function () {
-	    this.sessionListener.remove();
-	    this.userStoreListener.remove();
-	  },
-	
-	  onSessionChange: function () {
-	    this.setState({ currentUser: SessionStore.currentUser() });
-	  },
-	
-	  onUserChange: function () {
-	    this.setState({ users: UserStore.all() });
-	  },
-	
-	  render: function () {
-	    var renderUsers = this.state.users.map(function (user) {
-	      return React.createElement(UserIndexItem, { className: 'user_index_item',
-	        key: user.id, user: user });
-	    });
-	    return React.createElement(
-	      'div',
-	      { className: 'user_index' },
-	      React.createElement(
-	        'ul',
-	        { className: 'user_index_list' },
-	        renderUsers
-	      ),
-	      'UsersIndexPage'
-	    );
-	  }
-	
-	});
-	
-	module.exports = UsersIndex;
-
-/***/ },
-/* 279 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Store = __webpack_require__(259).Store,
-	    Dispatcher = __webpack_require__(251),
-	    UserConstants = __webpack_require__(255);
-	
-	var UserStore = new Store(Dispatcher);
-	
-	var _users = {};
-	var _errors = [];
-	
-	UserStore.all = function () {
-	  // return Object.assign({}, _users);
-	  var _usersArray = [];
-	  for (var id in _users) {
-	    if (_users.hasOwnProperty(id)) {
-	      _usersArray.push(_users[id]);
-	    }
-	  }
-	  return _usersArray;
-	};
-	
-	UserStore.setErrors = function (errors) {
-	  _errors = errors;
-	};
-	
-	UserStore.errors = function () {
-	  if (_errors) {
-	    return [].slice.call(_errors);
-	  }
-	};
-	
-	var addUser = function (user) {
-	  _users[user.id] = user;
-	};
-	
-	var findUser = function (id) {
-	  return _users[id];
-	};
-	
-	UserStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case UserConstants.CREATE_USER:
-	      addUser(payload.user);
-	      break;
-	    case UserConstants.RECEIVE_USERS:
-	      _users = payload.users;
-	      console.log("UserStore " + _users[0].title);
-	
-	      UserStore.__emitChange();
-	  }
-	};
-	
-	module.exports = UserStore;
-
-/***/ },
-/* 280 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	var React = __webpack_require__(1);
-	var ClientActions = __webpack_require__(248);
-	
-	var SignIn = React.createClass({
-	  displayName: 'SignIn',
-	
-	  getInitialState: function () {
-	    return { username: "", password: "" };
-	  },
-	
-	  handleSubmit: function (event) {
-	    event.preventDefault();
-	    var user = { user: {
-	        username: this.state.username,
-	        password: this.state.password
-	      } };
-	    ClientActions.loginUser(user);
-	    this.props.parent.closeModal();
-	  },
-	
-	  onChange: function (event) {
-	    var state = {};
-	    state[event.target.id] = event.target.value;
-	    this.setState(state);
-	  },
-	
-	  render: function () {
-	    return React.createElement(
-	      'form',
-	      { className: 'login', onSubmit: this.handleSubmit },
-	      React.createElement(
-	        'label',
-	        { className: 'formLabel' },
-	        'Username:',
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text',
-	          value: this.state.username,
-	          onChange: this.onChange,
-	          id: 'username' })
-	      ),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        { className: 'formLabel' },
-	        'Password:',
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'password',
-	          value: this.state.password,
-	          onChange: this.onChange,
-	          id: 'password' })
-	      ),
-	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'SignIn' })
-	    );
-	  }
-	});
-	
-	module.exports = SignIn;
-
-/***/ },
-/* 281 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ClientActions = __webpack_require__(248);
-	
-	var SignUp = React.createClass({
-	  displayName: 'SignUp',
-	
-	  getInitialState: function () {
-	    return { username: "",
-	      password: "",
-	      summary: "",
-	      current_work: "",
-	      previous_exp: "",
-	      title: "",
-	      age: "",
-	      zipcode: ""
-	    };
-	  },
-	
-	  handleSubmit: function (event) {
-	    event.preventDefault();
-	    var user = { user: {
-	        username: this.state.username,
-	        password: this.state.password,
-	        title: this.state.title,
-	        age: parseInt(this.state.age),
-	        zipcode: parseInt(this.state.zipcode)
-	      } };
-	    var about = { about: {
-	        summary: this.state.summary,
-	        current_work: this.state.current_work,
-	        previous_exp: this.state.previous_exp
-	      } };
-	    ClientActions.createUser(user);
-	    // ClientActions.createAbout(about);
-	    this.props.parent.closeModal();
-	  },
-	
-	  onChange: function (event) {
-	    var state = {};
-	    state[event.target.id] = event.target.value;
-	    this.setState(state);
-	  },
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'signupForm' },
-	      React.createElement(
-	        'form',
-	        { className: 'signup', onSubmit: this.handleSubmit },
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Username:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.username,
-	            onChange: this.onChange,
-	            id: 'username' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Password:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'password',
-	            value: this.state.password,
-	            onChange: this.onChange,
-	            id: 'password' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Title:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.title,
-	            onChange: this.onChange,
-	            id: 'title' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Age:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.age,
-	            onChange: this.onChange,
-	            id: 'age' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Zipcode:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.zipcode,
-	            onChange: this.onChange,
-	            id: 'zipcode' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Summary:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.summary,
-	            onChange: this.onChange,
-	            id: 'summary' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Current Work:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.current_work,
-	            onChange: this.onChange,
-	            id: 'current_work' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
-	          'Previous Experience:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.previous_exp,
-	            onChange: this.onChange,
-	            id: 'previous_exp' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Create Profile' })
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = SignUp;
-
-/***/ },
-/* 282 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(279),
-	    ClientActions = __webpack_require__(248);
-	
-	var UserIndexItem = React.createClass({
-	  displayName: 'UserIndexItem',
-	
-	
-	  render: function () {
-	
-	    return React.createElement(
-	      'div',
-	      { className: 'user_index_item' },
-	      React.createElement(
-	        'ul',
-	        { className: 'user_item_list' },
-	        React.createElement(
-	          'li',
-	          null,
-	          '"Username " ',
-	          this.props.user.username
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          '"Title " ',
-	          this.props.user.title
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          '"Age " ',
-	          this.props.user.age
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          '"Zipcode " ',
-	          this.props.user.zipcode
-	        )
-	      )
-	    );
-	  }
-	
-	});
-	
-	module.exports = UserIndexItem;
-
-/***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    SplashPage = __webpack_require__(277),
-	    NavBar = __webpack_require__(284),
-	    Footer = __webpack_require__(285);
-	
-	var App = React.createClass({
-	  displayName: 'App',
-	
-	  render: function () {
-	    return React.createElement(
-	      'div',
-	      { className: 'app' },
-	      React.createElement(NavBar, null),
-	      React.createElement(SplashPage, null),
-	      React.createElement(Footer, null)
-	    );
-	  }
-	});
-	
-	module.exports = App;
-
-/***/ },
-/* 284 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    SignIn = __webpack_require__(280),
+	    SignIn = __webpack_require__(247),
 	    ModalStyling = __webpack_require__(276),
 	    Modal = __webpack_require__(166),
 	    ClientActions = __webpack_require__(248);
@@ -35088,18 +34911,11 @@
 	      );
 	    } else {
 	      navBarSessionButton = React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(
-	          'li',
-	          { className: 'navbar_buttons' },
-	          'Already have an account? Sign in here',
-	          React.createElement(
-	            'button',
-	            { onClick: this.openModal, id: 'logInClicked' },
-	            'Sign In'
-	          )
-	        )
+	        'div',
+	        {
+	          onClick: this.openModal,
+	          id: 'logInClicked' },
+	        'Sign In'
 	      );
 	    }
 	
@@ -35107,11 +34923,15 @@
 	      'div',
 	      { className: 'navBar' },
 	      React.createElement(
-	        'h1',
-	        { className: 'logo' },
+	        'div',
+	        { id: 'nav-logo' },
 	        'OkCoFounderLogo'
 	      ),
-	      navBarSessionButton,
+	      React.createElement(
+	        'div',
+	        { className: 'nav-session-buttons' },
+	        navBarSessionButton
+	      ),
 	      React.createElement(
 	        Modal,
 	        {
@@ -35134,27 +34954,202 @@
 	module.exports = navBar;
 
 /***/ },
-/* 285 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
 	var PropTypes = React.PropTypes;
 	
 	var Footer = React.createClass({
-	  displayName: 'Footer',
+	  displayName: "Footer",
 	
 	
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      null,
-	      'Footer'
+	      "div",
+	      { id: "footer" },
+	      "Footer"
 	    );
 	  }
 	
 	});
 	
 	module.exports = Footer;
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248),
+	    UserIndexItem = __webpack_require__(281);
+	
+	var UsersIndex = React.createClass({
+	  displayName: 'UsersIndex',
+	
+	  getInitialState: function () {
+	    return {
+	      users: UserStore.all(),
+	      currentUser: SessionStore.currentUser()
+	    };
+	  },
+	
+	  componentDidMount: function () {
+	    this.sessionListener = SessionStore.addListener(this.onSessionChange);
+	    this.userStoreListener = UserStore.addListener(this.onUserChange);
+	    console.log("UsersINdex did mount");
+	  },
+	
+	  componentWillUnmount: function () {
+	    this.sessionListener.remove();
+	    this.userStoreListener.remove();
+	  },
+	
+	  onSessionChange: function () {
+	    this.setState({ currentUser: SessionStore.currentUser() });
+	  },
+	
+	  onUserChange: function () {
+	    console.log("UsersIndex Store Change");
+	
+	    this.setState({ users: UserStore.all() });
+	  },
+	
+	  render: function () {
+	    console.log("userindex render");
+	
+	    var renderUsers = this.state.users.map(function (user) {
+	      return React.createElement(UserIndexItem, { className: 'user_index_item',
+	        key: user.id, user: user });
+	    });
+	    return React.createElement(
+	      'div',
+	      { className: 'user_index' },
+	      React.createElement(
+	        'div',
+	        { className: 'user_index_list' },
+	        renderUsers
+	      ),
+	      'UsersIndexPage'
+	    );
+	  }
+	
+	});
+	
+	module.exports = UsersIndex;
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Store = __webpack_require__(259).Store,
+	    Dispatcher = __webpack_require__(251),
+	    UserConstants = __webpack_require__(255);
+	
+	var UserStore = new Store(Dispatcher);
+	
+	var _users = {};
+	var _errors = [];
+	
+	UserStore.all = function () {
+	  var _usersArray = [];
+	  for (var id in _users) {
+	    if (_users.hasOwnProperty(id)) {
+	      _usersArray.push(_users[id]);
+	    }
+	  }
+	  return _usersArray;
+	};
+	
+	UserStore.setErrors = function (errors) {
+	  _errors = errors;
+	};
+	
+	UserStore.errors = function () {
+	  if (_errors) {
+	    return [].slice.call(_errors);
+	  }
+	};
+	
+	var addUser = function (user) {
+	  _users[user.id] = user;
+	};
+	
+	var findUser = function (id) {
+	  return _users[id];
+	};
+	
+	UserStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case UserConstants.CREATE_USER:
+	      addUser(payload.user);
+	      break;
+	    case UserConstants.RECEIVE_USERS:
+	      _users = payload.users;
+	      console.log("UserStore " + _users[0].title);
+	
+	      UserStore.__emitChange();
+	  }
+	};
+	
+	module.exports = UserStore;
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248);
+	
+	var UserIndexItem = React.createClass({
+	  displayName: 'UserIndexItem',
+	
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { className: 'user_index_item' },
+	      React.createElement(
+	        'div',
+	        { className: 'user_item_list' },
+	        React.createElement(
+	          'div',
+	          null,
+	          '"Username " ',
+	          this.props.user.username
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '"Title " ',
+	          this.props.user.title
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '"Age " ',
+	          this.props.user.age
+	        ),
+	        React.createElement(
+	          'div',
+	          null,
+	          '"Zipcode " ',
+	          this.props.user.zipcode
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = UserIndexItem;
 
 /***/ }
 /******/ ]);

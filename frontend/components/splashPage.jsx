@@ -5,7 +5,8 @@ var React = require('react'),
     SessionStore = require('../stores/sessionStore'),
     ModalStyling = require('../constants/modalConstants'),
     ClientActions = require('../actions/ClientActions'),
-    Modal = require('react-modal');
+    Modal = require('react-modal'),
+    hashHistory = require('react-router').hashHistory;
 
 var SplashPage = React.createClass({
   getInitialState: function() {
@@ -23,6 +24,9 @@ var SplashPage = React.createClass({
 
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onChange);
+    if (this.state.currentUser !== null) {
+      hashHistory.push('/users');
+    }
   },
 
   componentWillUnmount: function () {
@@ -60,18 +64,10 @@ var SplashPage = React.createClass({
     }
 
     var splashPageContents =
-    <ul>
-       <li className="splash_page_buttons">
+    <div>
           <button onClick={this.openModal} id='clickedSignUp'>Sign Up</button>
-       </li>
-       <li className="splash_page_buttons">
           <button onClick={this.openModal} id='logInClicked'>Sign In</button>
-       </li>
-    </ul>;
-
-    if (this.state.currentUser !== null) {
-      splashPageContents = "";
-    }
+    </div>;
 
     var errors = SessionStore.allErrors();
 
@@ -82,7 +78,7 @@ var SplashPage = React.createClass({
     }
 
     return (
-      <ul className="splash_page">
+      <div className="splash_page">
         {splashPageContents}
         {errorMessage}
         <Modal
@@ -94,7 +90,7 @@ var SplashPage = React.createClass({
           <button onClick={this.closeModal}>close</button>
           {modalContents}
         </Modal>
-      </ul>
+      </div>
     );
   }
 });

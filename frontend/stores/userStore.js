@@ -8,7 +8,6 @@ var _users = {};
 var _errors = [];
 
 UserStore.all = function () {
-  // return Object.assign({}, _users);
   var _usersArray = [];
   for (var id in _users) {
     if (_users.hasOwnProperty(id)) {

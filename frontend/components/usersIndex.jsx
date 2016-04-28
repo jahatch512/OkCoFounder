@@ -5,7 +5,7 @@ var React = require('react'),
     ClientActions = require('../actions/ClientActions'),
     UserIndexItem = require('./userIndexItem');
 
-var PropTypes = React.PropTypes;
+
 
 var UsersIndex = React.createClass({
   getInitialState: function() {
@@ -18,6 +18,8 @@ var UsersIndex = React.createClass({
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
     this.userStoreListener = UserStore.addListener(this.onUserChange);
+    console.log("UsersINdex did mount");
+
   },
 
   componentWillUnmount: function () {
@@ -30,10 +32,14 @@ var UsersIndex = React.createClass({
   },
 
   onUserChange: function() {
+    console.log("UsersIndex Store Change");
+
     this.setState({users: UserStore.all()});
   },
 
   render: function() {
+    console.log("userindex render");
+
     var renderUsers = this.state.users.map(function(user){
       return (<UserIndexItem className="user_index_item"
               key={user.id} user={user} />);
@@ -41,9 +47,9 @@ var UsersIndex = React.createClass({
     return (
       <div className="user_index">
       {
-        <ul className="user_index_list">
+        <div className="user_index_list">
           {renderUsers}
-        </ul>
+        </div>
       }
       UsersIndexPage
       </div>

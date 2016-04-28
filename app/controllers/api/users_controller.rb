@@ -6,12 +6,12 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save!
+    if @user.save
       login_user!(@user)
       render :create
     else
       @error_messages = @user.errors.full_messages
-      render json: {message: "an error has occured, try again"}
+      render json: {message: @error_messages}, status: 422
     end
   end
 

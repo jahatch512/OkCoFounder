@@ -10,13 +10,13 @@ var UserIndexItem = React.createClass({
 
     return (
       <div className="user_index_item">
-        <ul className="user_item_list">
-          <li>"Username " {this.props.user.username}</li>
-          <li>"Title " {this.props.user.title}</li>
-          <li>"Age " {this.props.user.age}</li>
-          <li>"Zipcode " {this.props.user.zipcode}</li>
+        <div className="user_item_list">
+          <div>"Username " {this.props.user.username}</div>
+          <div>"Title " {this.props.user.title}</div>
+          <div>"Age " {this.props.user.age}</div>
+          <div>"Zipcode " {this.props.user.zipcode}</div>
 
-        </ul>
+        </div>
       </div>
     );
   }

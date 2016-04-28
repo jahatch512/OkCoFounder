@@ -10,7 +10,8 @@ var ReactRouter = require('react-router'),
 //Components
 var App = require('./components/permanent/app'),
     SessionStore = require('./stores/sessionStore'),
-    UsersIndex = require('./components/usersIndex');
+    UsersIndex = require('./components/usersIndex'),
+    SplashPage = require('./components/splashPage');
 
 //Mixins
 // var CurrentUserState = require('./mixins/current_user_state');
@@ -19,6 +20,7 @@ var App = require('./components/permanent/app'),
 var RouterComponent = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
+      <IndexRoute component={SplashPage}/>
       <Route path="users" component={UsersIndex}>
 
       </Route>

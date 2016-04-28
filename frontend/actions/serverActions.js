@@ -32,6 +32,8 @@ module.exports = {
   },
 
   receiveUsers: function (users) {
+    console.log(users);
+
     Dispatcher.dispatch({
       actionType: UserConstants.RECEIVE_USERS,
       users: users

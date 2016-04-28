@@ -1,6 +1,6 @@
 # OkCoFounder
 
-[Heroku link][heroku] 
+[Heroku link][heroku]
 
 [heroku]: https://okcofounder.herokuapp.com/
 
@@ -8,11 +8,12 @@
 
 OkCoFounder is a web application inspired by OkCupid that will be built using Ruby on Rails and React.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
-- [ ] New account creation, login, and guest/demo login
+- [x] New account creation, login
+- [ ] Guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
 - [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), answer scrolling questions on user index page, select to "connect" with another user, view all connections.
-- [ ] Hosting on Heroku
+- [x] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
 

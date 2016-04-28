@@ -1,41 +1,64 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
 .navBar {
   display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  background-color: #43A047;
-  width: auto;
+  flex-direction: row;
+  height: 50px;
+  background-color: #104DA1;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  box-shadow: 0px 5px 15px -2px rgba(0,0,0,0.75);
  }
 
-.navbar_buttons {
+.nav-session-buttons {
+  margin-right: 100px;
+  height: 100%;
   display: flex;
-  justify-content: flex-start;
- text-decoration:none;
- background-color: #104DA1;
- vertical-align: middle;
- text-align: center;
- width:auto;
- height:auto;
- line-height: 50px;
+  flex-direction: row;
 }
 
-.navbar_buttons button {
- display: flex;
- justify-content: space-between;
- text-align: center;
- padding: 19px 16px;
- color: white;
- background-color: #104DA1;
- border-top: 0px;
- border-bottom: 0px;
- border-right: 0px;
- border-color: white;
- border-width: 1px;
-}
-
-.logo {
+#logInClicked {
+  background-color: #104DA1;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
   color: white;
+}
+
+#logInClicked:hover {
+  background-color: green;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0px;
+  background-color: blue;
+}
+
+#nav-logo {
+  color: white;
+  margin-right: auto;
+  margin-left: 100px;
 }
