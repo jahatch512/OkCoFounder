@@ -13,8 +13,6 @@ module.exports = {
         hashHistory.push('/users');
       },
       error: function(error) {
-        console.log("userApi " + error.responseText);
-
         ServerActions.receiveError(error.responseText);
       }
     });
@@ -28,7 +26,6 @@ module.exports = {
         ServerActions.receiveUsers(users);
       },
       error: function (errors) {
-        console.log("userApi fetch " + errors.responseText);
       }
     });
   },

@@ -33,8 +33,7 @@ var SplashPage = React.createClass({
   },
 
   onChange: function() {
-    this.setState({currentUser: SessionStore.currentUser(),
-                   errors: SessionStore.allErrors()});
+    this.setState({currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors()});
   },
 
   openModal: function(event) {
@@ -44,6 +43,7 @@ var SplashPage = React.createClass({
     } else if (event.target.id === "logInClicked") {
       this.setState({modalIsOpen: true, logInClicked: true});
     }
+    this.setState({errors: SessionStore.allErrors()});
   },
 
   afterOpenModal: function() {
@@ -51,7 +51,7 @@ var SplashPage = React.createClass({
   },
 
   closeModal: function() {
-    this.setState({modalIsOpen: false, logInClicked: false, clickedSignUp: false});
+    this.setState({modalIsOpen: false, logInClicked: false, clickedSignUp: false, errors: []});
   },
 
   render: function() {
@@ -70,6 +70,7 @@ var SplashPage = React.createClass({
 
     if (this.state.errors.length > 0) {
       var errorMessages = <Errors errors={this.state.errors}/>;
+      SessionStore.clearErrors();
     }
 
     return (

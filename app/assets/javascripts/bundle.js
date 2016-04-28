@@ -27476,8 +27476,7 @@
 	  },
 	
 	  onChange: function () {
-	    this.setState({ currentUser: SessionStore.currentUser(),
-	      errors: SessionStore.allErrors() });
+	    this.setState({ currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors() });
 	  },
 	
 	  openModal: function (event) {
@@ -27487,6 +27486,7 @@
 	    } else if (event.target.id === "logInClicked") {
 	      this.setState({ modalIsOpen: true, logInClicked: true });
 	    }
+	    this.setState({ errors: SessionStore.allErrors() });
 	  },
 	
 	  afterOpenModal: function () {
@@ -27494,7 +27494,7 @@
 	  },
 	
 	  closeModal: function () {
-	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false });
+	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false, errors: [] });
 	  },
 	
 	  render: function () {
@@ -27522,6 +27522,7 @@
 	
 	    if (this.state.errors.length > 0) {
 	      var errorMessages = React.createElement(Errors, { errors: this.state.errors });
+	      SessionStore.clearErrors();
 	    }
 	
 	    return React.createElement(
@@ -27715,8 +27716,6 @@
 	  },
 	
 	  receiveUsers: function (users) {
-	    console.log(users);
-	
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.RECEIVE_USERS,
 	      users: users
@@ -28080,8 +28079,6 @@
 	        hashHistory.push('/users');
 	      },
 	      error: function (error) {
-	        console.log("userApi " + error.responseText);
-	
 	        ServerActions.receiveError(error.responseText);
 	      }
 	    });
@@ -28094,9 +28091,7 @@
 	      success: function (users) {
 	        ServerActions.receiveUsers(users);
 	      },
-	      error: function (errors) {
-	        console.log("userApi fetch " + errors.responseText);
-	      }
+	      error: function (errors) {}
 	    });
 	  },
 	
@@ -28296,12 +28291,13 @@
 	  }
 	};
 	
-	SessionStore.clearErrors = function () {
-	  _authenticationErrors = [];
+	SessionStore.allErrors = function () {
+	  // var returnErrors = _authenticationErrors;
+	  return _authenticationErrors;
 	};
 	
-	SessionStore.allErrors = function () {
-	  return _authenticationErrors;
+	SessionStore.clearErrors = function () {
+	  _authenticationErrors = [];
 	};
 	
 	SessionStore.loggedIn = function () {
@@ -28317,7 +28313,6 @@
 	};
 	
 	var logoutUser = function () {
-	  console.log('SessionStore user logged out!');
 	  myStorage.setItem("currentUser", "false");
 	  _loggedIn = false;
 	  _currentUser = null;
@@ -28327,9 +28322,7 @@
 	};
 	
 	var recieveError = function (error) {
-	  var errorMessage = JSON.parse(error).message;
-	
-	  _authenticationErrors.push(errorMessage);
+	  _authenticationErrors = JSON.parse(error).message;
 	
 	  SessionStore.__emitChange();
 	};
@@ -28344,7 +28337,6 @@
 	      break;
 	    case UserConstants.ERROR_RECEIVED:
 	      recieveError(payload.error);
-	      _authenticationErrors = [];
 	      break;
 	  }
 	};
@@ -34858,7 +34850,7 @@
 	  },
 	
 	  onChange: function () {
-	    this.setState({ currentUser: SessionStore.currentUser() });
+	    this.setState({ currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors() });
 	  },
 	
 	  logoutUser: function () {
@@ -34883,8 +34875,6 @@
 	
 	  componentDidUpdate: function () {
 	    if (this.state.currentUser && this.state.modalIsOpen) {
-	      console.log("navbar updated");
-	
 	      this.closeModal();
 	    }
 	  },
@@ -35087,8 +35077,6 @@
 	      break;
 	    case UserConstants.RECEIVE_USERS:
 	      _users = payload.users;
-	      console.log("UserStore " + _users[0].title);
-	
 	      UserStore.__emitChange();
 	  }
 	};
@@ -35117,8 +35105,6 @@
 	  },
 	
 	  render: function () {
-	    var pic = this.props.image_url;
-	    console.log(pic);
 	
 	    return React.createElement(
 	      'div',
@@ -35187,15 +35173,19 @@
 	
 	
 	  render: function () {
-	    var key = 0;
-	    var errorsList = this.props.errors.map(function (error) {
-	      key += 1;
-	      return React.createElement(
-	        "li",
-	        { key: key },
-	        error
-	      );
-	    });
+	    if (typeof this.props.errors === "string") {
+	      var errorsList = this.props.errors;
+	    } else {
+	      var key = 0;
+	      errorsList = this.props.errors.map(function (error) {
+	        key += 1;
+	        return React.createElement(
+	          "li",
+	          { key: key },
+	          error
+	        );
+	      });
+	    }
 	
 	    return React.createElement(
 	      "ul",

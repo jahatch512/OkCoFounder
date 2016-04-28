@@ -15,9 +15,7 @@ var UserIndexItem = React.createClass({
   },
 
   render: function() {
-    var pic = this.props.image_url;
-    console.log(pic);
-
+    
     return (
       <div className="user_index_item"
            onClick={this.handleClick}>

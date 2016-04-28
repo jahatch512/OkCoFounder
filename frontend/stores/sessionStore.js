@@ -16,12 +16,15 @@ SessionStore.currentUser = function() {
   }
 };
 
-SessionStore.clearErrors = function() {
-  _authenticationErrors = [];
+SessionStore.allErrors = function() {
+  // var returnErrors = _authenticationErrors;
+  return _authenticationErrors;
+
+
 };
 
-SessionStore.allErrors = function() {
-  return _authenticationErrors;
+SessionStore.clearErrors = function() {
+  _authenticationErrors = [];
 };
 
 SessionStore.loggedIn = function() {
@@ -37,7 +40,6 @@ var loginUser = function(user) {
 };
 
 var logoutUser = function() {
-  console.log('SessionStore user logged out!');
   myStorage.setItem("currentUser", "false");
   _loggedIn = false;
   _currentUser = null;
@@ -48,11 +50,9 @@ var logoutUser = function() {
 
 
 var recieveError = function(error) {
-  var errorMessage = JSON.parse(error).message;
+  _authenticationErrors = JSON.parse(error).message;
 
-  _authenticationErrors.push(errorMessage);
-
-  SessionStore.__emitChange();
+    SessionStore.__emitChange();
 };
 
 
@@ -66,7 +66,6 @@ SessionStore.__onDispatch = function (payload) {
       break;
     case UserConstants.ERROR_RECEIVED:
       recieveError(payload.error);
-      _authenticationErrors = [];
       break;
   }
 

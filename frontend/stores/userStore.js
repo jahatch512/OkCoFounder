@@ -43,8 +43,6 @@ UserStore.__onDispatch = function (payload) {
       break;
     case UserConstants.RECEIVE_USERS:
       _users = payload.users;
-      console.log("UserStore " + _users[0].title);
-
       UserStore.__emitChange();
   }
 };

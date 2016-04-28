@@ -26,7 +26,7 @@ var navBar = React.createClass({
   },
 
   onChange: function() {
-    this.setState({currentUser: SessionStore.currentUser()});
+    this.setState({currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors()});
   },
 
   logoutUser: function() {
@@ -52,8 +52,6 @@ var navBar = React.createClass({
 
   componentDidUpdate: function() {
    if (this.state.currentUser && this.state.modalIsOpen) {
-     console.log("navbar updated");
-
      this.closeModal();
    }
   },
@@ -90,6 +88,7 @@ var navBar = React.createClass({
     }
 
     return (
+
     <div className="navBar">
       <div id="nav-logo" onClick={this.logoClick}>OkCoFounderLogo</div>
         <div

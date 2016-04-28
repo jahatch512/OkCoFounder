@@ -79,7 +79,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] setup the flux loop with skeleton files
 - [x] setup React Router
-  - [ ] route to individual show pages for users
+  - [x] route to individual show pages for users
 - implement each User component, building out the flux loop as needed.
   - User Index Page
     - [x] `UsersIndex`
