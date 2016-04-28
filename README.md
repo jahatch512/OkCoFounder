@@ -60,30 +60,30 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] authentication
 - [ ] pre-sign up page ("I am a CFO/CEO/Developer(choose one)")
 - [x] user signup/signin forms
-- [ ] blank landing page after signin
+- [x] blank landing page after signin
 
 ### Phase 2: User API and basic APIUtil (1.5 days)
 
 **Objective:** Users can be read(index/show) and updated through the API
 
 - [ ] seed the database with a small amount of test data
-- [ ] jBuilder views for users
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `User` Store
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [x] jBuilder views for users
+- [x] setup Webpack & Flux scaffold
+- [x] setup `User` Store
+- [x] setup `APIUtil` to interact with the API
+- [x] test out API interaction in the console.
 
 ### Phase 3: Flux Architecture and Router (3 days)
 
 **Objective:** Can view an index of all the users and click on one to visit the individual show page, revealing all of their profile information, through the user interface.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
+- [x] setup the flux loop with skeleton files
+- [x] setup React Router
   - [ ] route to individual show pages for users
 - implement each User component, building out the flux loop as needed.
   - User Index Page
-    - [ ] `UsersIndex`
-    - [ ] `UserIndexItem`
+    - [x] `UsersIndex`
+    - [x] `UserIndexItem`
   - User Show Page
     - [ ] `ProfileInfo`
     - [ ] `AboutDetail`
