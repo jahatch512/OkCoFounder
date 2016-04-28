@@ -8,7 +8,7 @@ var ReactRouter = require('react-router'),
     IndexRoute = ReactRouter.IndexRoute,
     hashHistory = require('react-router').hashHistory;
 //Components
-var App = require('./components/app'),
+var App = require('./components/permanent/app'),
     SessionStore = require('./stores/sessionStore'),
     UsersIndex = require('./components/usersIndex');
 

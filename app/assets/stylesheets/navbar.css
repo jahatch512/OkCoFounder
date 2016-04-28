@@ -1,0 +1,41 @@
+.navBar {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background-color: #43A047;
+  width: auto;
+ }
+
+.navbar_buttons {
+  display: flex;
+  justify-content: flex-start;
+ text-decoration:none;
+ background-color: #104DA1;
+ vertical-align: middle;
+ text-align: center;
+ width:auto;
+ height:auto;
+ line-height: 50px;
+}
+
+.navbar_buttons button {
+ display: flex;
+ justify-content: space-between;
+ text-align: center;
+ padding: 19px 16px;
+ color: white;
+ background-color: #104DA1;
+ border-top: 0px;
+ border-bottom: 0px;
+ border-right: 0px;
+ border-color: white;
+ border-width: 1px;
+}
+
+.logo {
+  color: white;
+}

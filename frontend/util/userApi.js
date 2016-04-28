@@ -1,4 +1,5 @@
-var ServerActions = require('../actions/serverActions.js');
+var ServerActions = require('../actions/serverActions.js'),
+    hashHistory = require('react-router').hashHistory;
 
 module.exports = {
 
@@ -9,9 +10,10 @@ module.exports = {
       data: formData,
       success: function(user) {
         ServerActions.loginUser(user);
+        hashHistory.push('/users');
       },
       error: function(error) {
-        console.log("ServerActions " + error);
+        console.log("userApi " + error.responseText);
 
         ServerActions.receiveError(error.responseText);
       }

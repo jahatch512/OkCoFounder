@@ -1,0 +1,8 @@
+.splash_page {
+  background-color: #104DA1;
+}
+
+.splash_page_buttons {
+  display: flex;
+  justify-content: center;
+}

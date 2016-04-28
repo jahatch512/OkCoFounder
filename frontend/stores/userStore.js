@@ -1,14 +1,31 @@
-var Store = require('flux/utils').Store;
-var Dispatcher = require('../dispatcher/dispatcher.js');
-var UserConstants = require('../constants/userConstants.js');
+var Store = require('flux/utils').Store,
+    Dispatcher = require('../dispatcher/dispatcher.js'),
+    UserConstants = require('../constants/userConstants.js');
 
 var UserStore = new Store(Dispatcher);
 
 var _users = {};
-var _newUserErrors = [];
+var _errors = [];
 
 UserStore.all = function () {
-  return Object.assign({}, _users);
+  // return Object.assign({}, _users);
+  var _usersArray = [];
+  for (var id in _users) {
+    if (_users.hasOwnProperty(id)) {
+      _usersArray.push(_users[id]);
+    }
+  }
+  return _usersArray;
+};
+
+UserStore.setErrors = function(errors){
+  _errors = errors;
+};
+
+UserStore.errors = function(){
+  if (_errors){
+    return [].slice.call(_errors);
+  }
 };
 
 var addUser = function(user) {
@@ -19,25 +36,6 @@ var findUser = function(id) {
   return _users[id];
 };
 
-UserStore.clearErrors = function() {
-  _newUserErrors = [];
-};
-
-UserStore.allErrors = function() {
-  return _newUserErrors;
-};
-
-var recieveError = function(error) {
-  var errors = JSON.parse(error);
-  if (errors.length >= 1) {
-    errors.forEach(function(message) {
-      _newUserErrors.push(message);
-    });
-  } else {
-    _newUserErrors.push(errors);
-  }
-  UserStore.__emitChange();
-};
 
 UserStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
@@ -45,6 +43,11 @@ UserStore.__onDispatch = function (payload) {
       addUser(payload.user);
       break;
     case UserConstants.RECEIVE_USERS:
-      updateUsers(payload.users)
+      _users = payload.users;
+      console.log("UserStore " + _users[0].title);
+
+      UserStore.__emitChange();
   }
 };
+
+module.exports = UserStore;

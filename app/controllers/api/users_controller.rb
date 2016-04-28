@@ -10,7 +10,8 @@ class Api::UsersController < ApplicationController
       login_user!(@user)
       render :create
     else
-      render :errors
+      @error_messages = @user.errors.full_messages
+      render json: {message: "an error has occured, try again"}
     end
   end
 

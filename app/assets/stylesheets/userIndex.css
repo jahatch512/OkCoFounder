@@ -1,0 +1,19 @@
+
+.user_index_list {
+  display: flex;
+  flex-wrap: wrap;
+  /*flex-direction: row;
+  align-items: center;*/
+}
+
+.user_index_item {
+
+
+  background-color: #104DA1;
+  color: white;
+  font-size: 18;
+}
+
+.user_item_list {
+
+}

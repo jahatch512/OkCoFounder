@@ -1,10 +1,10 @@
 var CONTENT_STYLE = {
   overlay : {
     position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
+    top               : 200,
+    left              : 200,
+    right             : 200,
+    bottom            : 200,
     backgroundColor   : 'rgba(255, 255, 255, 0.75)'
   },
   content : {
