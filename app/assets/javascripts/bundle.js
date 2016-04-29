@@ -28257,17 +28257,6 @@
 	        React.createElement(
 	          'label',
 	          { className: 'formLabel' },
-	          'Title:',
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text',
-	            value: this.state.title,
-	            onChange: this.onChange,
-	            id: 'title' })
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'label',
-	          { className: 'formLabel' },
 	          'Age:',
 	          React.createElement('br', null),
 	          React.createElement('input', { type: 'text',

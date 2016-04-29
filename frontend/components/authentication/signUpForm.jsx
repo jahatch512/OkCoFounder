@@ -68,16 +68,6 @@ var SignUp = React.createClass({
           <br/>
 
           <label className="formLabel">
-            Title:
-            <br/>
-            <input type="text"
-              value={this.state.title}
-              onChange={this.onChange}
-              id="title" />
-          </label>
-          <br/>
-
-          <label className="formLabel">
             Age:
             <br/>
             <input type="text"
