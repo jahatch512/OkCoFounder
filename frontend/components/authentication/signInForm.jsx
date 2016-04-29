@@ -14,7 +14,6 @@ var SignIn = React.createClass({
       password: this.state.password
     }};
     ClientActions.loginUser(user);
-    // this.props.parent.closeModal();
   },
 
   onChange: function(event) {

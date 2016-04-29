@@ -60,6 +60,14 @@ var SplashPage = React.createClass({
     this.setState({title: event.target.value});
   },
 
+  loginGuest: function() {
+    var user = {user: {
+      username: "AwesomePerson",
+      password: "password"
+    }};
+    ClientActions.loginUser(user);
+  },
+
   render: function() {
     var modalContents = null;
     if (this.state.clickedSignUp === true) {
@@ -71,7 +79,7 @@ var SplashPage = React.createClass({
     var splashPageContents =
     <div className="splashElements">
           <span id="guest-login-box">
-            <div id="guest-login-button" onClick={this.openModal}>Guest Login</div>
+            <div id="guest-login-button" onClick={this.loginGuest} >Guest Login</div>
           </span>
           <div id="home-logo-box">
             <img id="home-logo" src="/assets/logo.png" />

@@ -27503,6 +27503,14 @@
 	    this.setState({ title: event.target.value });
 	  },
 	
+	  loginGuest: function () {
+	    var user = { user: {
+	        username: "AwesomePerson",
+	        password: "password"
+	      } };
+	    ClientActions.loginUser(user);
+	  },
+	
 	  render: function () {
 	    var modalContents = null;
 	    if (this.state.clickedSignUp === true) {
@@ -27519,7 +27527,7 @@
 	        { id: 'guest-login-box' },
 	        React.createElement(
 	          'div',
-	          { id: 'guest-login-button', onClick: this.openModal },
+	          { id: 'guest-login-button', onClick: this.loginGuest },
 	          'Guest Login'
 	        )
 	      ),
@@ -27610,7 +27618,6 @@
 	        password: this.state.password
 	      } };
 	    ClientActions.loginUser(user);
-	    // this.props.parent.closeModal();
 	  },
 	
 	  onChange: function (event) {

@@ -47,9 +47,19 @@ User.create!(
 User.create!(
   username: 'RyanMichael',
   password: 'password',
-  title: 'CEO',
-  age: 27,
+  title: 'MBA',
+  age: 23,
   zipcode: 63105,
   image_url: 'http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/185/medium/Ryan_Jordan.jpg?1457740223'
+
+)
+
+User.create!(
+  username: 'AwesomePerson',
+  password: 'password',
+  title: 'CEO',
+  age: 27,
+  zipcode: 94102,
+  image_url: 'http://images.clipartpanda.com/person-clip-art--person-clipart-8.gif'
 
 )

@@ -1,6 +1,7 @@
 .splash_page {
-  background: url("/assets/handshake.jpg") no-repeat;
+  background-image: url("/assets/handshake.jpg");
   background-size: cover;
+  opacity: 50%;
   height: 100%;
   color: white;
   width: 100%
@@ -28,6 +29,12 @@
   margin: auto;
 }
 
+#home-logo {
+  height: 180px;
+  width: 250px;
+  align-items: center;
+}
+
 #guest-login-box {
   height: 100px;
   margin: 40px;
@@ -39,10 +46,4 @@
   padding: 10px;
   width: 100px;
   text-align: center;
-}
-
-#home-logo {
-  height: 180px;
-  width: 250px;
-  align-items: center;
 }
