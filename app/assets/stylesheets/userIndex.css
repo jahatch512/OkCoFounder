@@ -1,17 +1,30 @@
 
-.user_index_list {
+.user_index_page {
+  background-color: #104DA1;
+}
+
+.user_index_box {
   display: flex;
   flex-wrap: wrap;
-  /*flex-direction: row;
-  align-items: center;*/
+  flex-direction: row;
+  justify-content: center;
+  background-color: #red;
+  margin: 50px;
+
 }
 
 .user_index_item {
-
-
-  background-color: #104DA1;
   color: red;
   font-size: 18;
+  padding: 40px;
+  box-shadow: 0px 6px 20px 0px rgba(0,0,0,0.75);
+  transition: transform .5s;
+  border-radius: 4px;
+}
+
+.user_index_item:hover {
+  box-shadow: 0px 15px 35px 0px rgba(0,0,0,0.75);
+  transform: translateY(-5px);
 }
 
 .user_item_list {

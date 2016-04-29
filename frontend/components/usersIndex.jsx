@@ -46,11 +46,13 @@ var UsersIndex = React.createClass({
               user={user} />);
     });
     return (
-      <div className="user_index">
-        UsersIndexPage
+      <div className="user_index_page">
+        <div className="user_index_box">
+
       {
         renderUsers
       }
+        </div>
       </div>
     );
   }

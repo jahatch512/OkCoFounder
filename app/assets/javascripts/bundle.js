@@ -35078,9 +35078,12 @@
 	    });
 	    return React.createElement(
 	      'div',
-	      { className: 'user_index' },
-	      'UsersIndexPage',
-	      renderUsers
+	      { className: 'user_index_page' },
+	      React.createElement(
+	        'div',
+	        { className: 'user_index_box' },
+	        renderUsers
+	      )
 	    );
 	  }
 	
