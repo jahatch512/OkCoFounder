@@ -27457,9 +27457,10 @@
 	    return {
 	      modalIsOpen: false,
 	      clickedSignUp: false,
-	      logInClicked: false,
+	      guestLogin: false,
 	      currentUser: SessionStore.currentUser(),
-	      errors: SessionStore.allErrors()
+	      errors: SessionStore.allErrors(),
+	      title: "CEO"
 	    };
 	  },
 	
@@ -27483,40 +27484,82 @@
 	    var state = {};
 	    if (event.target.id === "clickedSignUp") {
 	      this.setState({ modalIsOpen: true, clickedSignUp: true });
-	    } else if (event.target.id === "logInClicked") {
-	      this.setState({ modalIsOpen: true, logInClicked: true });
+	    } else if (event.target.id === "guestLogin") {
+	      this.setState({ modalIsOpen: true, guestLogin: true });
 	    }
 	    this.setState({ errors: SessionStore.allErrors() });
 	  },
 	
 	  afterOpenModal: function () {
-	    // this.refs.sessionForm.style.color = '#f00';
+	    ModalStyling.content.opacity = 100;
 	  },
 	
 	  closeModal: function () {
-	    this.setState({ modalIsOpen: false, logInClicked: false, clickedSignUp: false, errors: [] });
+	    this.setState({ modalIsOpen: false, guestLogin: false, clickedSignUp: false, errors: [] });
+	  },
+	
+	  titleChange: function (event) {
+	    event.preventDefault();
+	    this.setState({ title: event.target.value });
 	  },
 	
 	  render: function () {
 	    var modalContents = null;
 	    if (this.state.clickedSignUp === true) {
-	      modalContents = React.createElement(SignUp, { ref: 'sessionForm', parent: this });
-	    } else if (this.state.logInClicked === true) {
+	      modalContents = React.createElement(SignUp, { ref: 'sessionForm', parent: this, title: this.state.title });
+	    } else if (this.state.guestLogin === true) {
 	      modalContents = React.createElement(SignIn, { ref: 'sessionForm', parent: this });
 	    }
 	
 	    var splashPageContents = React.createElement(
 	      'div',
-	      null,
+	      { className: 'splashElements' },
 	      React.createElement(
-	        'div',
-	        { onClick: this.openModal, id: 'clickedSignUp' },
-	        'Sign Up'
+	        'span',
+	        { id: 'guest-login-box' },
+	        React.createElement(
+	          'div',
+	          { id: 'guest-login-button', onClick: this.openModal },
+	          'Guest Login'
+	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        { onClick: this.openModal, id: 'logInClicked' },
-	        'Sign In'
+	        { id: 'home-logo-box' },
+	        React.createElement('img', { id: 'home-logo', src: '/assets/logo.png' })
+	      ),
+	      React.createElement(
+	        'span',
+	        { id: 'initialSignUp' },
+	        React.createElement(
+	          'select',
+	          { onChange: this.titleChange },
+	          React.createElement(
+	            'option',
+	            { value: 'CEO' },
+	            'CEO'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'CFO' },
+	            'CFO'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'MBA' },
+	            'MBA'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: 'Developer' },
+	            'Developer'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { onClick: this.openModal, id: 'clickedSignUp' },
+	          'Sign Up'
+	        )
 	      )
 	    );
 	
@@ -27533,7 +27576,7 @@
 	        Modal,
 	        {
 	          isOpen: this.state.modalIsOpen,
-	          style: ModalStyling.CONTENT_STYLE,
+	          style: ModalStyling,
 	          onAfterOpen: this.afterOpenModal,
 	          onRequestClose: this.closeModal },
 	        errorMessages,
@@ -28145,7 +28188,7 @@
 	    var user = { user: {
 	        username: this.state.username,
 	        password: this.state.password,
-	        title: this.state.title,
+	        title: this.props.title,
 	        age: parseInt(this.state.age),
 	        zipcode: parseInt(this.state.zipcode)
 	      } };
@@ -34807,12 +34850,12 @@
 	    justifyContent: 'center',
 	    alignItems: 'center',
 	    borderRadius: '30px',
-	    backgroundColor: '#F4F4F4',
+	    backgroundColor: '#104DA1',
 	    padding: '20px',
 	    zIndex: '11',
 	    opacity: '0',
-	    transition: 'opacity 1.5s',
-	    minHeight: '250px'
+	    transition: 'opacity 3s',
+	    minHeight: '300px'
 	  }
 	};
 	
@@ -34914,7 +34957,7 @@
 	      React.createElement(
 	        'div',
 	        { id: 'nav-logo', onClick: this.logoClick },
-	        'OkCoFounderLogo'
+	        React.createElement('img', { id: 'logo-image', src: '/assets/logo.png' })
 	      ),
 	      React.createElement(
 	        'div',

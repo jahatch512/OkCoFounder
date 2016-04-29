@@ -90,7 +90,9 @@ var navBar = React.createClass({
     return (
 
     <div className="navBar">
-      <div id="nav-logo" onClick={this.logoClick}>OkCoFounderLogo</div>
+      <div id="nav-logo" onClick={this.logoClick}>
+        <img id="logo-image" src="/assets/logo.png" />
+      </div>
         <div
           className="nav-session-buttons"
           onClick={this.sessionClick}>

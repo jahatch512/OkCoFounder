@@ -1,4 +1,48 @@
 .splash_page {
-  background-color: red;
-  height: auto;
+  background: url("/assets/handshake.jpg") no-repeat;
+  background-size: cover;
+  height: 100%;
+  color: white;
+  width: 100%
+}
+
+.splashElements {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%
+}
+
+
+#initialSignUp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  height: 100px;
+}
+
+#home-logo-box {
+  height: 40%;
+  margin: auto;
+}
+
+#guest-login-box {
+  height: 100px;
+  margin: 40px;
+}
+
+#guest-login-button {
+  margin-left: 20px;
+  border: solid white 2px;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
+}
+
+#home-logo {
+  height: 180px;
+  width: 250px;
+  align-items: center;
 }

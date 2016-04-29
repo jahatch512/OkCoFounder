@@ -21,7 +21,7 @@ var SignUp = React.createClass({
     var user = {user: {
       username: this.state.username,
       password: this.state.password,
-      title: this.state.title,
+      title: this.props.title,
       age: parseInt(this.state.age),
       zipcode: parseInt(this.state.zipcode)
     }};

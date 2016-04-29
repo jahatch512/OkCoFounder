@@ -15,12 +15,12 @@ var CONTENT_STYLE = {
     justifyContent  : 'center',
     alignItems      : 'center',
     borderRadius    :  '30px',
-    backgroundColor : '#F4F4F4',
+    backgroundColor : '#104DA1',
     padding         : '20px',
     zIndex          : '11',
     opacity         : '0',
-    transition      : 'opacity 1.5s',
-    minHeight       : '250px',
+    transition      : 'opacity 3s',
+    minHeight       : '300px',
   }
 };
 

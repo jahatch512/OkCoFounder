@@ -14,9 +14,10 @@ var SplashPage = React.createClass({
     return {
       modalIsOpen: false,
       clickedSignUp: false,
-      logInClicked: false,
+      guestLogin: false,
       currentUser: SessionStore.currentUser(),
-      errors: SessionStore.allErrors()
+      errors: SessionStore.allErrors(),
+      title: "CEO"
     };
   },
 
@@ -40,32 +41,50 @@ var SplashPage = React.createClass({
     var state = {};
     if (event.target.id === "clickedSignUp") {
       this.setState({modalIsOpen: true, clickedSignUp: true});
-    } else if (event.target.id === "logInClicked") {
-      this.setState({modalIsOpen: true, logInClicked: true});
+    } else if (event.target.id === "guestLogin") {
+      this.setState({modalIsOpen: true, guestLogin: true});
     }
     this.setState({errors: SessionStore.allErrors()});
   },
 
   afterOpenModal: function() {
-    // this.refs.sessionForm.style.color = '#f00';
+    ModalStyling.content.opacity = 100;
   },
 
   closeModal: function() {
-    this.setState({modalIsOpen: false, logInClicked: false, clickedSignUp: false, errors: []});
+    this.setState({modalIsOpen: false, guestLogin: false, clickedSignUp: false, errors: []});
+  },
+
+  titleChange: function(event){
+    event.preventDefault();
+    this.setState({title: event.target.value});
   },
 
   render: function() {
     var modalContents = null;
     if (this.state.clickedSignUp === true) {
-      modalContents = <SignUp ref="sessionForm" parent={this} />;
-    } else if (this.state.logInClicked === true) {
+      modalContents = <SignUp ref="sessionForm" parent={this} title={this.state.title}/>;
+    } else if (this.state.guestLogin === true) {
       modalContents = <SignIn ref="sessionForm" parent={this} />;
     }
 
     var splashPageContents =
-    <div>
-          <div onClick={this.openModal} id='clickedSignUp'>Sign Up</div>
-          <div onClick={this.openModal} id='logInClicked'>Sign In</div>
+    <div className="splashElements">
+          <span id="guest-login-box">
+            <div id="guest-login-button" onClick={this.openModal}>Guest Login</div>
+          </span>
+          <div id="home-logo-box">
+            <img id="home-logo" src="/assets/logo.png" />
+          </div>
+          <span id="initialSignUp">
+            <select onChange={this.titleChange}>
+              <option value="CEO">CEO</option>
+              <option value="CFO">CFO</option>
+              <option value="MBA">MBA</option>
+              <option value="Developer">Developer</option>
+            </select>
+            <div onClick={this.openModal} id='clickedSignUp'>Sign Up</div>
+          </span>
     </div>;
 
     if (this.state.errors.length > 0) {
@@ -78,7 +97,7 @@ var SplashPage = React.createClass({
         {splashPageContents}
         <Modal
           isOpen={this.state.modalIsOpen}
-          style={ModalStyling.CONTENT_STYLE}
+          style={ModalStyling}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal} >
           {errorMessages}
