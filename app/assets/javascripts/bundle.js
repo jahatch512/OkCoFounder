@@ -35094,6 +35094,7 @@
 	var _errors = [];
 	
 	UserStore.all = function () {
+	
 	  var _usersArray = [];
 	  for (var id in _users) {
 	    if (_users.hasOwnProperty(id)) {
@@ -35113,12 +35114,19 @@
 	  }
 	};
 	
+	UserStore.findUser = function (id) {
+	  return _users[id];
+	};
+	
 	var addUser = function (user) {
 	  _users[user.id] = user;
 	};
 	
-	var findUser = function (id) {
-	  return _users[id];
+	var resetUsers = function (users) {
+	  _users = {};
+	  users.forEach(function (user) {
+	    _users[user.id] = user;
+	  });
 	};
 	
 	UserStore.__onDispatch = function (payload) {
@@ -35127,7 +35135,7 @@
 	      addUser(payload.user);
 	      break;
 	    case UserConstants.RECEIVE_USERS:
-	      _users = payload.users;
+	      resetUsers(payload.users);
 	      UserStore.__emitChange();
 	  }
 	};
@@ -35149,8 +35157,6 @@
 	  displayName: 'UserIndexItem',
 	
 	  handleClick: function (event) {
-	    console.log("usersIndex succesful click");
-	
 	    event.preventDefault();
 	    hashHistory.push('/users/' + this.props.user.id);
 	  },
@@ -35161,7 +35167,10 @@
 	      'div',
 	      { className: 'user_index_item',
 	        onClick: this.handleClick },
-	      React.createElement('img', { src: this.props.user.image_url }),
+	      React.createElement('img', { src: this.props.user.image_url,
+	        width: '200',
+	        height: '300',
+	        alt: 'Profile Picture' }),
 	      React.createElement(
 	        'div',
 	        null,
@@ -35193,17 +35202,37 @@
 	    SessionStore = __webpack_require__(258),
 	    UserStore = __webpack_require__(280),
 	    ClientActions = __webpack_require__(248),
+	    ProfileInfo = __webpack_require__(286),
+	    AboutDetail = __webpack_require__(284),
+	    QuestionDetail = __webpack_require__(285),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var UserPage = React.createClass({
 	  displayName: 'UserPage',
 	
+	  getInitialState: function () {
+	    return {
+	      currentUser: SessionStore.currentUser(),
+	      userPage: UserStore.findUser(this.props.params.userId)
+	    };
+	  },
 	
 	  render: function () {
+	
 	    return React.createElement(
-	      'div',
-	      null,
-	      'UserPage'
+	      'span',
+	      { id: 'user-page-full' },
+	      React.createElement(
+	        'div',
+	        { className: 'user-page-box' },
+	        React.createElement(ProfileInfo, { user: this.state.userPage }),
+	        React.createElement(
+	          'div',
+	          { id: 'detail-info' },
+	          React.createElement(AboutDetail, { user: this.state.userPage }),
+	          React.createElement(QuestionDetail, { user: this.state.userPage })
+	        )
+	      )
 	    );
 	  }
 	
@@ -35247,6 +35276,115 @@
 	});
 	
 	module.exports = Errors;
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var AboutDetail = React.createClass({
+	  displayName: 'AboutDetail',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'AboutDetail'
+	    );
+	  }
+	
+	});
+	
+	module.exports = AboutDetail;
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var QuestionDetail = React.createClass({
+	  displayName: 'QuestionDetail',
+	
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      'QuestionDetail'
+	    );
+	  }
+	
+	});
+	
+	module.exports = QuestionDetail;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var ProfileInfo = React.createClass({
+	  displayName: 'ProfileInfo',
+	
+	  getInitialState: function () {
+	    return {
+	      user: this.props.user
+	    };
+	  },
+	
+	  render: function () {
+	
+	    return React.createElement(
+	      'div',
+	      { id: 'profile-info' },
+	      React.createElement('img', { id: 'profile-picture', src: this.state.user.image_url, width: '200', height: '300' }),
+	      React.createElement(
+	        'div',
+	        { id: 'basic-info-box' },
+	        React.createElement(
+	          'div',
+	          { id: 'basic-info-text' },
+	          this.state.user.username,
+	          ' • ',
+	          this.state.user.title,
+	          ' • ',
+	          this.state.user.age
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'update-button-box' },
+	        React.createElement(
+	          'div',
+	          { id: 'update-button' },
+	          'Update Profile'
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProfileInfo;
 
 /***/ }
 /******/ ]);

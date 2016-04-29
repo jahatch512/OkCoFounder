@@ -1,0 +1,40 @@
+.user-page-box {
+  margin: 50px auto;
+  border-radius: 5px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #522A91;
+  min-width: 700px;
+  max-width: 900px;
+  box-shadow: 5px;
+}
+#profile-info {
+  display: flex;
+  flex-direction: row;
+}
+
+#profile-picture {
+  padding-top: 40px;
+  padding-left: 80px;
+}
+
+#basic-info-box {
+  margin-left: 100px;
+  height: 300px;
+  width: 300px;
+}
+
+#basic-info-text {
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#detail-info {
+  display: flex;
+  flex-direction: row;
+}

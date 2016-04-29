@@ -8,18 +8,19 @@ var React = require('react'),
 
 var UserIndexItem = React.createClass({
   handleClick: function(event) {
-    console.log("usersIndex succesful click");
-
     event.preventDefault();
     hashHistory.push('/users/' + this.props.user.id);
   },
 
   render: function() {
-    
+
     return (
       <div className="user_index_item"
            onClick={this.handleClick}>
-        <img src={this.props.user.image_url}/>
+        <img src={this.props.user.image_url}
+             width= "200"
+             height= "300"
+             alt="Profile Picture" />
           <div>Username: {this.props.user.username}</div>
           <div className="basic_info">{this.props.user.title} - {this.props.user.age} - {this.props.user.zipcode}
           </div>

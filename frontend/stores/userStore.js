@@ -8,6 +8,7 @@ var _users = {};
 var _errors = [];
 
 UserStore.all = function () {
+
   var _usersArray = [];
   for (var id in _users) {
     if (_users.hasOwnProperty(id)) {
@@ -27,13 +28,21 @@ UserStore.errors = function(){
   }
 };
 
+UserStore.findUser = function(id) {
+  return _users[id];
+};
+
 var addUser = function(user) {
   _users[user.id] = user;
 };
 
-var findUser = function(id) {
-  return _users[id];
+var resetUsers = function (users) {
+  _users = {};
+  users.forEach(function (user) {
+    _users[user.id] = user;
+  });
 };
+
 
 
 UserStore.__onDispatch = function (payload) {
@@ -42,7 +51,7 @@ UserStore.__onDispatch = function (payload) {
       addUser(payload.user);
       break;
     case UserConstants.RECEIVE_USERS:
-      _users = payload.users;
+      resetUsers(payload.users);
       UserStore.__emitChange();
   }
 };
