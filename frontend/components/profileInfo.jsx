@@ -17,9 +17,12 @@ var ProfileInfo = React.createClass({
     return (
 
       <div id="profile-info">
-          <img id="profile-picture" src={this.state.user.image_url} width="200" height="300"/>
+          <img id="profile-picture"
+               src={this.state.user.image_url}
+              width="200" height="300"/>
           <div id="basic-info-box">
-            <div id="basic-info-text">{this.state.user.username} • {this.state.user.title} • {this.state.user.age}</div>
+            <div id="show-page-username">{this.state.user.username}</div>
+            <div id="basic-info-text">{this.state.user.title} • {this.state.user.age} • {this.state.user.zipcode}</div>
           </div>
           <div id="update-button-box">
             <div id="update-button">Update Profile</div>

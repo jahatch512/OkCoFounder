@@ -87,3 +87,19 @@ select {
   top: 50%;
   transform: translateY(-50%);
 }
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%
+}
+
+.form-textbox {
+  border: none;
+  border-bottom: 2px solid white;
+
+  margin-bottom: 25px;
+  background-color: transparent;
+  font-size: 20px;
+}

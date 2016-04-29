@@ -24,26 +24,28 @@ var SignIn = React.createClass({
 
   render: function() {
     return (
-      <form className='login' onSubmit={this.handleSubmit}>
+      <form className='login-form' onSubmit={this.handleSubmit}>
 
-        <label className="formLabel">
-          Username:
+
           <br/>
           <input type="text"
-            value={this.state.username}
-            onChange={this.onChange}
-            id="username" />
-        </label>
+                 className="form-textbox"
+                 value={this.state.username}
+                 onChange={this.onChange}
+                 placeholder="Username"
+                 id="username" />
+
         <br/>
 
-        <label className="formLabel">
-          Password:
+
           <br/>
           <input type="password"
-            value={this.state.password}
-            onChange={this.onChange}
-            id="password"/>
-        </label>
+                 className="form-textbox"
+                 value={this.state.password}
+                 onChange={this.onChange}
+                 placeholder="Password"
+                 id="password"/>
+
         <br/>
 
         <input type="submit" value="SignIn"/>

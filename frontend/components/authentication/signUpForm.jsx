@@ -45,76 +45,69 @@ var SignUp = React.createClass({
 
     return (
       <div className='signupForm'>
-        <form className='signup' onSubmit={this.handleSubmit}>
+        <form className='login-form' onSubmit={this.handleSubmit}>
 
-          <label className="formLabel">
-            Username:
             <br/>
             <input type="text"
+              className="form-textbox"
               value={this.state.username}
               onChange={this.onChange}
+              placeholder="Username"
               id="username" />
-          </label>
           <br/>
 
-          <label className="formLabel">
-            Password:
             <br/>
             <input type="password"
+              className="form-textbox"
               value={this.state.password}
               onChange={this.onChange}
+              placeholder="Password"
               id="password"/>
-          </label>
           <br/>
 
-          <label className="formLabel">
-            Age:
             <br/>
             <input type="text"
+              className="form-textbox"
               value={this.state.age}
               onChange={this.onChange}
+              placeholder="Age"
               id="age" />
-          </label>
           <br/>
 
-          <label className="formLabel">
-            Zipcode:
             <br/>
             <input type="text"
+              className="form-textbox"
               value={this.state.zipcode}
               onChange={this.onChange}
+              placeholder="Zipcode"
               id="zipcode" />
-          </label>
           <br/>
 
-          <label className="formLabel">
-            Summary:
             <br/>
             <input type="text"
+              className="form-textbox"
               value={this.state.summary}
               onChange={this.onChange}
+              placeholder="Brief Introduction"
               id="summary"/>
-          </label>
           <br/>
 
-          <label className="formLabel">
-            Current Work:
             <br/>
             <input type="text"
+              className="form-textbox"
               value={this.state.current_work}
               onChange={this.onChange}
+              placeholder="Current Work"
               id="current_work"/>
-          </label>
           <br/>
 
-          <label className="formLabel">
-            Previous Experience:
             <br/>
             <input type="text"
+              className="form-textbox"
               value={this.state.previous_exp}
               onChange={this.onChange}
+              placeholder="Previous Experience"
               id="previous_exp"/>
-          </label>
           <br/>
 
           <input type="submit" value="Create Profile"/>
