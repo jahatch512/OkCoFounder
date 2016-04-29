@@ -9,7 +9,7 @@
 OkCoFounder is a web application inspired by OkCupid that will be built using Ruby on Rails and React.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
 - [x] New account creation, login
-- [ ] Guest/demo login
+- [x] Guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
 - [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), answer scrolling questions on user index page, select to "connect" with another user, view all connections.
@@ -26,9 +26,9 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] Create an account (MVP)
 - [x] Log in / Log out
-- [ ] Guest/Demo User (MVP)
+- [x] Guest/Demo User (MVP)
 - [ ] Update Profile information: location, title, about (MVP)
-- [ ] Browse an index of other users (MVP)
+- [x] Browse an index of other users (MVP)
 - [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
 - [ ] Answer scrolling questions on the UserIndex page while you browse (MVP)
 - [ ] Select to "connect" with another user (MVP)
@@ -58,7 +58,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] create `User` model
 - [x] create `User` Controller
 - [x] authentication
-- [ ] pre-sign up page ("I am a CFO/CEO/Developer(choose one)")
+- [x] pre-sign up page ("I am a CFO/CEO/Developer(choose one)")
 - [x] user signup/signin forms
 - [x] blank landing page after signin
 

@@ -39,7 +39,7 @@ var SplashPage = React.createClass({
 
   openModal: function(event) {
     var state = {};
-    if (event.target.id === "clickedSignUp") {
+    if (event.target.id === "sign-up-button") {
       this.setState({modalIsOpen: true, clickedSignUp: true});
     } else if (event.target.id === "guestLogin") {
       this.setState({modalIsOpen: true, guestLogin: true});
@@ -85,13 +85,16 @@ var SplashPage = React.createClass({
             <img id="home-logo" src="/assets/logo.png" />
           </div>
           <span id="initialSignUp">
+            <div id="pre-drop-text">I am a...</div>
             <select onChange={this.titleChange}>
               <option value="CEO">CEO</option>
               <option value="CFO">CFO</option>
               <option value="MBA">MBA</option>
               <option value="Developer">Developer</option>
             </select>
-            <div onClick={this.openModal} id='clickedSignUp'>Sign Up</div>
+            <div onClick={this.openModal} id='sign-up-box'>
+              <div id="sign-up-button">Find a Match!</div>
+            </div>
           </span>
     </div>;
 

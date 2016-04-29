@@ -1,5 +1,5 @@
 .splash_page {
-  background-image: url("/assets/handshake.jpg");
+  background: url("/assets/handshake.jpg") no-repeat;
   background-size: cover;
   opacity: 50%;
   height: 100%;
@@ -16,12 +16,18 @@
 }
 
 
-#initialSignUp {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-  height: 100px;
+
+#guest-login-box {
+  height: 80px;
+  margin: 40px;
+}
+
+#guest-login-button {
+  margin-left: 20px;
+  border: solid white 2px;
+  padding: 10px;
+  width: 100px;
+  text-align: center;
 }
 
 #home-logo-box {
@@ -35,15 +41,49 @@
   align-items: center;
 }
 
-#guest-login-box {
+#initialSignUp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
   height: 100px;
-  margin: 40px;
 }
 
-#guest-login-button {
-  margin-left: 20px;
-  border: solid white 2px;
-  padding: 10px;
-  width: 100px;
-  text-align: center;
+#pre-drop-text {
+  font-size: 25px;
+  padding: 40px;
+  padding-left: 90px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+}
+
+select {
+  background-color: #104DA1;
+  padding: 15px;
+  width: 180px;
+  height: 40px;
+  color: white;
+  font-size: 18px;
+  border-radius: 3px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#sign-up-box {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 30px;
+}
+
+#sign-up-button {
+  margin-top: 20px;
+  border: 2px solid white;
+  font-size: 25px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }

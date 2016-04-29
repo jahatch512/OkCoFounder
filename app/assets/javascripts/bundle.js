@@ -27482,7 +27482,7 @@
 	
 	  openModal: function (event) {
 	    var state = {};
-	    if (event.target.id === "clickedSignUp") {
+	    if (event.target.id === "sign-up-button") {
 	      this.setState({ modalIsOpen: true, clickedSignUp: true });
 	    } else if (event.target.id === "guestLogin") {
 	      this.setState({ modalIsOpen: true, guestLogin: true });
@@ -27540,6 +27540,11 @@
 	        'span',
 	        { id: 'initialSignUp' },
 	        React.createElement(
+	          'div',
+	          { id: 'pre-drop-text' },
+	          'I am a...'
+	        ),
+	        React.createElement(
 	          'select',
 	          { onChange: this.titleChange },
 	          React.createElement(
@@ -27565,8 +27570,12 @@
 	        ),
 	        React.createElement(
 	          'div',
-	          { onClick: this.openModal, id: 'clickedSignUp' },
-	          'Sign Up'
+	          { onClick: this.openModal, id: 'sign-up-box' },
+	          React.createElement(
+	            'div',
+	            { id: 'sign-up-button' },
+	            'Find a Match!'
+	          )
 	        )
 	      )
 	    );

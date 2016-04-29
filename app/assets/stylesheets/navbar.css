@@ -22,7 +22,7 @@ time, mark, audio, video {
 .navBar {
   display: flex;
   flex-direction: row;
-  height: 100px;
+  height: 80px;
   background-color: #104DA1;
   width: 100%;
   justify-content: flex-end;
@@ -58,11 +58,11 @@ time, mark, audio, video {
 #nav-logo {
   color: white;
   margin-right: auto;
-  margin-left: 100px;
+  margin-left: 80px;
 	align-items: center;
 }
 
 #logo-image {
 	width: auto;
-	height: 100px;
+	height: 80px;
 }
