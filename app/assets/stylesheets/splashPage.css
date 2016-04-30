@@ -32,7 +32,7 @@
 
 #home-logo-box {
   height: 40%;
-  margin: auto;
+  margin: auto auto 0px auto;
 }
 
 #home-logo {
@@ -47,6 +47,7 @@
   justify-content: center;
   align-content: center;
   height: 100px;
+  margin-bottom: 70px;
 }
 
 #pre-drop-text {

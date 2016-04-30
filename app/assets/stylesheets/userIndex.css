@@ -28,9 +28,13 @@
 
 .user_index_item:hover {
   box-shadow: 0px 15px 35px 0px rgba(0,0,0,0.75);
-  transform: translateY(-5px);
+  transform: translateY(-5px) translateZ(100px);
 }
 
 .user_item_list {
 
+}
+
+.profile-picture {
+  border-radius: 10px
 }

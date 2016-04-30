@@ -17,7 +17,7 @@ var UserIndexItem = React.createClass({
     return (
       <div className="user_index_item"
            onClick={this.handleClick}>
-        <img src={this.props.user.image_url}
+        <img className="profile-picture" src={this.props.user.image_url}
              width= "200"
              height= "300"
              alt="Profile Picture" />

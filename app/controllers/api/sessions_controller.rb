@@ -23,7 +23,7 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     logout_user!
-    render json: {message: "delete request success"}
+    render json: {message: "destroy successful"}
   end
 
   private
