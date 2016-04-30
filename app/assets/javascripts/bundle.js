@@ -34876,6 +34876,7 @@
 	
 	  logoutUser: function () {
 	    ClientActions.logoutUser();
+	    hashHistory.push('/');
 	  },
 	
 	  openModal: function (event) {
@@ -34901,8 +34902,11 @@
 	  },
 	
 	  sessionClick: function (event) {
+	    console.log("session Button Cliccked");
+	    console.log("navBar CU " + this.state.currentUser);
+	
 	    event.preventDefault();
-	    this.state.currentUser ? ClientActions.logoutUser() : this.openModal();
+	    this.state.currentUser ? this.logoutUser() : this.openModal();
 	  },
 	
 	  render: function () {
@@ -35022,8 +35026,16 @@
 	    this.userStoreListener.remove();
 	  },
 	
+	  // componentWillMount: function () {
+	  //   this.redirectNoUser();
+	  // },
+	
 	  onSessionChange: function () {
-	    this.setState({ currentUser: SessionStore.currentUser() });
+	    if (SessionStore.currentUser() === null) {
+	      hashHistory.push('/');
+	    } else {
+	      this.setState({ currentUser: SessionStore.currentUser() });
+	    }
 	  },
 	
 	  onUserChange: function () {
@@ -35032,12 +35044,16 @@
 	  },
 	
 	  render: function () {
-	
-	    var renderUsers = this.state.users.map(function (user) {
-	      return React.createElement(UserIndexItem, { className: 'user_index_item',
-	        key: user.id,
-	        user: user });
+	    var renderUsers = [];
+	    var that = this;
+	    this.state.users.forEach(function (user) {
+	      if (user.id !== that.state.currentUser.id) {
+	        renderUsers.push(React.createElement(UserIndexItem, { className: 'user_index_item',
+	          key: user.id,
+	          user: user }));
+	      }
 	    });
+	
 	    return React.createElement(
 	      'div',
 	      { className: 'user_index_page' },
@@ -35186,11 +35202,27 @@
 	  getInitialState: function () {
 	    return {
 	      currentUser: SessionStore.currentUser(),
-	      userPage: UserStore.findUser(this.props.params.userId)
+	      userPage: UserStore.findUser(this.props.params.userId),
+	      currentTab: "about"
 	    };
 	  },
 	
+	  aboutClick: function () {
+	    this.setState({ currentTab: "about" });
+	  },
+	
+	  questionClick: function () {
+	    this.setState({ currentTab: "question" });
+	  },
+	
 	  render: function () {
+	    console.log("infiniteloop");
+	
+	    if (this.state.currentTab === "about") {
+	      var detailBody = React.createElement(AboutDetail, { id: 'about-detail-box' });
+	    } else if (this.state.currentTab === "question") {
+	      detailBody = React.createElement(QuestionDetail, { id: 'question-detail-box' });
+	    }
 	
 	    return React.createElement(
 	      'span',
@@ -35201,9 +35233,24 @@
 	        React.createElement(ProfileInfo, { user: this.state.userPage }),
 	        React.createElement(
 	          'div',
-	          { id: 'detail-info' },
-	          React.createElement(AboutDetail, { user: this.state.userPage }),
-	          React.createElement(QuestionDetail, { user: this.state.userPage })
+	          { id: 'detail-info-buttons' },
+	          React.createElement(
+	            'div',
+	            { className: 'detail-info-tab',
+	              onClick: this.aboutClick },
+	            'About Detail'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'detail-info-tab',
+	              onClick: this.questionClick },
+	            'Question Detail'
+	          )
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          detailBody
 	        )
 	      )
 	    );

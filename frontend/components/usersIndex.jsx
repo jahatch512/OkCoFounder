@@ -21,7 +21,6 @@ var UsersIndex = React.createClass({
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
     this.userStoreListener = UserStore.addListener(this.onUserChange);
-
   },
 
   componentWillUnmount: function () {
@@ -29,8 +28,16 @@ var UsersIndex = React.createClass({
     this.userStoreListener.remove();
   },
 
+  // componentWillMount: function () {
+  //   this.redirectNoUser();
+  // },
+
   onSessionChange: function() {
+    if (SessionStore.currentUser() === null){
+      hashHistory.push('/');
+    } else {
     this.setState({currentUser: SessionStore.currentUser()});
+    }
   },
 
   onUserChange: function() {
@@ -39,12 +46,16 @@ var UsersIndex = React.createClass({
   },
 
   render: function() {
+    var renderUsers = [];
+    var that = this;
+      this.state.users.forEach(function(user){
+        if (user.id !== that.state.currentUser.id){
+          renderUsers.push(<UserIndexItem className="user_index_item"
+                  key={user.id}
+                  user={user} />);
+        }
+      });
 
-    var renderUsers = this.state.users.map(function(user){
-      return (<UserIndexItem className="user_index_item"
-              key={user.id}
-              user={user} />);
-    });
     return (
       <div className="user_index_page">
         <div className="user_index_box">

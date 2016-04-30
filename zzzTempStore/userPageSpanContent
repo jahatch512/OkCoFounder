@@ -1,9 +1,0 @@
-{
-  <div className="user-page-box">
-    <ProfileInfo user={this.state.userPage} />
-    <div id="detail-info">
-      <AboutDetail user={this.state.userPage} />
-      <QuestionDetail user={this.state.userPage} />
-    </div>
-  </div>
-}

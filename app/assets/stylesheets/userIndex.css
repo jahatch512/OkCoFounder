@@ -5,11 +5,12 @@
 
 .user_index_box {
   display: flex;
+  padding-bottom: 60px;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   background-color: #red;
-  margin: 50px;
+  margin: 50px 50px 0px 50px;
   min-width: 575px;
   max-width: 1400px;
 

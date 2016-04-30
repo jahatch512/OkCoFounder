@@ -31,6 +31,7 @@ var navBar = React.createClass({
 
   logoutUser: function() {
     ClientActions.logoutUser();
+    hashHistory.push('/');
 
   },
 
@@ -57,8 +58,12 @@ var navBar = React.createClass({
   },
 
   sessionClick: function(event) {
+    console.log("session Button Cliccked");
+    console.log("navBar CU " + this.state.currentUser);
+
+
     event.preventDefault();
-    this.state.currentUser ? ClientActions.logoutUser() : this.openModal();
+    this.state.currentUser ? this.logoutUser() : this.openModal();
   },
 
   render: function() {
