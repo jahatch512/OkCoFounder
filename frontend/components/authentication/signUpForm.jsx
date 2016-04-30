@@ -7,9 +7,6 @@ var SignUp = React.createClass({
   getInitialState: function() {
     return {username: "",
             password: "",
-            summary: "",
-            current_work: "",
-            previous_exp: "",
             title: "",
             age: "",
             zipcode: "",
@@ -25,14 +22,7 @@ var SignUp = React.createClass({
       age: parseInt(this.state.age),
       zipcode: parseInt(this.state.zipcode)
     }};
-    var about = {about: {
-      summary: this.state.summary,
-      current_work: this.state.current_work,
-      previous_exp: this.state.previous_exp
-    }};
     ClientActions.createUser(user);
-    // ClientActions.createAbout(about);
-    // this.props.parent.closeModal();
   },
 
   onChange: function(event) {
@@ -81,33 +71,6 @@ var SignUp = React.createClass({
               onChange={this.onChange}
               placeholder="Zipcode"
               id="zipcode" />
-          <br/>
-
-            <br/>
-            <input type="text"
-              className="form-textbox"
-              value={this.state.summary}
-              onChange={this.onChange}
-              placeholder="Brief Introduction"
-              id="summary"/>
-          <br/>
-
-            <br/>
-            <input type="text"
-              className="form-textbox"
-              value={this.state.current_work}
-              onChange={this.onChange}
-              placeholder="Current Work"
-              id="current_work"/>
-          <br/>
-
-            <br/>
-            <input type="text"
-              className="form-textbox"
-              value={this.state.previous_exp}
-              onChange={this.onChange}
-              placeholder="Previous Experience"
-              id="previous_exp"/>
           <br/>
 
           <input type="submit" value="Create Profile"/>

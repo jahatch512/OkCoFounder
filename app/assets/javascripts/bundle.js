@@ -58,10 +58,8 @@
 	    SessionStore = __webpack_require__(258),
 	    UsersIndex = __webpack_require__(279),
 	    SplashPage = __webpack_require__(246),
+	    AboutForm = __webpack_require__(287),
 	    UserPage = __webpack_require__(282);
-	
-	//Mixins
-	// var CurrentUserState = require('./mixins/current_user_state');
 	
 	var RouterComponent = React.createElement(
 	  Router,
@@ -70,7 +68,11 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: SplashPage }),
-	    React.createElement(Route, { path: 'users', component: UsersIndex }),
+	    React.createElement(
+	      Route,
+	      { path: 'users', component: UsersIndex },
+	      React.createElement(Route, { path: 'about', component: AboutForm })
+	    ),
 	    React.createElement(Route, { path: 'users/:userId', component: UserPage })
 	  )
 	);
@@ -27674,8 +27676,8 @@
 	    UserApi.createUser(user);
 	  },
 	
-	  createAbout: function () {
-	    UserApi.createAbout();
+	  createAbout: function (formData) {
+	    UserApi.createAbout(formData);
 	  },
 	
 	  logoutUser: function () {
@@ -27736,8 +27738,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var Dispatcher = __webpack_require__(251);
-	var UserConstants = __webpack_require__(255);
+	var Dispatcher = __webpack_require__(251),
+	    UserConstants = __webpack_require__(255),
+	    aboutConstants = __webpack_require__(288);
 	
 	module.exports = {
 	
@@ -27779,6 +27782,13 @@
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.RECEIVE_SINGLE_USER,
 	      user: user
+	    });
+	  },
+	
+	  receiveAbout: function (about) {
+	    Dispatcher.dispatch({
+	      actionType: aboutConstants.RECEIVE_SINGLE_ABOUT,
+	      about: about
 	    });
 	  }
 	};
@@ -28129,7 +28139,7 @@
 	      data: formData,
 	      success: function (user) {
 	        ServerActions.loginUser(user);
-	        hashHistory.push('/users');
+	        hashHistory.push('/users/about');
 	      },
 	      error: function (error) {
 	        ServerActions.receiveError(error.responseText);
@@ -28156,18 +28166,24 @@
 	        ServerActions.receiveSingleUser(user);
 	      }
 	    });
-	  }
+	  },
 	
-	  //  createAbout: function (formData) {
-	  //     $.ajax({
-	  //     url: "api/abouts",
-	  //   type: "POST",
-	  //   data: formData,
-	  //   success: function (data) {
-	  //     ServerActions.createAbout(data);
-	  //   }
-	  //   });
-	  //   }
+	  createAbout: function (formData) {
+	    $.ajax({
+	      url: "api/abouts",
+	      type: "POST",
+	      data: formData,
+	      success: function (data) {
+	        console.log("successfully persisted about to db, here it is:  " + data);
+	        ServerActions.receiveAbout(data);
+	        hashHistory.push('/users');
+	      },
+	
+	      error: function (errors) {
+	        console.log("error in createAbout ajax request");
+	      }
+	    });
+	  }
 	
 	};
 
@@ -28184,9 +28200,6 @@
 	  getInitialState: function () {
 	    return { username: "",
 	      password: "",
-	      summary: "",
-	      current_work: "",
-	      previous_exp: "",
 	      title: "",
 	      age: "",
 	      zipcode: ""
@@ -28202,14 +28215,7 @@
 	        age: parseInt(this.state.age),
 	        zipcode: parseInt(this.state.zipcode)
 	      } };
-	    var about = { about: {
-	        summary: this.state.summary,
-	        current_work: this.state.current_work,
-	        previous_exp: this.state.previous_exp
-	      } };
 	    ClientActions.createUser(user);
-	    // ClientActions.createAbout(about);
-	    // this.props.parent.closeModal();
 	  },
 	
 	  onChange: function (event) {
@@ -28257,30 +28263,6 @@
 	          onChange: this.onChange,
 	          placeholder: 'Zipcode',
 	          id: 'zipcode' }),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text',
-	          className: 'form-textbox',
-	          value: this.state.summary,
-	          onChange: this.onChange,
-	          placeholder: 'Brief Introduction',
-	          id: 'summary' }),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text',
-	          className: 'form-textbox',
-	          value: this.state.current_work,
-	          onChange: this.onChange,
-	          placeholder: 'Current Work',
-	          id: 'current_work' }),
-	        React.createElement('br', null),
-	        React.createElement('br', null),
-	        React.createElement('input', { type: 'text',
-	          className: 'form-textbox',
-	          value: this.state.previous_exp,
-	          onChange: this.onChange,
-	          placeholder: 'Previous Experience',
-	          id: 'previous_exp' }),
 	        React.createElement('br', null),
 	        React.createElement('input', { type: 'submit', value: 'Create Profile' })
 	      )
@@ -34902,9 +34884,6 @@
 	  },
 	
 	  sessionClick: function (event) {
-	    console.log("session Button Cliccked");
-	    console.log("navBar CU " + this.state.currentUser);
-	
 	    event.preventDefault();
 	    this.state.currentUser ? this.logoutUser() : this.openModal();
 	  },
@@ -35060,7 +35039,8 @@
 	      React.createElement(
 	        'div',
 	        { className: 'user_index_box' },
-	        renderUsers
+	        renderUsers,
+	        this.props.children
 	      )
 	    );
 	  }
@@ -35416,6 +35396,118 @@
 	});
 	
 	module.exports = ProfileInfo;
+
+/***/ },
+/* 287 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(258),
+	    ClientActions = __webpack_require__(248),
+	    ModalStyling = __webpack_require__(276),
+	    Modal = __webpack_require__(166),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var AboutForm = React.createClass({
+	  displayName: 'AboutForm',
+	
+	  getInitialState: function () {
+	    return {
+	      modalIsOpen: true,
+	      summary: "",
+	      current_work: "",
+	      previous_experience: "",
+	      user_id: SessionStore.currentUser().id
+	    };
+	  },
+	
+	  onChange: function (event) {
+	    var state = {};
+	    state[event.target.id] = event.target.value;
+	    this.setState(state);
+	  },
+	
+	  afterOpenModal: function () {
+	    ModalStyling.content.opacity = 100;
+	  },
+	
+	  closeModal: function () {
+	    this.setState({ modalIsOpen: false });
+	  },
+	
+	  handleSubmit: function (event) {
+	    event.preventDefault();
+	    this.closeModal();
+	    var about = { about: {
+	        summary: this.state.summary,
+	        current_work: this.state.current_work,
+	        previous_experience: this.state.previous_experience,
+	        user_id: this.state.user_id
+	      } };
+	    ClientActions.createAbout(about);
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        Modal,
+	        {
+	          isOpen: this.state.modalIsOpen,
+	          style: ModalStyling,
+	          onAfterOpen: this.afterOpenModal,
+	          onRequestClose: this.closeModal },
+	        React.createElement(
+	          'button',
+	          { onClick: this.closeModal },
+	          'close'
+	        ),
+	        React.createElement(
+	          'form',
+	          { className: 'login-form', onSubmit: this.handleSubmit },
+	          React.createElement('input', { type: 'text',
+	            className: 'form-textbox',
+	            value: this.state.summary,
+	            onChange: this.onChange,
+	            placeholder: 'Brief Introduction',
+	            id: 'summary' }),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            className: 'form-textbox',
+	            value: this.state.current_work,
+	            onChange: this.onChange,
+	            placeholder: 'Current Work',
+	            id: 'current_work' }),
+	          React.createElement('br', null),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text',
+	            className: 'form-textbox',
+	            value: this.state.previous_exp,
+	            onChange: this.onChange,
+	            placeholder: 'Previous Experience',
+	            id: 'previous_experience' }),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'submit', value: 'Update Profile' })
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = AboutForm;
+
+/***/ },
+/* 288 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_SINGLE_ABOUT: "RECEIVE_SINGLE_ABOUT"
+	};
 
 /***/ }
 /******/ ]);

@@ -63,6 +63,7 @@ var UsersIndex = React.createClass({
       {
         renderUsers
       }
+      {this.props.children}
         </div>
       </div>
     );

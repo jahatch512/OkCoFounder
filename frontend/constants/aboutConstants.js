@@ -1,0 +1,3 @@
+module.exports = {
+  RECEIVE_SINGLE_ABOUT: "RECEIVE_SINGLE_ABOUT"
+};

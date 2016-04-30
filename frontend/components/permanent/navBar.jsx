@@ -58,10 +58,6 @@ var navBar = React.createClass({
   },
 
   sessionClick: function(event) {
-    console.log("session Button Cliccked");
-    console.log("navBar CU " + this.state.currentUser);
-
-
     event.preventDefault();
     this.state.currentUser ? this.logoutUser() : this.openModal();
   },

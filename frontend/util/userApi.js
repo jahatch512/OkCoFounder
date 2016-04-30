@@ -10,7 +10,7 @@ module.exports = {
       data: formData,
       success: function(user) {
         ServerActions.loginUser(user);
-        hashHistory.push('/users');
+        hashHistory.push('/users/about');
       },
       error: function(error) {
         ServerActions.receiveError(error.responseText);
@@ -38,19 +38,23 @@ module.exports = {
         ServerActions.receiveSingleUser(user);
       }
     });
+  },
+
+  createAbout: function (formData) {
+    $.ajax({
+      url: "api/abouts",
+      type: "POST",
+      data: formData,
+      success: function (data) {
+        console.log("successfully persisted about to db, here it is:  " + data);
+        ServerActions.receiveAbout(data);
+        hashHistory.push('/users');
+      },
+
+      error: function (errors) {
+        console.log("error in createAbout ajax request");
+      }
+    });
   }
-
-
-
-  //  createAbout: function (formData) {
-  //     $.ajax({
-  //     url: "api/abouts",
-  //   type: "POST",
-  //   data: formData,
-  //   success: function (data) {
-  //     ServerActions.createAbout(data);
-  //   }
-  //   });
-  //   }
 
 };

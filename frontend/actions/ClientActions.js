@@ -7,8 +7,8 @@ module.exports = {
       UserApi.createUser(user);
    },
 
- createAbout: function () {
-     UserApi.createAbout();
+ createAbout: function (formData) {
+     UserApi.createAbout(formData);
   },
 
  logoutUser: function () {
