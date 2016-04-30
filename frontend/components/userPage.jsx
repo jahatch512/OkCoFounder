@@ -13,21 +13,25 @@ var UserPage = React.createClass({
     return {
       currentUser: SessionStore.currentUser(),
       userPage: UserStore.findUser(this.props.params.userId),
-      currentTab: "about"
+      currentTab: "about",
+      aboutSelect: "detail-info-tab selected-tab",
+      questionSelect: "detail-info-tab"
     };
   },
 
   aboutClick: function() {
-    this.setState({currentTab: "about"});
+    this.setState({currentTab: "about",
+                   aboutSelect: "detail-info-tab selected-tab",
+                   questionSelect: "detail-info-tab"});
   },
 
   questionClick: function() {
-    this.setState({currentTab: "question"});
+    this.setState({currentTab: "question",
+                   questionSelect: "detail-info-tab selected-tab",
+                   aboutSelect: "detail-info-tab"});
   },
 
   render: function() {
-    console.log("infiniteloop");
-
     if (this.state.currentTab === "about"){
       var detailBody = <AboutDetail id="about-detail-box" />;
     } else if (this.state.currentTab === "question"){
@@ -39,11 +43,11 @@ var UserPage = React.createClass({
         {
           <div className="user-page-box">
             <ProfileInfo user={this.state.userPage} />
-            <div id="detail-info-buttons">
-              <div className="detail-info-tab"
+            <div id={"detail-info-buttons"}>
+              <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>
                      About Detail</div>
-              <div className="detail-info-tab"
+                   <div className={this.state.questionSelect}
                    onClick={this.questionClick}>
                    Question Detail</div>
             </div>

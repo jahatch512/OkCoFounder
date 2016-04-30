@@ -35203,21 +35203,25 @@
 	    return {
 	      currentUser: SessionStore.currentUser(),
 	      userPage: UserStore.findUser(this.props.params.userId),
-	      currentTab: "about"
+	      currentTab: "about",
+	      aboutSelect: "detail-info-tab selected-tab",
+	      questionSelect: "detail-info-tab"
 	    };
 	  },
 	
 	  aboutClick: function () {
-	    this.setState({ currentTab: "about" });
+	    this.setState({ currentTab: "about",
+	      aboutSelect: "detail-info-tab selected-tab",
+	      questionSelect: "detail-info-tab" });
 	  },
 	
 	  questionClick: function () {
-	    this.setState({ currentTab: "question" });
+	    this.setState({ currentTab: "question",
+	      questionSelect: "detail-info-tab selected-tab",
+	      aboutSelect: "detail-info-tab" });
 	  },
 	
 	  render: function () {
-	    console.log("infiniteloop");
-	
 	    if (this.state.currentTab === "about") {
 	      var detailBody = React.createElement(AboutDetail, { id: 'about-detail-box' });
 	    } else if (this.state.currentTab === "question") {
@@ -35233,16 +35237,16 @@
 	        React.createElement(ProfileInfo, { user: this.state.userPage }),
 	        React.createElement(
 	          'div',
-	          { id: 'detail-info-buttons' },
+	          { id: "detail-info-buttons" },
 	          React.createElement(
 	            'div',
-	            { className: 'detail-info-tab',
+	            { className: this.state.aboutSelect,
 	              onClick: this.aboutClick },
 	            'About Detail'
 	          ),
 	          React.createElement(
 	            'div',
-	            { className: 'detail-info-tab',
+	            { className: this.state.questionSelect,
 	              onClick: this.questionClick },
 	            'Question Detail'
 	          )
