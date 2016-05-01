@@ -35217,9 +35217,11 @@
 	
 	  render: function () {
 	    if (this.state.currentTab === "about") {
-	      var detailBody = React.createElement(AboutDetail, { id: 'about-detail-box' });
+	      var detailBody = React.createElement(AboutDetail, { user: this.state.userPage,
+	        id: 'about-detail-box' });
 	    } else if (this.state.currentTab === "question") {
-	      detailBody = React.createElement(QuestionDetail, { id: 'question-detail-box' });
+	      detailBody = React.createElement(QuestionDetail, { user: this.state.userPage,
+	        id: 'question-detail-box' });
 	    }
 	
 	    return React.createElement(
@@ -35309,12 +35311,35 @@
 	var AboutDetail = React.createClass({
 	  displayName: 'AboutDetail',
 	
+	  getInitialState: function () {
+	    return {
+	      summary: this.props.user.about.summary,
+	      currentWork: this.props.user.about.current_work,
+	      previousExperience: this.props.user.about.previous_experience
+	    };
+	  },
 	
 	  render: function () {
+	    console.log(this.props.user);
+	
 	    return React.createElement(
-	      'div',
-	      null,
-	      'AboutDetail'
+	      'span',
+	      { className: 'about-detail-list' },
+	      React.createElement(
+	        'div',
+	        null,
+	        this.state.summary
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        this.state.currentWork
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
+	        this.state.previousExperience
+	      )
 	    );
 	  }
 	

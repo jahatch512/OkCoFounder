@@ -7,10 +7,23 @@ var React = require('react'),
 
 
 var AboutDetail = React.createClass({
+  getInitialState: function() {
+    return {
+      summary: this.props.user.about.summary,
+      currentWork: this.props.user.about.current_work,
+      previousExperience: this.props.user.about.previous_experience
+    };
+  },
 
   render: function() {
+    console.log(this.props.user);
+
     return (
-      <div>AboutDetail</div>
+      <span className="about-detail-list">
+          <div>{this.state.summary}</div>
+          <div>{this.state.currentWork}</div>
+          <div>{this.state.previousExperience}</div>
+      </span>
     );
   }
 

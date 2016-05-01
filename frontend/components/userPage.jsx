@@ -33,9 +33,11 @@ var UserPage = React.createClass({
 
   render: function() {
     if (this.state.currentTab === "about"){
-      var detailBody = <AboutDetail id="about-detail-box" />;
+      var detailBody = <AboutDetail user={this.state.userPage}
+                                    id="about-detail-box" />;
     } else if (this.state.currentTab === "question"){
-      detailBody = <QuestionDetail id="question-detail-box" />;
+      detailBody = <QuestionDetail user={this.state.userPage}
+                                   id="question-detail-box" />;
     }
 
     return (
