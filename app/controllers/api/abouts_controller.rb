@@ -3,7 +3,7 @@ class Api::AboutsController < ApplicationController
   def create
     @about = About.new(about_params)
     if @about.save
-      render json: {about: @about}
+      render json: @about
     else
       render json: {message: "error in saving about info to database"}
     end
@@ -11,12 +11,12 @@ class Api::AboutsController < ApplicationController
 
   def update
     @about = About.find_by(user_id: params[:user_id])
-    render json: {about: @about}
+    render json: @about
   end
 
   def show
     @about = About.find_by(user_id: params[:user_id])
-    render json: {about: @about}
+    render json: @about
   end
 
   private

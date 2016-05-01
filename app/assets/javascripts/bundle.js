@@ -27751,6 +27751,13 @@
 	    });
 	  },
 	
+	  createUser: function (user) {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.CREATE_USER,
+	      user: user
+	    });
+	  },
+	
 	  logoutUser: function () {
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.LOGOUT_USER
@@ -28139,6 +28146,7 @@
 	      data: formData,
 	      success: function (user) {
 	        ServerActions.loginUser(user);
+	        ServerActions.createUser(user);
 	        hashHistory.push('/users/about');
 	      },
 	      error: function (error) {
@@ -34815,7 +34823,8 @@
 	    zIndex: '11',
 	    opacity: '0',
 	    transition: 'opacity 3s',
-	    minHeight: '600px'
+	    minHeight: '300px',
+	    overflowy: 'scroll'
 	  }
 	};
 	
@@ -34935,12 +34944,7 @@
 	          onAfterOpen: this.afterOpenModal,
 	          onRequestClose: this.closeModal },
 	        errorMessages,
-	        modalContents,
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeModal },
-	          'close'
-	        )
+	        modalContents
 	      )
 	    );
 	  }
@@ -35055,7 +35059,8 @@
 
 	var Store = __webpack_require__(259).Store,
 	    Dispatcher = __webpack_require__(251),
-	    UserConstants = __webpack_require__(255);
+	    UserConstants = __webpack_require__(255),
+	    AboutConstants = __webpack_require__(288);
 	
 	var UserStore = new Store(Dispatcher);
 	
@@ -35098,6 +35103,11 @@
 	  });
 	};
 	
+	var updateAbout = function (about) {
+	  _users[about.user_id].about = about;
+	  console.log(_users[about.user_id]);
+	};
+	
 	UserStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case UserConstants.CREATE_USER:
@@ -35106,6 +35116,10 @@
 	    case UserConstants.RECEIVE_USERS:
 	      resetUsers(payload.users);
 	      UserStore.__emitChange();
+	      break;
+	    case AboutConstants.RECEIVE_SINGLE_ABOUT:
+	      updateAbout(payload.about);
+	      break;
 	  }
 	};
 	
@@ -35273,7 +35287,7 @@
 	
 	    return React.createElement(
 	      "ul",
-	      null,
+	      { className: "error-list" },
 	      errorsList
 	    );
 	  }
@@ -35460,11 +35474,6 @@
 	          style: ModalStyling,
 	          onAfterOpen: this.afterOpenModal,
 	          onRequestClose: this.closeModal },
-	        React.createElement(
-	          'button',
-	          { onClick: this.closeModal },
-	          'close'
-	        ),
 	        React.createElement(
 	          'form',
 	          { className: 'login-form', onSubmit: this.handleSubmit },

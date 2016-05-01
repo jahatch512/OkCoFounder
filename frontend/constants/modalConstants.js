@@ -20,7 +20,8 @@ var CONTENT_STYLE = {
     zIndex          : '11',
     opacity         : '0',
     transition      : 'opacity 3s',
-    minHeight       : '600px',
+    minHeight       : '300px',
+    overflowy       : 'scroll'
   }
 };
 

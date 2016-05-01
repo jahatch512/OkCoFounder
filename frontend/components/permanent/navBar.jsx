@@ -107,7 +107,6 @@ var navBar = React.createClass({
 
         {errorMessages}
         {modalContents}
-        <button onClick={this.closeModal}>close</button>
       </Modal>
     </div>
     );

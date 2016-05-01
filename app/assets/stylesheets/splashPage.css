@@ -99,8 +99,13 @@ select {
 .form-textbox {
   border: none;
   border-bottom: 2px solid white;
-
-  margin-bottom: 25px;
+  margin: 20px 20px;
   background-color: transparent;
   font-size: 20px;
+  color: white;k
+}
+
+.error-list {
+  color: red;
+  font-weight: bolder;
 }

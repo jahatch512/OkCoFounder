@@ -1,6 +1,7 @@
 var Store = require('flux/utils').Store,
     Dispatcher = require('../dispatcher/dispatcher.js'),
-    UserConstants = require('../constants/userConstants.js');
+    UserConstants = require('../constants/userConstants.js'),
+    AboutConstants = require('../constants/aboutConstants.js');
 
 var UserStore = new Store(Dispatcher);
 
@@ -43,7 +44,10 @@ var resetUsers = function (users) {
   });
 };
 
-
+var updateAbout = function (about) {
+  _users[about.user_id].about = about;
+  console.log(_users[about.user_id]);
+};
 
 UserStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
@@ -53,6 +57,10 @@ UserStore.__onDispatch = function (payload) {
     case UserConstants.RECEIVE_USERS:
       resetUsers(payload.users);
       UserStore.__emitChange();
+      break;
+    case AboutConstants.RECEIVE_SINGLE_ABOUT:
+      updateAbout(payload.about);
+      break;
   }
 };
 

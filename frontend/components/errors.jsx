@@ -17,7 +17,7 @@ var Errors = React.createClass({
     }
 
     return (
-      <ul>
+      <ul className="error-list">
         {errorsList}
       </ul>
     );

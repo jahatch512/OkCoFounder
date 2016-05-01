@@ -21,27 +21,27 @@
   margin-left: 40px;
   box-shadow: 13px 12px 17px -4px rgba(0,0,0,0.75);
 }
-
-#basic-info-box {
-  margin-left: 100px;
-  height: 300px;
-  width: 300px;
-}
-
-#basic-info-text {
-  font-size: 20px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 #show-page-username {
+  color: #222222;
   font-size: 40px;
   font-weight: bold;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
+#basic-info-box {
+  margin-left: 100px;
+  height: 300px;
+  width: 300px;
+}
+#basic-info-text {
+  color: #222222;
+  font-size: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 
 #detail-info {
   display: flex;

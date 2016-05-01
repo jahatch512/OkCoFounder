@@ -8,7 +8,7 @@ class Api::UsersController < ApplicationController
 
     if @user.save
       login_user!(@user)
-      render :create
+      render :show
     else
       @error_messages = @user.errors.full_messages
       render json: {message: @error_messages}, status: 422

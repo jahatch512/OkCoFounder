@@ -52,7 +52,6 @@ var AboutForm = React.createClass({
           style={ModalStyling}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal} >
-          <button onClick={this.closeModal}>close</button>
 
           <form className='login-form' onSubmit={this.handleSubmit}>
 

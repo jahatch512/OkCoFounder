@@ -10,6 +10,7 @@ module.exports = {
       data: formData,
       success: function(user) {
         ServerActions.loginUser(user);
+        ServerActions.createUser(user);
         hashHistory.push('/users/about');
       },
       error: function(error) {
