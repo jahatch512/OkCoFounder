@@ -46,7 +46,6 @@ var resetUsers = function (users) {
 
 var updateAbout = function (about) {
   _users[about.user_id].about = about;
-  console.log(_users[about.user_id]);
 };
 
 UserStore.__onDispatch = function (payload) {
