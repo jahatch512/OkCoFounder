@@ -53,6 +53,13 @@ module.exports = {
     });
   },
 
+  receiveCurrentUser: function (user) {
+    Dispatcher.dispatch({
+      actionType: UserConstants.RECEIVE_CURRENT_USER,
+      user: user
+    });
+  },
+
   receiveAbout: function (about) {
     Dispatcher.dispatch({
       actionType: aboutConstants.RECEIVE_SINGLE_ABOUT,

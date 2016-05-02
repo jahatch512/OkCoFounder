@@ -29,6 +29,20 @@ module.exports = {
         ServerActions.receiveError(error.responseText);
       }
     });
+  },
+
+  fetchCurrentUser: function () {
+    $.ajax({
+      url: "api/session",
+      type: "GET",
+      success: function (currentUser) {
+        ServerActions.receiveCurrentUser(currentUser);
+      },
+      error: function(error) {
+        ServerActions.receiveError(error.responseText);
+      }
+    });
   }
+
 
 };

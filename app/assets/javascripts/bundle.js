@@ -27692,6 +27692,10 @@
 	
 	  fetchUsers: function () {
 	    UserApi.fetchUsers();
+	  },
+	
+	  fetchCurrentUser: function () {
+	    SessionApi.fetchCurrentUser();
 	  }
 	
 	};
@@ -27726,6 +27730,19 @@
 	      success: function () {
 	        ServerActions.logoutUser();
 	        hashHistory.push('/');
+	      },
+	      error: function (error) {
+	        ServerActions.receiveError(error.responseText);
+	      }
+	    });
+	  },
+	
+	  fetchCurrentUser: function () {
+	    $.ajax({
+	      url: "api/session",
+	      type: "GET",
+	      success: function (currentUser) {
+	        ServerActions.receiveCurrentUser(currentUser);
 	      },
 	      error: function (error) {
 	        ServerActions.receiveError(error.responseText);
@@ -27790,6 +27807,13 @@
 	  receiveSingleUser: function (user) {
 	    Dispatcher.dispatch({
 	      actionType: UserConstants.RECEIVE_SINGLE_USER,
+	      user: user
+	    });
+	  },
+	
+	  receiveCurrentUser: function (user) {
+	    Dispatcher.dispatch({
+	      actionType: UserConstants.RECEIVE_CURRENT_USER,
 	      user: user
 	    });
 	  },
@@ -28129,7 +28153,8 @@
 	  DESTROY_USER: "DESTROY_USER",
 	  CREATE_USER: "CREATE_USER",
 	  RECEIVE_USERS: "RECEIVE_USERS",
-	  RECEIVE_SINGLE_USER: "RECEIVE_SINGLE_USER"
+	  RECEIVE_SINGLE_USER: "RECEIVE_SINGLE_USER",
+	  RECEIVE_CURRENT_USER: "RECEIVE_CURRENT_USER"
 	};
 
 /***/ },
@@ -28305,7 +28330,6 @@
 	};
 	
 	SessionStore.allErrors = function () {
-	  // var returnErrors = _authenticationErrors;
 	  return _authenticationErrors;
 	};
 	
@@ -28325,18 +28349,22 @@
 	  SessionStore.__emitChange();
 	};
 	
+	var checkUser = function (user) {
+	  if (user.message === "no user") {
+	    logoutUser();
+	  }
+	};
+	
 	var logoutUser = function () {
 	  myStorage.setItem("currentUser", "false");
 	  _loggedIn = false;
 	  _currentUser = null;
-	
 	  SessionStore.clearErrors();
 	  SessionStore.__emitChange();
 	};
 	
 	var recieveError = function (error) {
 	  _authenticationErrors = JSON.parse(error).message;
-	
 	  SessionStore.__emitChange();
 	};
 	
@@ -28348,9 +28376,11 @@
 	    case UserConstants.LOGOUT_USER:
 	      logoutUser();
 	      break;
+	    case UserConstants.RECEIVE_CURRENT_USER:
+	      checkUser(payload.user);
+	      break;
 	    case UserConstants.ERROR_RECEIVED:
 	      recieveError(payload.error);
-	      break;
 	  }
 	};
 	
@@ -34861,6 +34891,7 @@
 	  componentDidMount: function () {
 	    this.sessionListener = SessionStore.addListener(this.onChange);
 	    ClientActions.fetchUsers();
+	    ClientActions.fetchCurrentUser();
 	  },
 	
 	  onChange: function () {

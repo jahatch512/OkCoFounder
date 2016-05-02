@@ -23,6 +23,7 @@ var navBar = React.createClass({
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onChange);
     ClientActions.fetchUsers();
+    ClientActions.fetchCurrentUser();
   },
 
   onChange: function() {

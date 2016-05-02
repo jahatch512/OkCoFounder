@@ -18,7 +18,14 @@ class Api::SessionsController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user
+
+    if @user
+      render json: @user
+    else
+      render json: {message: "no user"}
+    end
+
   end
 
   def destroy

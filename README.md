@@ -29,7 +29,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Guest/Demo User (MVP)
 - [ ] Update Profile information: location, title, about (MVP)
 - [x] Browse an index of other users (MVP)
-- [ ] Visit the profile page of another user ("About" and "Q&A") (MVP)
+- [x] Visit the profile page of another user ("About" and "Q&A") (MVP)
 - [ ] Answer scrolling questions on the UserIndex page while you browse (MVP)
 - [ ] Select to "connect" with another user (MVP)
 - [ ] View a list of connections (MVP)
@@ -85,8 +85,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
     - [x] `UsersIndex`
     - [x] `UserIndexItem`
   - User Show Page
-    - [ ] `ProfileInfo`
-    - [ ] `AboutDetail`
+    - [x] `ProfileInfo`
+    - [x] `AboutDetail`
     - [ ] `QuestionDetail` (this might come later)
     - [ ] `ProfileUpdateForm`
 
@@ -95,9 +95,9 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Existing pages (including singup/signin) will look good.
 
-- [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] add basic colors & styles
+- [x] create a basic style guide
+- [x] position elements on the page
+- [x] add basic colors & styles
 
 ### Phase 5: Questions Tab on UserPage (2 days)
 

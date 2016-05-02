@@ -21,7 +21,12 @@ module.exports = {
 
   fetchUsers: function() {
     UserApi.fetchUsers();
-  }
+  },
+
+  fetchCurrentUser: function () {
+    SessionApi.fetchCurrentUser();
+   }
+
 
 
 
