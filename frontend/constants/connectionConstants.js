@@ -1,0 +1,3 @@
+module.exports = {
+  RECEIVE_CONNECTION: "RECEIVE_CONNECTION"
+};

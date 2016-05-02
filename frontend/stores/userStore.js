@@ -1,7 +1,8 @@
 var Store = require('flux/utils').Store,
-    Dispatcher = require('../dispatcher/dispatcher.js'),
-    UserConstants = require('../constants/userConstants.js'),
-    AboutConstants = require('../constants/aboutConstants.js');
+    Dispatcher = require('../dispatcher/dispatcher'),
+    UserConstants = require('../constants/userConstants'),
+    ConnectionConstants = require('../constants/connectionConstants'),
+    AboutConstants = require('../constants/aboutConstants');
 
 var UserStore = new Store(Dispatcher);
 
@@ -48,6 +49,10 @@ var updateAbout = function (about) {
   _users[about.user_id].about = about;
 };
 
+var updateConnection = function(connection){
+  console.log(connection);
+};
+
 UserStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case UserConstants.CREATE_USER:
@@ -59,6 +64,9 @@ UserStore.__onDispatch = function (payload) {
       break;
     case AboutConstants.RECEIVE_SINGLE_ABOUT:
       updateAbout(payload.about);
+      break;
+    case ConnectionConstants.RECEIVE_CONNECTION:
+      updateConnection(payload.connection);
       break;
   }
 };

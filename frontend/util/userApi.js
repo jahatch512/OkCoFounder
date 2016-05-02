@@ -1,4 +1,4 @@
-var ServerActions = require('../actions/serverActions.js'),
+var ServerActions = require('../actions/serverActions'),
     hashHistory = require('react-router').hashHistory;
 
 module.exports = {
@@ -56,6 +56,16 @@ module.exports = {
         console.log("error in createAbout ajax request");
       }
     });
+  },
+
+  createConnection: function (connection, callback) {
+    $.ajax({
+      url: "api/connections",
+      type: "POST",
+      data: connection,
+      success: callback
+    });
   }
+
 
 };

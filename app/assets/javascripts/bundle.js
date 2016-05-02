@@ -55,12 +55,12 @@
 	    hashHistory = __webpack_require__(186).hashHistory;
 	//Components
 	var App = __webpack_require__(245),
-	    SessionStore = __webpack_require__(258),
-	    UsersIndex = __webpack_require__(279),
+	    SessionStore = __webpack_require__(259),
+	    UsersIndex = __webpack_require__(281),
 	    SplashPage = __webpack_require__(246),
-	    AboutForm = __webpack_require__(287),
+	    AboutForm = __webpack_require__(288),
 	    ProfilePage = __webpack_require__(289),
-	    UserPage = __webpack_require__(282);
+	    UserPage = __webpack_require__(284);
 	
 	var RouterComponent = React.createElement(
 	  Router,
@@ -27420,8 +27420,8 @@
 
 	var React = __webpack_require__(1),
 	    SplashPage = __webpack_require__(246),
-	    NavBar = __webpack_require__(277),
-	    Footer = __webpack_require__(278);
+	    NavBar = __webpack_require__(279),
+	    Footer = __webpack_require__(280);
 	
 	var App = React.createClass({
 	  displayName: 'App',
@@ -27446,12 +27446,12 @@
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
 	    SignIn = __webpack_require__(247),
-	    SignUp = __webpack_require__(257),
-	    SessionStore = __webpack_require__(258),
-	    ModalStyling = __webpack_require__(276),
+	    SignUp = __webpack_require__(258),
+	    SessionStore = __webpack_require__(259),
+	    ModalStyling = __webpack_require__(277),
 	    ClientActions = __webpack_require__(248),
 	    Modal = __webpack_require__(166),
-	    Errors = __webpack_require__(283),
+	    Errors = __webpack_require__(278),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var SplashPage = React.createClass({
@@ -27671,7 +27671,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var SessionApi = __webpack_require__(249),
-	    UserApi = __webpack_require__(256);
+	    UserApi = __webpack_require__(257);
 	
 	module.exports = {
 	  createUser: function (user) {
@@ -27759,7 +27759,7 @@
 	
 	var Dispatcher = __webpack_require__(251),
 	    UserConstants = __webpack_require__(255),
-	    aboutConstants = __webpack_require__(288);
+	    aboutConstants = __webpack_require__(256);
 	
 	module.exports = {
 	
@@ -28159,6 +28159,14 @@
 
 /***/ },
 /* 256 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_SINGLE_ABOUT: "RECEIVE_SINGLE_ABOUT"
+	};
+
+/***/ },
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ServerActions = __webpack_require__(250),
@@ -28218,12 +28226,21 @@
 	        console.log("error in createAbout ajax request");
 	      }
 	    });
+	  },
+	
+	  createConnection: function (connection, callback) {
+	    $.ajax({
+	      url: "api/connections",
+	      type: "POST",
+	      data: connection,
+	      success: callback
+	    });
 	  }
 	
 	};
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -28308,10 +28325,10 @@
 	module.exports = SignUp;
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(259).Store;
+	var Store = __webpack_require__(260).Store;
 	var Dispatcher = __webpack_require__(251);
 	var UserConstants = __webpack_require__(255);
 	var myStorage = localStorage;
@@ -28387,7 +28404,7 @@
 	module.exports = SessionStore;
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28399,15 +28416,15 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Container = __webpack_require__(260);
-	module.exports.MapStore = __webpack_require__(263);
-	module.exports.Mixin = __webpack_require__(275);
-	module.exports.ReduceStore = __webpack_require__(264);
-	module.exports.Store = __webpack_require__(265);
+	module.exports.Container = __webpack_require__(261);
+	module.exports.MapStore = __webpack_require__(264);
+	module.exports.Mixin = __webpack_require__(276);
+	module.exports.ReduceStore = __webpack_require__(265);
+	module.exports.Store = __webpack_require__(266);
 
 
 /***/ },
-/* 260 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28429,10 +28446,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStoreGroup = __webpack_require__(261);
+	var FluxStoreGroup = __webpack_require__(262);
 	
 	var invariant = __webpack_require__(254);
-	var shallowEqual = __webpack_require__(262);
+	var shallowEqual = __webpack_require__(263);
 	
 	var DEFAULT_OPTIONS = {
 	  pure: true,
@@ -28590,7 +28607,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 261 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28671,7 +28688,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 262 */
+/* 263 */
 /***/ function(module, exports) {
 
 	/**
@@ -28726,7 +28743,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 263 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28747,8 +28764,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxReduceStore = __webpack_require__(264);
-	var Immutable = __webpack_require__(274);
+	var FluxReduceStore = __webpack_require__(265);
+	var Immutable = __webpack_require__(275);
 	
 	var invariant = __webpack_require__(254);
 	
@@ -28876,7 +28893,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 264 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -28897,9 +28914,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var FluxStore = __webpack_require__(265);
+	var FluxStore = __webpack_require__(266);
 	
-	var abstractMethod = __webpack_require__(273);
+	var abstractMethod = __webpack_require__(274);
 	var invariant = __webpack_require__(254);
 	
 	var FluxReduceStore = (function (_FluxStore) {
@@ -28983,7 +29000,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29002,7 +29019,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var _require = __webpack_require__(266);
+	var _require = __webpack_require__(267);
 	
 	var EventEmitter = _require.EventEmitter;
 	
@@ -29166,7 +29183,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29179,14 +29196,14 @@
 	 */
 	
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(267)
+	  EventEmitter: __webpack_require__(268)
 	};
 	
 	module.exports = fbemitter;
 
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29205,11 +29222,11 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var EmitterSubscription = __webpack_require__(268);
-	var EventSubscriptionVendor = __webpack_require__(270);
+	var EmitterSubscription = __webpack_require__(269);
+	var EventSubscriptionVendor = __webpack_require__(271);
 	
-	var emptyFunction = __webpack_require__(272);
-	var invariant = __webpack_require__(271);
+	var emptyFunction = __webpack_require__(273);
+	var invariant = __webpack_require__(272);
 	
 	/**
 	 * @class BaseEventEmitter
@@ -29383,7 +29400,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -29404,7 +29421,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var EventSubscription = __webpack_require__(269);
+	var EventSubscription = __webpack_require__(270);
 	
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -29436,7 +29453,7 @@
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports) {
 
 	/**
@@ -29490,7 +29507,7 @@
 	module.exports = EventSubscription;
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29509,7 +29526,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(271);
+	var invariant = __webpack_require__(272);
 	
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -29599,7 +29616,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29654,7 +29671,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports) {
 
 	/**
@@ -29696,7 +29713,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -29723,7 +29740,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -34707,7 +34724,7 @@
 	}));
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -34724,7 +34741,7 @@
 	
 	'use strict';
 	
-	var FluxStoreGroup = __webpack_require__(261);
+	var FluxStoreGroup = __webpack_require__(262);
 	
 	var invariant = __webpack_require__(254);
 	
@@ -34830,7 +34847,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports) {
 
 	var CONTENT_STYLE = {
@@ -34863,17 +34880,54 @@
 	module.exports = CONTENT_STYLE;
 
 /***/ },
-/* 277 */
+/* 278 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(32);
+	var HashHistory = __webpack_require__(186).hashHistory;
+	
+	var Errors = React.createClass({
+	  displayName: "Errors",
+	
+	
+	  render: function () {
+	    if (typeof this.props.errors === "string") {
+	      var errorsList = this.props.errors;
+	    } else {
+	      var key = 0;
+	      errorsList = this.props.errors.map(function (error) {
+	        key += 1;
+	        return React.createElement(
+	          "li",
+	          { key: key },
+	          error
+	        );
+	      });
+	    }
+	
+	    return React.createElement(
+	      "ul",
+	      { className: "error-list" },
+	      errorsList
+	    );
+	  }
+	});
+	
+	module.exports = Errors;
+
+/***/ },
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
+	    SessionStore = __webpack_require__(259),
 	    SignIn = __webpack_require__(247),
-	    ModalStyling = __webpack_require__(276),
+	    ModalStyling = __webpack_require__(277),
 	    Modal = __webpack_require__(166),
 	    ClientActions = __webpack_require__(248),
-	    Errors = __webpack_require__(283),
+	    Errors = __webpack_require__(278),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var navBar = React.createClass({
@@ -35002,7 +35056,7 @@
 	module.exports = navBar;
 
 /***/ },
-/* 278 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
@@ -35025,16 +35079,16 @@
 	module.exports = Footer;
 
 /***/ },
-/* 279 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
 	    ClientActions = __webpack_require__(248),
-	    UserIndexItem = __webpack_require__(281),
-	    UserPage = __webpack_require__(282),
+	    UserIndexItem = __webpack_require__(283),
+	    UserPage = __webpack_require__(284),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var UsersIndex = React.createClass({
@@ -35102,13 +35156,14 @@
 	module.exports = UsersIndex;
 
 /***/ },
-/* 280 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Store = __webpack_require__(259).Store,
+	var Store = __webpack_require__(260).Store,
 	    Dispatcher = __webpack_require__(251),
 	    UserConstants = __webpack_require__(255),
-	    AboutConstants = __webpack_require__(288);
+	    ConnectionConstants = __webpack_require__(292),
+	    AboutConstants = __webpack_require__(256);
 	
 	var UserStore = new Store(Dispatcher);
 	
@@ -35153,7 +35208,10 @@
 	
 	var updateAbout = function (about) {
 	  _users[about.user_id].about = about;
-	  console.log(_users[about.user_id]);
+	};
+	
+	var updateConnection = function (connection) {
+	  console.log(connection);
 	};
 	
 	UserStore.__onDispatch = function (payload) {
@@ -35168,19 +35226,22 @@
 	    case AboutConstants.RECEIVE_SINGLE_ABOUT:
 	      updateAbout(payload.about);
 	      break;
+	    case ConnectionConstants.RECEIVE_CONNECTION:
+	      updateConnection(payload.connection);
+	      break;
 	  }
 	};
 	
 	module.exports = UserStore;
 
 /***/ },
-/* 281 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
 	    ClientActions = __webpack_require__(248),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
@@ -35225,17 +35286,17 @@
 	module.exports = UserIndexItem;
 
 /***/ },
-/* 282 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
 	    ClientActions = __webpack_require__(248),
-	    ProfileInfo = __webpack_require__(286),
-	    AboutDetail = __webpack_require__(284),
-	    QuestionDetail = __webpack_require__(285),
+	    ProfileInfo = __webpack_require__(285),
+	    AboutDetail = __webpack_require__(286),
+	    QuestionDetail = __webpack_require__(287),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var UserPage = React.createClass({
@@ -35305,50 +35366,118 @@
 	module.exports = UserPage;
 
 /***/ },
-/* 283 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(32);
-	var HashHistory = __webpack_require__(186).hashHistory;
-	
-	var Errors = React.createClass({
-	  displayName: "Errors",
-	
-	
-	  render: function () {
-	    if (typeof this.props.errors === "string") {
-	      var errorsList = this.props.errors;
-	    } else {
-	      var key = 0;
-	      errorsList = this.props.errors.map(function (error) {
-	        key += 1;
-	        return React.createElement(
-	          "li",
-	          { key: key },
-	          error
-	        );
-	      });
-	    }
-	
-	    return React.createElement(
-	      "ul",
-	      { className: "error-list" },
-	      errorsList
-	    );
-	  }
-	});
-	
-	module.exports = Errors;
-
-/***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
+	    ClientActions = __webpack_require__(248),
+	    ConnectionActions = __webpack_require__(291),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var ProfileInfo = React.createClass({
+	  displayName: 'ProfileInfo',
+	
+	  getInitialState: function () {
+	    return {
+	      userPage: this.props.user,
+	      currentUser: SessionStore.currentUser()
+	    };
+	  },
+	
+	  _isConnected: function () {
+	    var buttonText = "Connect";
+	    var currentUserConnections = this.state.currentUser.sent_connections;
+	    debugger;
+	    if (currentUserConnections.indexOf(this.state.userPage) !== -1) {
+	      buttonText = "Dis-Connect";
+	    }
+	
+	    return buttonText;
+	  },
+	
+	  toggleConnect: function () {
+	    console.log("connect button clicked");
+	    var data = { connection: { user_id: this.state.currentUser.id, lucky_user_id: this.state.userPage.id } };
+	
+	    if (this._isConnected() === "Connect") {
+	      ConnectionActions.createConnection(data);
+	    } else {
+	      ConnectionActions.deleteConnection(data);
+	    }
+	  },
+	
+	  handleUpdate: function () {
+	    console.log("update button clicked");
+	  },
+	
+	  render: function () {
+	
+	    if (this.state.userPage.id === this.state.currentUser.id) {
+	      var cornerButton = React.createElement(
+	        'div',
+	        { id: 'update-button-box' },
+	        React.createElement(
+	          'div',
+	          { id: 'update-button',
+	            onClick: this.handleUpdate },
+	          'Update Profile'
+	        )
+	      );
+	    } else {
+	      cornerButton = React.createElement(
+	        'div',
+	        { id: 'connect-button-box' },
+	        React.createElement(
+	          'div',
+	          { id: this.state.connectButton,
+	            onClick: this.toggleConnect },
+	          this._isConnected()
+	        )
+	      );
+	    }
+	    return React.createElement(
+	      'div',
+	      { id: 'profile-info' },
+	      React.createElement('img', { id: 'profile-picture',
+	        src: this.state.userPage.image_url,
+	        width: '200', height: '300' }),
+	      React.createElement(
+	        'div',
+	        { id: 'basic-info-box' },
+	        React.createElement(
+	          'div',
+	          { id: 'show-page-username' },
+	          this.state.userPage.username
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'basic-info-text' },
+	          this.state.userPage.title,
+	          ' • ',
+	          this.state.userPage.age,
+	          ' • ',
+	          this.state.userPage.zipcode
+	        )
+	      ),
+	      cornerButton
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProfileInfo;
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
 	    ClientActions = __webpack_require__(248),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
@@ -35417,13 +35546,13 @@
 	module.exports = AboutDetail;
 
 /***/ },
-/* 285 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
 	    ClientActions = __webpack_require__(248),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
@@ -35444,82 +35573,15 @@
 	module.exports = QuestionDetail;
 
 /***/ },
-/* 286 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    UserStore = __webpack_require__(282),
+	    SessionStore = __webpack_require__(259),
 	    ClientActions = __webpack_require__(248),
-	    hashHistory = __webpack_require__(186).hashHistory;
-	
-	var ProfileInfo = React.createClass({
-	  displayName: 'ProfileInfo',
-	
-	  getInitialState: function () {
-	    return {
-	      user: this.props.user,
-	      currentUser: SessionStore.currentUser()
-	    };
-	  },
-	
-	  render: function () {
-	
-	    if (this.state.user.id === this.state.currentUser.id) {
-	      var updateButton = React.createElement(
-	        'div',
-	        { id: 'update-button-box' },
-	        React.createElement(
-	          'div',
-	          { id: 'update-button' },
-	          'Update Profile'
-	        )
-	      );
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      { id: 'profile-info' },
-	      React.createElement('img', { id: 'profile-picture',
-	        src: this.state.user.image_url,
-	        width: '200', height: '300' }),
-	      React.createElement(
-	        'div',
-	        { id: 'basic-info-box' },
-	        React.createElement(
-	          'div',
-	          { id: 'show-page-username' },
-	          this.state.user.username
-	        ),
-	        React.createElement(
-	          'div',
-	          { id: 'basic-info-text' },
-	          this.state.user.title,
-	          ' • ',
-	          this.state.user.age,
-	          ' • ',
-	          this.state.user.zipcode
-	        )
-	      ),
-	      updateButton
-	    );
-	  }
-	
-	});
-	
-	module.exports = ProfileInfo;
-
-/***/ },
-/* 287 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(1),
-	    ReactDOM = __webpack_require__(32),
-	    UserStore = __webpack_require__(280),
-	    SessionStore = __webpack_require__(258),
-	    ClientActions = __webpack_require__(248),
-	    ModalStyling = __webpack_require__(276),
+	    ModalStyling = __webpack_require__(277),
 	    Modal = __webpack_require__(166),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
@@ -35610,25 +35672,17 @@
 	module.exports = AboutForm;
 
 /***/ },
-/* 288 */
-/***/ function(module, exports) {
-
-	module.exports = {
-	  RECEIVE_SINGLE_ABOUT: "RECEIVE_SINGLE_ABOUT"
-	};
-
-/***/ },
 /* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(32),
-	    SessionStore = __webpack_require__(258),
-	    UserStore = __webpack_require__(280),
+	    SessionStore = __webpack_require__(259),
+	    UserStore = __webpack_require__(282),
 	    ClientActions = __webpack_require__(248),
-	    ProfileInfo = __webpack_require__(286),
-	    AboutDetail = __webpack_require__(284),
-	    QuestionDetail = __webpack_require__(285),
+	    ProfileInfo = __webpack_require__(285),
+	    AboutDetail = __webpack_require__(286),
+	    QuestionDetail = __webpack_require__(287),
 	    hashHistory = __webpack_require__(186).hashHistory;
 	
 	var ProfilePage = React.createClass({
@@ -35699,6 +35753,41 @@
 	});
 	
 	module.exports = ProfilePage;
+
+/***/ },
+/* 290 */,
+/* 291 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var UserApi = __webpack_require__(257),
+	    Dispatcher = __webpack_require__(251),
+	    ConnectionConstants = __webpack_require__(292);
+	
+	module.exports = {
+	  createConnection: function (connection) {
+	    UserApi.createConnection(connection, this.receiveConnection);
+	  },
+	
+	  deleteConnection: function (connection) {
+	    UserApi.deleteConnection(connection);
+	  },
+	
+	  receiveConnection: function (connection) {
+	    Dispatcher.dispatch({
+	      actionType: ConnectionConstants.RECEIVE_CONNECTION,
+	      connection: connection
+	    });
+	  }
+	
+	};
+
+/***/ },
+/* 292 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  RECEIVE_CONNECTION: "RECEIVE_CONNECTION"
+	};
 
 /***/ }
 /******/ ]);

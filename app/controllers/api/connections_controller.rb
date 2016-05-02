@@ -3,9 +3,9 @@ class Api::ConnectionsController < ApplicationController
   @connection = Connection.new(connection_params)
 
   if(@connection.save)
-    render @connection, status: 200
+    render json: @connection, status: 200
   else
-    @errors = connection.errors.full_messages
+    @errors = @connection.errors.full_messages
     render "api/connections/error", status: 422
   end
   end
@@ -14,7 +14,7 @@ class Api::ConnectionsController < ApplicationController
     @connection = Connection.find_by(connection_params)
 
     if(@connection.destroy)
-      render @connection, status: 200
+      render json: @connection, status: 200
     else
       @errors = connection.errors.full_messages
       render "api/connections/error", status: 422

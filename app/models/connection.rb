@@ -1,5 +1,5 @@
 class Connection < ActiveRecord::Base
-  validates :connector_id, uniqueness: {scope: :connectee_id}
+  validates :user_id, uniqueness: {scope: :lucky_user_id}
 
   belongs_to :user
 

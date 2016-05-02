@@ -22,7 +22,8 @@ class User < ActiveRecord::Base
   has_one :about
 
   has_many :connections
-  has_many :sent_connections, through: :likes, source: :lucky_user
+  
+  has_many :sent_connections, through: :connections, source: :lucky_user
   has_many :received_connections, foreign_key: :lucky_user_id, class_name: "Connection"
   has_many :mutual_connections, through: :received_connections, source: :user
 
