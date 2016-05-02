@@ -13,6 +13,7 @@ var App = require('./components/permanent/app'),
     UsersIndex = require('./components/usersIndex'),
     SplashPage = require('./components/splashPage'),
     AboutForm = require('./components/aboutForm'),
+    ProfilePage = require('./components/profilePage'),
     UserPage = require('./components/userPage');
 
 
@@ -23,6 +24,7 @@ var RouterComponent = (
       <Route path="users" component={UsersIndex}>
         <Route path="about" component={AboutForm}/>
       </Route>
+      <Route path="users/profile" component={ProfilePage} />
       <Route path="users/:userId" component={UserPage} />
 
     </Route>

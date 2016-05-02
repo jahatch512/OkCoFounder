@@ -59,6 +59,7 @@
 	    UsersIndex = __webpack_require__(279),
 	    SplashPage = __webpack_require__(246),
 	    AboutForm = __webpack_require__(287),
+	    ProfilePage = __webpack_require__(289),
 	    UserPage = __webpack_require__(282);
 	
 	var RouterComponent = React.createElement(
@@ -73,6 +74,7 @@
 	      { path: 'users', component: UsersIndex },
 	      React.createElement(Route, { path: 'about', component: AboutForm })
 	    ),
+	    React.createElement(Route, { path: 'users/profile', component: ProfilePage }),
 	    React.createElement(Route, { path: 'users/:userId', component: UserPage })
 	  )
 	);
@@ -34897,6 +34899,11 @@
 	    this.state.currentUser ? this.logoutUser() : this.openModal();
 	  },
 	
+	  profileClick: function (event) {
+	    event.preventDefault();
+	    hashHistory.push('/users/profile');
+	  },
+	
 	  render: function () {
 	    var modalContents = null;
 	    if (this.state.logInClicked === true) {
@@ -34906,14 +34913,30 @@
 	    if (this.state.currentUser !== null) {
 	      var navBarSessionButton = React.createElement(
 	        'div',
-	        { id: 'logoutClicked' },
-	        'Logout'
+	        { className: 'nav-session-buttons' },
+	        React.createElement(
+	          'div',
+	          { id: 'profile-button',
+	            onClick: this.profileClick },
+	          'Profile'
+	        ),
+	        React.createElement(
+	          'div',
+	          { id: 'logoutClicked',
+	            onClick: this.sessionClick },
+	          'Logout'
+	        )
 	      );
 	    } else {
 	      navBarSessionButton = React.createElement(
 	        'div',
-	        { id: 'logInClicked' },
-	        'Sign In'
+	        { className: 'nav-session-buttons' },
+	        React.createElement(
+	          'div',
+	          { id: 'logInClicked',
+	            onClick: this.sessionClick },
+	          'Sign In'
+	        )
 	      );
 	    }
 	
@@ -34929,13 +34952,7 @@
 	        { id: 'nav-logo', onClick: this.logoClick },
 	        React.createElement('img', { id: 'logo-image', src: '/assets/logo.png' })
 	      ),
-	      React.createElement(
-	        'div',
-	        {
-	          className: 'nav-session-buttons',
-	          onClick: this.sessionClick },
-	        navBarSessionButton
-	      ),
+	      navBarSessionButton,
 	      React.createElement(
 	        Modal,
 	        {
@@ -35225,7 +35242,7 @@
 	    }
 	
 	    return React.createElement(
-	      'span',
+	      'div',
 	      { id: 'user-page-full' },
 	      React.createElement(
 	        'div',
@@ -35247,11 +35264,7 @@
 	            'Question Detail'
 	          )
 	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          detailBody
-	        )
+	        detailBody
 	      )
 	    );
 	  }
@@ -35320,25 +35333,50 @@
 	  },
 	
 	  render: function () {
-	    console.log(this.props.user);
-	
 	    return React.createElement(
-	      'span',
+	      'div',
 	      { className: 'about-detail-list' },
 	      React.createElement(
 	        'div',
-	        null,
-	        this.state.summary
+	        { className: 'about-detail-item' },
+	        React.createElement(
+	          'span',
+	          { className: 'about-detail-header' },
+	          'Summary'
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: 'about-detail-answer' },
+	          this.state.summary
+	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        null,
-	        this.state.currentWork
+	        { className: 'about-detail-item' },
+	        React.createElement(
+	          'span',
+	          { className: 'about-detail-header' },
+	          'Current Work'
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: 'about-detail-answer' },
+	          this.state.currentWork
+	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        null,
-	        this.state.previousExperience
+	        { className: 'about-detail-item' },
+	        React.createElement(
+	          'span',
+	          { className: 'about-detail-header' },
+	          'Previous Experience'
+	        ),
+	        React.createElement(
+	          'span',
+	          { className: 'about-detail-answer' },
+	          this.state.previousExperience
+	        )
 	      )
 	    );
 	  }
@@ -35390,11 +35428,24 @@
 	
 	  getInitialState: function () {
 	    return {
-	      user: this.props.user
+	      user: this.props.user,
+	      currentUser: SessionStore.currentUser()
 	    };
 	  },
 	
 	  render: function () {
+	
+	    if (this.state.user.id === this.state.currentUser.id) {
+	      var updateButton = React.createElement(
+	        'div',
+	        { id: 'update-button-box' },
+	        React.createElement(
+	          'div',
+	          { id: 'update-button' },
+	          'Update Profile'
+	        )
+	      );
+	    }
 	
 	    return React.createElement(
 	      'div',
@@ -35420,15 +35471,7 @@
 	          this.state.user.zipcode
 	        )
 	      ),
-	      React.createElement(
-	        'div',
-	        { id: 'update-button-box' },
-	        React.createElement(
-	          'div',
-	          { id: 'update-button' },
-	          'Update Profile'
-	        )
-	      )
+	      updateButton
 	    );
 	  }
 	
@@ -35542,6 +35585,89 @@
 	module.exports = {
 	  RECEIVE_SINGLE_ABOUT: "RECEIVE_SINGLE_ABOUT"
 	};
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1),
+	    ReactDOM = __webpack_require__(32),
+	    SessionStore = __webpack_require__(258),
+	    UserStore = __webpack_require__(280),
+	    ClientActions = __webpack_require__(248),
+	    ProfileInfo = __webpack_require__(286),
+	    AboutDetail = __webpack_require__(284),
+	    QuestionDetail = __webpack_require__(285),
+	    hashHistory = __webpack_require__(186).hashHistory;
+	
+	var ProfilePage = React.createClass({
+	  displayName: 'ProfilePage',
+	
+	  getInitialState: function () {
+	    return {
+	      currentUser: UserStore.findUser(SessionStore.currentUser().id),
+	      currentTab: "about",
+	      aboutSelect: "detail-info-tab selected-tab",
+	      questionSelect: "detail-info-tab"
+	    };
+	  },
+	
+	  aboutClick: function () {
+	    this.setState({ currentTab: "about",
+	      aboutSelect: "detail-info-tab selected-tab",
+	      questionSelect: "detail-info-tab" });
+	  },
+	
+	  questionClick: function () {
+	    this.setState({ currentTab: "question",
+	      questionSelect: "detail-info-tab selected-tab",
+	      aboutSelect: "detail-info-tab" });
+	  },
+	
+	  render: function () {
+	    if (this.state.currentTab === "about") {
+	      var detailBody = React.createElement(AboutDetail, { user: this.state.currentUser,
+	        id: 'about-detail-box' });
+	    } else if (this.state.currentTab === "question") {
+	      detailBody = React.createElement(QuestionDetail, { user: this.state.currentUser,
+	        id: 'question-detail-box' });
+	    }
+	
+	    return React.createElement(
+	      'span',
+	      { id: 'user-page-full' },
+	      React.createElement(
+	        'div',
+	        { className: 'user-page-box' },
+	        React.createElement(ProfileInfo, { user: this.state.currentUser }),
+	        React.createElement(
+	          'div',
+	          { id: "detail-info-buttons" },
+	          React.createElement(
+	            'div',
+	            { className: this.state.aboutSelect,
+	              onClick: this.aboutClick },
+	            'About Detail'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: this.state.questionSelect,
+	              onClick: this.questionClick },
+	            'Question Detail'
+	          )
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          detailBody
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = ProfilePage;
 
 /***/ }
 /******/ ]);

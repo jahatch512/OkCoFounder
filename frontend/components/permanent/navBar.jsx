@@ -62,6 +62,11 @@ var navBar = React.createClass({
     this.state.currentUser ? this.logoutUser() : this.openModal();
   },
 
+  profileClick: function(event) {
+    event.preventDefault();
+    hashHistory.push('/users/profile');
+  },
+
   render: function() {
     var modalContents = null;
     if (this.state.logInClicked === true) {
@@ -70,16 +75,25 @@ var navBar = React.createClass({
 
     if (this.state.currentUser !== null) {
       var navBarSessionButton =
-
-      <div id='logoutClicked'>
+      <div className="nav-session-buttons">
+        <div id="profile-button"
+             onClick={this.profileClick}>
+          Profile
+        </div>
+        <div id='logoutClicked'
+             onClick={this.sessionClick}>
           Logout
+        </div>
       </div>
+
       ;
     } else {
       navBarSessionButton =
-
-      <div id="logInClicked">
-          Sign In
+      <div className="nav-session-buttons">
+        <div id="logInClicked"
+             onClick={this.sessionClick}>
+            Sign In
+        </div>
       </div>
       ;
     }
@@ -94,11 +108,7 @@ var navBar = React.createClass({
       <div id="nav-logo" onClick={this.logoClick}>
         <img id="logo-image" src="/assets/logo.png" />
       </div>
-        <div
-          className="nav-session-buttons"
-          onClick={this.sessionClick}>
-            {navBarSessionButton}
-        </div>
+      {navBarSessionButton}
       <Modal
         isOpen={this.state.modalIsOpen}
         style={ModalStyling}

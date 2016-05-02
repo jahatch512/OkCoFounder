@@ -77,3 +77,27 @@
 .selected-tab {
   border-bottom: 2px solid white;
 }
+
+.about-detail-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 50px 50px 20px;
+
+}
+
+.about-detail-item {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.about-detail-header {
+  font-size: 22px;
+  padding-bottom: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.about-detail-answer {
+  color: white;
+}

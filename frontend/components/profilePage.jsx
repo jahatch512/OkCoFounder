@@ -8,11 +8,10 @@ var React = require('react'),
     QuestionDetail = require('./questionDetail'),
     hashHistory = require('react-router').hashHistory;
 
-var UserPage = React.createClass({
+var ProfilePage = React.createClass({
   getInitialState: function() {
     return {
-      currentUser: SessionStore.currentUser(),
-      userPage: UserStore.findUser(this.props.params.userId),
+      currentUser: UserStore.findUser(SessionStore.currentUser().id),
       currentTab: "about",
       aboutSelect: "detail-info-tab selected-tab",
       questionSelect: "detail-info-tab"
@@ -33,18 +32,18 @@ var UserPage = React.createClass({
 
   render: function() {
     if (this.state.currentTab === "about"){
-      var detailBody = <AboutDetail user={this.state.userPage}
+      var detailBody = <AboutDetail user={this.state.currentUser}
                                     id="about-detail-box" />;
     } else if (this.state.currentTab === "question"){
-      detailBody = <QuestionDetail user={this.state.userPage}
+      detailBody = <QuestionDetail user={this.state.currentUser}
                                    id="question-detail-box" />;
     }
 
     return (
-      <div id="user-page-full">
+      <span id="user-page-full">
         {
           <div className="user-page-box">
-            <ProfileInfo user={this.state.userPage} />
+            <ProfileInfo user={this.state.currentUser} />
             <div id={"detail-info-buttons"}>
               <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>
@@ -53,14 +52,16 @@ var UserPage = React.createClass({
                    onClick={this.questionClick}>
                    Question Detail</div>
             </div>
+            <span>
               {detailBody}
+            </span>
           </div>
         }
 
-      </div>
+      </span>
     );
   }
 
 });
 
-module.exports = UserPage;
+module.exports = ProfilePage;

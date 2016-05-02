@@ -16,14 +16,33 @@ var AboutDetail = React.createClass({
   },
 
   render: function() {
-    console.log(this.props.user);
-
     return (
-      <span className="about-detail-list">
-          <div>{this.state.summary}</div>
-          <div>{this.state.currentWork}</div>
-          <div>{this.state.previousExperience}</div>
-      </span>
+      <div className="about-detail-list">
+          <div className="about-detail-item">
+            <span className="about-detail-header">
+              Summary
+            </span>
+            <span className="about-detail-answer">
+              {this.state.summary}
+            </span>
+          </div>
+          <div className="about-detail-item">
+            <span className="about-detail-header">
+              Current Work
+            </span>
+            <span className="about-detail-answer">
+              {this.state.currentWork}
+            </span>
+          </div>
+          <div className="about-detail-item">
+            <span className="about-detail-header">
+              Previous Experience
+            </span>
+            <span className="about-detail-answer">
+              {this.state.previousExperience}
+            </span>
+          </div>
+      </div>
     );
   }
 

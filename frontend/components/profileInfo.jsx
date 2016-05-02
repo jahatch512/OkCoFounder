@@ -8,12 +8,20 @@ var React = require('react'),
 var ProfileInfo = React.createClass({
   getInitialState: function() {
     return {
-      user: this.props.user
+      user: this.props.user,
+      currentUser: SessionStore.currentUser()
     };
   },
 
   render: function() {
 
+    if (this.state.user.id === this.state.currentUser.id){
+      var updateButton =
+      <div id="update-button-box">
+        <div id="update-button">Update Profile</div>
+      </div>;
+    }
+    
     return (
 
       <div id="profile-info">
@@ -24,9 +32,7 @@ var ProfileInfo = React.createClass({
             <div id="show-page-username">{this.state.user.username}</div>
             <div id="basic-info-text">{this.state.user.title} • {this.state.user.age} • {this.state.user.zipcode}</div>
           </div>
-          <div id="update-button-box">
-            <div id="update-button">Update Profile</div>
-          </div>
+          {updateButton}
       </div>
 
     );
