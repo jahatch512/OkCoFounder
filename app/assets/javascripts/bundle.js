@@ -34946,7 +34946,6 @@
 	
 	  componentDidMount: function () {
 	    this.sessionListener = SessionStore.addListener(this.onChange);
-	    ClientActions.fetchUsers();
 	    ClientActions.fetchCurrentUser();
 	  },
 	
@@ -35104,6 +35103,7 @@
 	  },
 	
 	  componentDidMount: function () {
+	    ClientActions.fetchUsers();
 	    this.sessionListener = SessionStore.addListener(this.onSessionChange);
 	    this.userStoreListener = UserStore.addListener(this.onUserChange);
 	  },
@@ -35112,10 +35112,6 @@
 	    this.sessionListener.remove();
 	    this.userStoreListener.remove();
 	  },
-	
-	  // componentWillMount: function () {
-	  //   this.redirectNoUser();
-	  // },
 	
 	  onSessionChange: function () {
 	    if (SessionStore.currentUser() === null) {

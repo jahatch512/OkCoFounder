@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
     self.session_token
   end
 
+  def received_connection_from(other_user)
+    other_user.sent_connections.to_a.include?(self)
+  end
+
   private
 
   def ensure_session_token

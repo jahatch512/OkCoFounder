@@ -11,6 +11,6 @@ json.array! @users do |user|
   #this is a has_many through association, sends back the id of the user
   json.received_connections user.received_connections, :id
 
-  # json.receive_connection_from_current user.connected_with(current_user)
-  # json.sent_connection_to_current current_user.connected_with(user)
+  json.receive_connection_from_current user.received_connection_from(@current_user)
+  json.sent_connection_to_current @current_user.received_connection_from(user)
 end

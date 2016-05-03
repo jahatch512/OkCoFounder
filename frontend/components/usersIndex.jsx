@@ -19,6 +19,7 @@ var UsersIndex = React.createClass({
   },
 
   componentDidMount: function () {
+    ClientActions.fetchUsers();
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
     this.userStoreListener = UserStore.addListener(this.onUserChange);
   },
@@ -28,9 +29,6 @@ var UsersIndex = React.createClass({
     this.userStoreListener.remove();
   },
 
-  // componentWillMount: function () {
-  //   this.redirectNoUser();
-  // },
 
   onSessionChange: function() {
     if (SessionStore.currentUser() === null){
