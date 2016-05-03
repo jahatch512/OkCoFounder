@@ -21,9 +21,10 @@ var UserIndexItem = React.createClass({
              width= "200"
              height= "300"
              alt="Profile Picture" />
-          <div>Username: {this.props.user.username}</div>
-          <div className="basic_info">{this.props.user.title} - {this.props.user.age} - {this.props.user.zipcode}
+          <div id="index-username">{this.props.user.username}</div>
+          <div className="basic-info">{this.props.user.title} - {this.props.user.age} - {this.props.user.zipcode}
           </div>
+          <div id="match-information">Match Information here</div>
       </div>
     );
   }

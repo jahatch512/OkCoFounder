@@ -48,7 +48,7 @@ var SignIn = React.createClass({
 
         <br/>
 
-        <input type="submit" value="SignIn"/>
+        <input className="login-button" type="submit" value="Sign In!"/>
       </form>
     );
   }

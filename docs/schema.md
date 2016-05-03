@@ -25,22 +25,14 @@ summary         | text      |
 previous_exp    | text      |
 current_work    | text      |
 
-## matches
-
-column name     | data type | details
-----------------|-----------|-----------------------
-id              | integer   | not null, primary key
-matcher_id      | string    | not null, foreign key (references users), indexed
-matchee_id      | string    | not null, foreign key (references users), indexed
-
 
 ## connections
 
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
-connector_id    | string    | not null, foreign key (references users), indexed
-connectee_id    | string    | not null, foreign key (references users), indexed
+user_id         | string    | not null, foreign key (references users), indexed
+lucky_user_id   | string    | not null, foreign key (references users), indexed
 
 
 ## questions
@@ -51,21 +43,14 @@ id              | integer   | not null, primary key
 content         | string    | not null
 
 
-## answer_choices
-
-column name     | data type | details
-----------------|-----------|-----------------------
-id              | integer   | not null, primary key
-question_id     | integer   | not null, foreign key (references questions)
-content         | string    | not null
-
 ## responses
 
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 user_id         | integer   | not null, foreign key (references users)
-answer_id       | string    | not null, foreign key (references answers)
+question_id     | integer   | not null, foreign key (references questions)
+answer          | string    | not null, foreign key (references answers)
 
 ## messages
 

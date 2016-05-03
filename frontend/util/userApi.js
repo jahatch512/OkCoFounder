@@ -24,6 +24,8 @@ module.exports = {
       url: "api/users",
       type: "GET",
       success: function (users) {
+        console.log(users);
+
         ServerActions.receiveUsers(users);
       },
       error: function (errors) {

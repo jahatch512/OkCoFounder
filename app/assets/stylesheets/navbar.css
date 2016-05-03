@@ -15,7 +15,6 @@
   background-color: #222222;
   padding-left: 20px;
   padding-right: 20px;
-  margin-right: 100px;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -23,15 +22,43 @@
   color: white;
 }
 
-.nav-session-buttons:hover {
+#logoutClicked {
+  margin-right: 40px;
+  padding: 10px;
+}
+
+#logInClicked {
+  margin-right: 100px;
+  padding: 10px;
+}
+
+#logoutClicked:hover {
 	border-color: white;
 	border-left: 1px;
 	border-right: 1px;
 	border-style: solid;
+  cursor: pointer;
+}
+
+#logInClicked:hover {
+	border-color: white;
+	border-left: 1px;
+	border-right: 1px;
+	border-style: solid;
+  cursor: pointer;
 }
 
 #profile-button {
-  padding: 20px;
+  padding: 10px;
+
+}
+
+#profile-button:hover {
+  border-color: white;
+  border-left: 1px;
+  border-right: 1px;
+  border-style: solid;
+  cursor: pointer;
 }
 
 

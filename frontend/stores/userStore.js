@@ -51,6 +51,10 @@ var updateAbout = function (about) {
 
 var updateConnection = function(connection){
   console.log(connection);
+  var receiver = {id: connection.lucky_user_id};
+  var sender = {id: connection.user_id};
+  _users[connection.user_id].sent_connections.push(receiver);
+  _users[connection.lucky_user_id].received_connections.push(sender);
 };
 
 UserStore.__onDispatch = function (payload) {

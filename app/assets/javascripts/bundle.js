@@ -27659,7 +27659,7 @@
 	        placeholder: 'Password',
 	        id: 'password' }),
 	      React.createElement('br', null),
-	      React.createElement('input', { type: 'submit', value: 'SignIn' })
+	      React.createElement('input', { className: 'login-button', type: 'submit', value: 'Sign In!' })
 	    );
 	  }
 	});
@@ -28195,6 +28195,8 @@
 	      url: "api/users",
 	      type: "GET",
 	      success: function (users) {
+	        console.log(users);
+	
 	        ServerActions.receiveUsers(users);
 	      },
 	      error: function (errors) {}
@@ -28316,7 +28318,7 @@
 	          placeholder: 'Zipcode',
 	          id: 'zipcode' }),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'submit', value: 'Create Profile' })
+	        React.createElement('input', { className: 'login-button', type: 'submit', value: 'Create Profile!' })
 	      )
 	    );
 	  }
@@ -35212,6 +35214,10 @@
 	
 	var updateConnection = function (connection) {
 	  console.log(connection);
+	  var receiver = { id: connection.lucky_user_id };
+	  var sender = { id: connection.user_id };
+	  _users[connection.user_id].sent_connections.push(receiver);
+	  _users[connection.lucky_user_id].received_connections.push(sender);
 	};
 	
 	UserStore.__onDispatch = function (payload) {
@@ -35265,18 +35271,22 @@
 	        alt: 'Profile Picture' }),
 	      React.createElement(
 	        'div',
-	        null,
-	        'Username: ',
+	        { id: 'index-username' },
 	        this.props.user.username
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'basic_info' },
+	        { className: 'basic-info' },
 	        this.props.user.title,
 	        ' - ',
 	        this.props.user.age,
 	        ' - ',
 	        this.props.user.zipcode
+	      ),
+	      React.createElement(
+	        'div',
+	        { id: 'match-information' },
+	        'Match Information here'
 	      )
 	    );
 	  }
@@ -35390,8 +35400,8 @@
 	  _isConnected: function () {
 	    var buttonText = "Connect";
 	    var currentUserConnections = this.state.currentUser.sent_connections;
-	    debugger;
-	    if (currentUserConnections.indexOf(this.state.userPage) !== -1) {
+	    var userPageId = { id: this.state.userPage.id };
+	    if (currentUserConnections.indexOf(userPageId) !== -1) {
 	      buttonText = "Dis-Connect";
 	    }
 	
@@ -35432,7 +35442,7 @@
 	        { id: 'connect-button-box' },
 	        React.createElement(
 	          'div',
-	          { id: this.state.connectButton,
+	          { id: this._isConnected(),
 	            onClick: this.toggleConnect },
 	          this._isConnected()
 	        )
@@ -35719,7 +35729,7 @@
 	    }
 	
 	    return React.createElement(
-	      'span',
+	      'div',
 	      { id: 'user-page-full' },
 	      React.createElement(
 	        'div',
@@ -35742,7 +35752,7 @@
 	          )
 	        ),
 	        React.createElement(
-	          'span',
+	          'div',
 	          null,
 	          detailBody
 	        )

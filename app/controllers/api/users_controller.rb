@@ -30,7 +30,7 @@ class Api::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.all.includes([:sent_connections, :received_connections])
     render :index
   end
 

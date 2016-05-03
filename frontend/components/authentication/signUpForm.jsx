@@ -73,7 +73,7 @@ var SignUp = React.createClass({
               id="zipcode" />
           <br/>
 
-          <input type="submit" value="Create Profile"/>
+          <input className="login-button" type="submit" value="Create Profile!"/>
 
         </form>
 

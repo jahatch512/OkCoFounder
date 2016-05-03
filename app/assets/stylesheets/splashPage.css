@@ -30,6 +30,10 @@
   text-align: center;
 }
 
+#guest-login-button:hover {
+  cursor: pointer;
+}
+
 #home-logo-box {
   height: 40%;
   margin: auto auto 0px auto;
@@ -89,6 +93,10 @@ select {
   transform: translateY(-50%);
 }
 
+#sign-up-button:hover {
+  cursor: pointer;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -108,4 +116,15 @@ select {
 .error-list {
   color: red;
   font-weight: bolder;
+}
+
+.login-button {
+  padding:5px 15px;
+  background: #222222;
+  border: 1px solid #ccc;
+  cursor:pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #ccc;
 }

@@ -40,7 +40,7 @@ var ProfilePage = React.createClass({
     }
 
     return (
-      <span id="user-page-full">
+      <div id="user-page-full">
         {
           <div className="user-page-box">
             <ProfileInfo user={this.state.currentUser} />
@@ -52,13 +52,13 @@ var ProfilePage = React.createClass({
                    onClick={this.questionClick}>
                    Question Detail</div>
             </div>
-            <span>
+            <div>
               {detailBody}
-            </span>
+            </div>
           </div>
         }
 
-      </span>
+      </div>
     );
   }
 

@@ -17,8 +17,8 @@ var ProfileInfo = React.createClass({
   _isConnected: function(){
     var buttonText = "Connect";
     var currentUserConnections = this.state.currentUser.sent_connections;
-    debugger
-    if (currentUserConnections.indexOf(this.state.userPage) !== -1){
+    var userPageId = {id: this.state.userPage.id};
+    if (currentUserConnections.indexOf(userPageId) !== -1){
       buttonText = "Dis-Connect";
     }
 
@@ -54,7 +54,7 @@ var ProfileInfo = React.createClass({
      else {
        cornerButton =
        <div id="connect-button-box">
-          <div id={this.state.connectButton}
+          <div id={this._isConnected()}
               onClick={this.toggleConnect}>
                 {this._isConnected()}
           </div>

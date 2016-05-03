@@ -18,12 +18,14 @@
 }
 
 .user_index_item {
-  color: red;
+  color: #D8D8D8;
   font-size: 18;
   padding: 40px;
   box-shadow: 0px 6px 20px 0px rgba(0,0,0,0.75);
   transition: transform .5s;
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user_index_item:hover {
@@ -37,4 +39,18 @@
 
 .profile-picture {
   border-radius: 10px
+}
+
+#index-username {
+  font-size: 22px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.basic-info {
+  text-align: center;
+}
+
+#match-information {
+  text-align: center;
 }

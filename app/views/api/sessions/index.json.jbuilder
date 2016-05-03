@@ -1,3 +1,5 @@
 json.extract! @user, :id, :username,:image_url, :title,
-  :zipcode, :age, :sent_connections, :received_connections,
-  :mutual_connections, :about
+  :zipcode, :age, :about
+
+json.sent_connections @user.sent_connections, :id
+json.received_connections @user.received_connections, :id
