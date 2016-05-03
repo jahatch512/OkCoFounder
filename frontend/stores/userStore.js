@@ -49,12 +49,14 @@ var updateAbout = function (about) {
   _users[about.user_id].about = about;
 };
 
-var updateConnection = function(connection){
-  console.log(connection);
-  var receiver = {id: connection.lucky_user_id};
-  var sender = {id: connection.user_id};
-  _users[connection.user_id].sent_connections.push(receiver);
-  _users[connection.lucky_user_id].received_connections.push(sender);
+var updateConnection = function(connection) {
+  _users[connection.lucky_user_id].receive_connection_from_current = true;
+  UserStore.__emitChange();
+};
+
+var deleteConnection = function(connection) {
+  _users[connection.lucky_user_id].receive_connection_from_current = false;
+  UserStore.__emitChange();
 };
 
 UserStore.__onDispatch = function (payload) {
@@ -71,6 +73,9 @@ UserStore.__onDispatch = function (payload) {
       break;
     case ConnectionConstants.RECEIVE_CONNECTION:
       updateConnection(payload.connection);
+      break;
+    case ConnectionConstants.REMOVE_CONNECTION:
+      deleteConnection(payload.connection);
       break;
   }
 };

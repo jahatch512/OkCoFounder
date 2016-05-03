@@ -25,39 +25,39 @@
 #logoutClicked {
   margin-right: 40px;
   padding: 10px;
+  border: 1px solid #222222;
+  border-top: 0px;
+  border-bottom: 0px;
 }
 
 #logInClicked {
   margin-right: 100px;
   padding: 10px;
+  border: 1px solid #222222;
+  border-top: 0px;
+  border-bottom: 0px;
 }
 
 #logoutClicked:hover {
 	border-color: white;
-	border-left: 1px;
-	border-right: 1px;
-	border-style: solid;
   cursor: pointer;
 }
 
 #logInClicked:hover {
 	border-color: white;
-	border-left: 1px;
-	border-right: 1px;
-	border-style: solid;
   cursor: pointer;
 }
 
 #profile-button {
   padding: 10px;
+  border: 1px solid #222222;
+  border-top: 0px;
+  border-bottom: 0px;
 
 }
 
 #profile-button:hover {
   border-color: white;
-  border-left: 1px;
-  border-right: 1px;
-  border-style: solid;
   cursor: pointer;
 }
 

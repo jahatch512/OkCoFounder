@@ -14,19 +14,25 @@ var ProfileInfo = React.createClass({
     };
   },
 
+  componentDidMount: function () {
+    this.userStoreListener = UserStore.addListener(this.onUserChange);
+  },
+
+  onUserChange: function() {
+    var userId = this.state.userPage.id;
+    this.setState({userPage: UserStore.findUser(userId)});
+  },
+
   _isConnected: function(){
     var buttonText = "Connect";
-    var currentUserConnections = this.state.currentUser.sent_connections;
-    var userPageId = {id: this.state.userPage.id};
-    if (currentUserConnections.indexOf(userPageId) !== -1){
-      buttonText = "Dis-Connect";
+    if (this.state.userPage.receive_connection_from_current){
+      buttonText = "Disconnect";
     }
 
     return buttonText;
   },
 
   toggleConnect: function() {
-    console.log("connect button clicked");
     var data = {connection: {user_id: this.state.currentUser.id, lucky_user_id: this.state.userPage.id}};
 
     if (this._isConnected() === "Connect") {

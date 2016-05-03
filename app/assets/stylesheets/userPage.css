@@ -78,13 +78,17 @@
   border-radius: 3px;
 }
 
-#Dis-Connect {
+#Disconnect {
   padding: 10px;
   font-size: 20px;
   color: #f3f6f9;
   border: 2px solid #f3f6f9;
   border-radius: 3px;
   background-color: green;
+}
+
+#Disconnect:hover {
+  cursor: pointer;
 }
 
 #detail-info-buttons {

@@ -9,15 +9,22 @@ module.exports = {
    },
 
   deleteConnection: function (connection) {
-    UserApi.deleteConnection(connection);
+    UserApi.deleteConnection(connection, this.removeConnection);
   },
 
-receiveConnection: function (connection) {
-  Dispatcher.dispatch({
-    actionType: ConnectionConstants.RECEIVE_CONNECTION,
-    connection: connection
-  });
-}
+  receiveConnection: function (connection) {
+    Dispatcher.dispatch({
+      actionType: ConnectionConstants.RECEIVE_CONNECTION,
+      connection: connection
+    });
+  },
+
+  removeConnection: function (connection) {
+    Dispatcher.dispatch({
+      actionType: ConnectionConstants.REMOVE_CONNECTION,
+      connection: connection
+    });
+  }
 
 
 };

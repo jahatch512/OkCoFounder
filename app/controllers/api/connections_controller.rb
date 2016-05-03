@@ -11,7 +11,7 @@ class Api::ConnectionsController < ApplicationController
   end
 
   def destroy
-    @connection = Connection.find_by(connection_params)
+    @connection = Connection.find_by(user_id: connection_params[:user_id], lucky_user_id: connection_params[:lucky_user_id])
 
     if(@connection.destroy)
       render :show, status: 200

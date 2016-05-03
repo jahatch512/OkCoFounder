@@ -67,7 +67,17 @@ module.exports = {
       data: connection,
       success: callback
     });
+  },
+
+   deleteConnection: function (connection, callback) {
+    $.ajax({
+      url: "api/connections",
+      type: "DELETE",
+      data: connection,
+      success: callback
+    });
   }
+
 
 
 };
