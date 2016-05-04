@@ -10,6 +10,7 @@
   padding-bottom: 60px;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: center;
   background-color: #222222;
   margin: 50px 0px 0px 50px;
   min-width: 500px;
@@ -25,6 +26,7 @@
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  margin: 20px;
 }
 
 .user_index_item:hover {
@@ -55,20 +57,22 @@
 }
 
 .questions-box {
-  border: 2px solid white;
   min-width: 200px;
-  padding: 80px 30px;
+  padding: 100px 80px 100px 0px;
   color: white;
 }
 
 .questions-inner {
   border: 2px solid white;
+  border-radius: 3px;
   padding: 10px;
   margin: auto;
   min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-shadow: 0px 6px 20px 0px rgba(0,0,0,0.75);
+  background-color: #522A91;
 }
 
 .question-box-item {
@@ -83,7 +87,9 @@
 }
 
 .answer-choice-button {
-  padding: 5px;
+  padding: 10px;
   margin: 5px;
   border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
 }

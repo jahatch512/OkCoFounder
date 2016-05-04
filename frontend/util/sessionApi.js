@@ -36,6 +36,7 @@ module.exports = {
       url: "api/session",
       type: "GET",
       success: function (currentUser) {
+        console.log(currentUser);
         ServerActions.receiveCurrentUser(currentUser);
       },
       error: function(error) {

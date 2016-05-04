@@ -60,14 +60,19 @@ class User < ActiveRecord::Base
   end
 
   def unanswered_questions
-    @unaswered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
-    .where.not("responses.user_id = ?", self.id).distinct
+    # @unaswered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
+    # .where.not("responses.user_id = ?", self.id).distinct
+    answered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
+    .where("responses.user_id = ?", self.id).distinct.pluck(:id)
+    @unanswered = Question.where.not(id: answered)
+
   end
 
   def answered_questions
-    @aswered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
-    .where("responses.user_id = ?", self.id).distinct
+    @answered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
+    .where("responses.user_id = ?", self.id).distinct.pluck(:id)
   end
+  #select * from quetsions where not exists(select question ID from responses where user.id = self.id )
 
   private
 

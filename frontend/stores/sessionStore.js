@@ -1,6 +1,7 @@
 var Store = require('flux/utils').Store;
-var Dispatcher = require('../dispatcher/dispatcher.js');
-var UserConstants = require('../constants/userConstants.js');
+var Dispatcher = require('../dispatcher/dispatcher');
+var UserConstants = require('../constants/userConstants');
+var ResponseConstants = require('../constants/responseConstants');
 var myStorage = localStorage;
 var SessionStore = new Store(Dispatcher);
 
@@ -37,6 +38,14 @@ SessionStore.loggedIn = function() {
 //   }
 //   return _usersArray;
 // }
+var receiveNewResponse = function(response) {
+  console.log("response received in store");
+  _currentUser.responses.push(response.response);
+  if (_currentUser.unanswered.length > 0){
+    _currentUser.unanswered = _currentUser.unanswered.slice(1);
+  }
+  SessionStore.__emitChange();
+};
 
 var loginUser = function(user) {
   _currentUser = user;
@@ -85,6 +94,10 @@ SessionStore.__onDispatch = function (payload) {
       break;
     case UserConstants.ERROR_RECEIVED:
       recieveError(payload.error);
+      break;
+    case ResponseConstants.RECEIVE_SINGLE_RESPONSE:
+      receiveNewResponse(payload.response);
+      break;
   }
 
 };

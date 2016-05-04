@@ -18,27 +18,37 @@ var QuestionIndexItem = React.createClass({
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
   },
 
+  componentWillUnmount: function() {
+    this.sessionListener.remove();
+  },
+
   onSessionChange: function() {
     console.log("called session change in question Index");
     this.setState({currentUser: SessionStore.currentUser()});
   },
 
-  handleYes: function(event) {
-    console.log("selected Yes");
-
+  handleYes: function() {
+    var questionId = this.state.currentUser.unanswered[0].id;
+    var userId = this.state.currentUser.id;
+    var userAnswer = "YES";
+    var data = {response: {question_id: questionId, user_id: userId, user_answer: userAnswer}};
+    ClientActions.createResponse(data);
   },
 
-  handleNo: function(event) {
-    console.log("selected No");
-
+  handleNo: function() {
+    var questionId = this.state.currentUser.unanswered[0].id;
+    var userId = this.state.currentUser.id;
+    var userAnswer = "NO";
+    var data = {response: {question_id: questionId, user_id: userId, user_answer: userAnswer}};
+    ClientActions.createResponse(data);
   },
 
   render: function() {
     if (this.state.currentUser.unanswered){
-      var questionCount = 20 - this.state.currentUser.unanswered.length;
+      var questionCount = 5 - this.state.currentUser.unanswered.length;
       var questionContent = this.state.currentUser.unanswered[0].content;
     } else {
-      questionCount = "twenty";
+      questionCount = 5;
     }
 
 

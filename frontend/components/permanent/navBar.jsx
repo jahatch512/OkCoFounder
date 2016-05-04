@@ -25,6 +25,10 @@ var navBar = React.createClass({
     ClientActions.fetchCurrentUser();
   },
 
+  componentWillUnmount: function() {
+    this.sessionListener.remove();
+  },
+
   onChange: function() {
     if (SessionStore.currentUser() === null){
       this.setState({currentUser: SessionStore.currentUser()});

@@ -74,7 +74,23 @@ module.exports = {
       data: connection,
       success: callback
     });
+  },
+
+   createResponse: function (response) {
+    $.ajax({
+      url: "api/responses",
+      type: "POST",
+      data: response,
+      success: function (data) {
+        ServerActions.receiveResponse(data);
+      },
+
+      error: function (data) {
+        console.log("error saving response to DB");
+      }
+    });
   }
+
 
 
 

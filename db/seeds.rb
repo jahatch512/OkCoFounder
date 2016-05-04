@@ -104,6 +104,12 @@ Question.create!(
 Question.create!(
   content: "Do you value teamwork over individual skill?"
 )
+Question.create!(
+  content: "Have you ever worked on a start-up before?"
+)
+Question.create!(
+  content: "Are you a motivated person?"
+)
 
 Response.create!(
   user_id: 1,

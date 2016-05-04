@@ -1,7 +1,7 @@
-
-var Dispatcher = require('../dispatcher/dispatcher.js'),
-    UserConstants = require('../constants/userConstants.js'),
-    aboutConstants = require('../constants/aboutConstants.js');
+var Dispatcher = require('../dispatcher/dispatcher'),
+    UserConstants = require('../constants/userConstants'),
+    ResponseConstants = require('../constants/responseConstants'),
+    aboutConstants = require('../constants/aboutConstants');
 
 module.exports = {
 
@@ -64,6 +64,13 @@ module.exports = {
     Dispatcher.dispatch({
       actionType: aboutConstants.RECEIVE_SINGLE_ABOUT,
       about: about
+    });
+  },
+
+  receiveResponse: function (response) {
+    Dispatcher.dispatch({
+      actionType: ResponseConstants.RECEIVE_SINGLE_RESPONSE,
+      response: response
     });
   }
 };

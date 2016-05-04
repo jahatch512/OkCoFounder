@@ -25,7 +25,11 @@ module.exports = {
 
   fetchCurrentUser: function () {
     SessionApi.fetchCurrentUser();
-   }
+  },
+
+  createResponse: function(data) {
+    UserApi.createResponse(data);
+  }
 
 
 

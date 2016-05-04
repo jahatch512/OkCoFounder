@@ -11,7 +11,11 @@ class Api::AboutsController < ApplicationController
 
   def update
     @about = About.find_by(user_id: params[:user_id])
-    render json: @about
+    if @about.update_attributes(about_params)
+      render json: @about
+    else
+      render json: {message: "error updating about information"}
+    end
   end
 
   def show

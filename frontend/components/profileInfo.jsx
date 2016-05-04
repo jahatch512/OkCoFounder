@@ -18,6 +18,10 @@ var ProfileInfo = React.createClass({
     this.userStoreListener = UserStore.addListener(this.onUserChange);
   },
 
+  componentWillUnmount: function() {
+    this.userStoreListener.remove();
+  },
+
   onUserChange: function() {
     var userId = this.state.userPage.id;
     this.setState({userPage: UserStore.findUser(userId)});
