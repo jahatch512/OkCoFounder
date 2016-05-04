@@ -78,6 +78,10 @@
   border-radius: 3px;
 }
 
+#Connect:hover {
+  cursor: pointer;
+}
+
 #Disconnect {
   padding: 10px;
   font-size: 20px;

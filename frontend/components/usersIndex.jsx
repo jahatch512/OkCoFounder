@@ -5,6 +5,7 @@ var React = require('react'),
     ClientActions = require('../actions/ClientActions'),
     UserIndexItem = require('./userIndexItem'),
     UserPage = require('./userPage'),
+    QuestionIndexItem = require('./questionIndexItem'),
     hashHistory = require('react-router').hashHistory;
 
 
@@ -20,6 +21,7 @@ var UsersIndex = React.createClass({
 
   componentDidMount: function () {
     ClientActions.fetchUsers();
+    ClientActions.fetchCurrentUser();
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
     this.userStoreListener = UserStore.addListener(this.onUserChange);
   },
@@ -39,7 +41,6 @@ var UsersIndex = React.createClass({
   },
 
   onUserChange: function() {
-
     this.setState({users: UserStore.all()});
   },
 
@@ -49,10 +50,11 @@ var UsersIndex = React.createClass({
       this.state.users.forEach(function(user){
         if (user.id !== that.state.currentUser.id){
           renderUsers.push(<UserIndexItem className="user_index_item"
-                  key={user.id}
-                  user={user} />);
+                                          key={user.id}
+                                          user={user} />);
         }
       });
+
 
     return (
       <div className="user_index_page">
@@ -61,8 +63,11 @@ var UsersIndex = React.createClass({
       {
         renderUsers
       }
-      {this.props.children}
         </div>
+        <div className="questions-box">
+          <QuestionIndexItem />
+        </div>
+        {this.props.children}
       </div>
     );
   }

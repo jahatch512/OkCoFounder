@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :abouts, only: [:create, :show, :update, :destroy]
     resource :connections, only: [:create, :destroy]
     resource :session, only: [:show, :create, :destroy]
+    resources :questions, only: [:index, :show]
+    resources :responses, only: [:create, :destroy, :index, :show]
   end
 
 end

@@ -21,7 +21,7 @@ class Api::SessionsController < ApplicationController
     @user = current_user
 
     if @user
-      render json: @user
+      render :show
     else
       render json: {message: "no user"}
     end

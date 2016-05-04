@@ -59,6 +59,16 @@ class User < ActiveRecord::Base
     other_user.sent_connections.to_a.include?(self)
   end
 
+  def unanswered_questions
+    @unaswered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
+    .where.not("responses.user_id = ?", self.id).distinct
+  end
+
+  def answered_questions
+    @aswered = Question.joins("LEFT OUTER JOIN responses ON responses.question_id = questions.id")
+    .where("responses.user_id = ?", self.id).distinct
+  end
+
   private
 
   def ensure_session_token

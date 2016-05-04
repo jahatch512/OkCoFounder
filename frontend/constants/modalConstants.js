@@ -2,6 +2,7 @@ var CONTENT_STYLE = {
   overlay : {
     backgroundColor : 'rgba(30,30,30,0.85)',
     zIndex          : 10,
+    display         : 'flex'
   },
 
   content : {
@@ -20,9 +21,11 @@ var CONTENT_STYLE = {
     zIndex          : '11',
     opacity         : '0',
     transition      : 'opacity 3s',
-    minHeight       : '300px',
+    minHeight       : '500px',
+    minWidth        : '200px',
     overflowy       : 'scroll'
   }
 };
+
 
 module.exports = CONTENT_STYLE;

@@ -6,11 +6,13 @@ json.array! @users do |user|
   json.zipcode user.zipcode
   json.image_url user.image_url
   json.about user.about
-  #this is a has_many through association, sends back the id of the user who was sent a connection
-  json.sent_connections user.sent_connections, :id
-  #this is a has_many through association, sends back the id of the user
-  json.received_connections user.received_connections, :id
+
+  # json.sent_connections user.sent_connections, :id
+
+  # json.received_connections user.received_connections, :id
 
   json.receive_connection_from_current user.received_connection_from(@current_user)
   json.sent_connection_to_current @current_user.received_connection_from(user)
+
+  json.responses user.responses
 end

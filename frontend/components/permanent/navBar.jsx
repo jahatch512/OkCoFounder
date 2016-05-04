@@ -26,7 +26,12 @@ var navBar = React.createClass({
   },
 
   onChange: function() {
-    this.setState({currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors()});
+    if (SessionStore.currentUser() === null){
+      this.setState({currentUser: SessionStore.currentUser()});
+      hashHistory.push('/');
+    } else {
+    this.setState({currentUser: SessionStore.currentUser()});
+    }
   },
 
   logoutUser: function() {

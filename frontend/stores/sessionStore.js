@@ -28,6 +28,16 @@ SessionStore.loggedIn = function() {
   return _loggedIn;
 };
 
+// SessionStore.allCurrentQuestions = function() {
+//   var _questions = [];
+//   for (var id in _users) {
+//     if (_users.hasOwnProperty(id)) {
+//       _usersArray.push(_users[id]);
+//     }
+//   }
+//   return _usersArray;
+// }
+
 var loginUser = function(user) {
   _currentUser = user;
   myStorage.setItem("currentUser", JSON.stringify(user));
@@ -36,10 +46,15 @@ var loginUser = function(user) {
   SessionStore.__emitChange();
 };
 
-var checkUser = function(user) {
-  if (user.message === "no user"){
+var receiveCurrent = function(user) {
+  console.log("current received in session store");
+
+  if (user.message){
     logoutUser();
+  } else {
+    _currentUser = user;
   }
+  SessionStore.__emitChange();
 };
 
 var logoutUser = function() {
@@ -66,7 +81,7 @@ SessionStore.__onDispatch = function (payload) {
       logoutUser();
       break;
     case UserConstants.RECEIVE_CURRENT_USER:
-      checkUser(payload.user);
+      receiveCurrent(payload.user);
       break;
     case UserConstants.ERROR_RECEIVED:
       recieveError(payload.error);

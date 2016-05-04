@@ -94,3 +94,29 @@ About.create!(
   current_work: "At current, I am working at a small venture capital firm, helping to assess risk and assets.",
   previous_experience: "I have over 7 years of experience in the start-up industry. I have worked on ground level teams and assessed start-ups from a venture capital perspective"
 )
+
+Question.create!(
+  content: "Do you believe that AI is the future of business?"
+)
+Question.create!(
+  content: "Do you think robots will take over most jobs in the US by 2020?"
+)
+Question.create!(
+  content: "Do you value teamwork over individual skill?"
+)
+
+Response.create!(
+  user_id: 1,
+  question_id: 1,
+  user_answer: "YES"
+)
+Response.create!(
+  user_id: 2,
+  question_id: 2,
+  user_answer: "YES"
+)
+Response.create!(
+  user_id: 3,
+  question_id: 3,
+  user_answer: "YES"
+)

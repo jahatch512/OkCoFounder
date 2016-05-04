@@ -50,7 +50,7 @@ column name     | data type | details
 id              | integer   | not null, primary key
 user_id         | integer   | not null, foreign key (references users)
 question_id     | integer   | not null, foreign key (references questions)
-answer          | string    | not null, foreign key (references answers)
+user_answer          | string    | not null, foreign key (references answers)
 
 ## messages
 
