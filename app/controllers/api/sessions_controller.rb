@@ -21,6 +21,7 @@ class Api::SessionsController < ApplicationController
     @user = current_user
 
     if @user
+      @questions = Question.all
       render :show
     else
       render json: {message: "no user"}

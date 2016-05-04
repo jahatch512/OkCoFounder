@@ -7,6 +7,28 @@ var React = require('react'),
 
 
 var QuestionDetail = React.createClass({
+  getInitialState: function() {
+    return {
+      currentUser: SessionStore.currentUser()
+    };
+  },
+
+  componentDidMount: function () {
+    ClientActions.fetchCurrentUser();
+    this.sessionListener = SessionStore.addListener(this.onSessionChange);
+  },
+
+  componentWillUnmount: function () {
+    this.sessionListener.remove();
+  },
+
+  onSessionChange: function() {
+    if (SessionStore.currentUser() === null){
+      hashHistory.push('/');
+    } else {
+    this.setState({currentUser: SessionStore.currentUser()});
+    }
+  },
 
   render: function() {
     return (
