@@ -29,9 +29,10 @@ module.exports = {
 
   createResponse: function(data) {
     UserApi.createResponse(data);
+  },
+
+  updateUser: function(data, id) {
+    UserApi.updateUser(data, id);
   }
-
-
-
 
 };

@@ -6,6 +6,7 @@ var React = require('react'),
     ProfileInfo = require('./profileInfo'),
     AboutDetail = require('./aboutDetail'),
     QuestionDetail = require('./questionDetail'),
+    PictureUploadButton = require('./pictureUploadButton'),
     hashHistory = require('react-router').hashHistory;
 
 var ProfilePage = React.createClass({
@@ -16,6 +17,24 @@ var ProfilePage = React.createClass({
       aboutSelect: "detail-info-tab selected-tab",
       questionSelect: "detail-info-tab"
     };
+  },
+
+  componentDidMount: function () {
+    this.sessionListener = SessionStore.addListener(this.onSessionChange);
+  },
+
+  componentWillUnmount: function () {
+    this.sessionListener.remove();
+  },
+
+
+  onSessionChange: function() {
+    if (SessionStore.currentUser() === null){
+      hashHistory.push('/');
+    } else {
+    console.log("prof page updated");
+    this.setState({currentUser: SessionStore.currentUser()});
+    }
   },
 
   aboutClick: function() {
@@ -44,6 +63,7 @@ var ProfilePage = React.createClass({
         {
           <div className="user-page-box">
             <ProfileInfo user={this.state.currentUser} />
+            <PictureUploadButton user={this.state.currentUser} />
             <div id={"detail-info-buttons"}>
               <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>

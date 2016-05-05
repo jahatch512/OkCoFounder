@@ -23,7 +23,6 @@ var QuestionIndexItem = React.createClass({
   },
 
   onSessionChange: function() {
-    console.log("called session change in question Index");
     this.setState({currentUser: SessionStore.currentUser()});
   },
 

@@ -19,6 +19,23 @@ var UserPage = React.createClass({
     };
   },
 
+  componentDidMount: function () {
+    this.sessionListener = SessionStore.addListener(this.onSessionChange);
+    },
+
+  componentWillUnmount: function () {
+    this.sessionListener.remove();
+  },
+
+
+  onSessionChange: function() {
+    if (SessionStore.currentUser() === null){
+      hashHistory.push('/');
+    } else {
+    this.setState({currentUser: SessionStore.currentUser()});
+    }
+  },
+
   aboutClick: function() {
     this.setState({currentTab: "about",
                    aboutSelect: "detail-info-tab selected-tab",
@@ -48,10 +65,10 @@ var UserPage = React.createClass({
             <div id={"detail-info-buttons"}>
               <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>
-                     About Detail</div>
-                   <div className={this.state.questionSelect}
+                    About Detail</div>
+              <div className={this.state.questionSelect}
                    onClick={this.questionClick}>
-                   Question Detail</div>
+                    Question Detail</div>
             </div>
               {detailBody}
           </div>

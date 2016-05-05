@@ -15,11 +15,22 @@ var ProfileInfo = React.createClass({
   },
 
   componentDidMount: function () {
+    this.sessionListener = SessionStore.addListener(this.onSessionChange);
     this.userStoreListener = UserStore.addListener(this.onUserChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount: function () {
+    this.sessionListener.remove();
     this.userStoreListener.remove();
+  },
+
+
+  onSessionChange: function() {
+    if (SessionStore.currentUser() === null){
+      hashHistory.push('/');
+    } else {
+    this.setState({currentUser: SessionStore.currentUser()});
+    }
   },
 
   onUserChange: function() {

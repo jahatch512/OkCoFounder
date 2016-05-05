@@ -47,13 +47,13 @@ var UsersIndex = React.createClass({
   render: function() {
     var renderUsers = [];
     var that = this;
-      this.state.users.forEach(function(user){
-        if (user.id !== that.state.currentUser.id){
-          renderUsers.push(<UserIndexItem className="user_index_item"
-                                          key={user.id}
-                                          user={user} />);
-        }
-      });
+    this.state.users.forEach(function(user){
+      if (user.id !== that.state.currentUser.id){
+        renderUsers.push(<UserIndexItem className="user_index_item"
+                                        key={user.id}
+                                        user={user} />);
+      }
+    });
 
 
     return (

@@ -89,7 +89,19 @@ module.exports = {
         console.log("error saving response to DB");
       }
     });
-  }
+  },
+
+   updateUser: function (image, id) {
+    $.ajax({
+      url: "api/users/" + id,
+      type: "PATCH",
+      data: image,
+      success: function (currentUser) {
+      ServerActions.receiveCurrentUser(currentUser);
+    }
+    });
+    }
+
 
 
 

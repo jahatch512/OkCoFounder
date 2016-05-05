@@ -95,6 +95,19 @@
   cursor: pointer;
 }
 
+.picture-upload-button {
+  margin-left: 80px;
+  margin-top: 5px;
+}
+
+#picture-text {
+  width: 140px;
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: white;
+}
+
 #detail-info-buttons {
   display: flex;
   flex-direction: row;
