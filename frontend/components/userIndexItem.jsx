@@ -24,7 +24,7 @@ var UserIndexItem = React.createClass({
           <div id="index-username">{this.props.user.username}</div>
           <div className="basic-info">{this.props.user.title} - {this.props.user.age} - {this.props.user.zipcode}
           </div>
-          <div id="match-information">Match Information here</div>
+          <div id="match-information">{this.props.user.match}% match</div>
       </div>
     );
   }

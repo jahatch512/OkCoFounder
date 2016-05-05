@@ -70,8 +70,24 @@ class User < ActiveRecord::Base
   end
 
   def match_percent_with_current(current_user)
-    #query the db for questoins we've answered the same 
+    same_questions_count = Question.joins("LEFT OUTER JOIN responses r1 ON r1.question_id = questions.id")
+    .joins("LEFT OUTER JOIN responses AS r2 ON r2.question_id = questions.id")
+    .where("r1.user_id = ? AND r2.user_id = ?", self.id, current_user.id).count
+
+    same_answers_count = Question.joins("LEFT OUTER JOIN responses r1 ON r1.question_id = questions.id")
+    .joins("LEFT OUTER JOIN responses AS r2 ON r2.question_id = questions.id")
+    .where("r1.user_id = ? AND r2.user_id = ? AND r1.user_answer = r2.user_answer", self.id, current_user.id).count
+
+    if same_questions_count > 0
+      match_percent = same_answers_count.to_f / same_questions_count * 100
+    else
+      match_percent = 0
+    end
+
+    return match_percent
   end
+
+
 
   private
 

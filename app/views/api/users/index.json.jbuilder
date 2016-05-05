@@ -15,4 +15,6 @@ json.array! @users do |user|
   json.sent_connection_to_current @current_user.received_connection_from(user)
 
   json.responses user.responses
+
+  json.match user.match_percent_with_current(@current_user)
 end

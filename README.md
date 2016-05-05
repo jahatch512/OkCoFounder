@@ -30,10 +30,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Update Profile information: location, title, about (MVP)
 - [x] Browse an index of other users (MVP)
 - [x] Visit the profile page of another user ("About" and "Q&A") (MVP)
-- [ ] Answer scrolling questions on the UserIndex page while you browse (MVP)
-- [ ] Select to "connect" with another user (MVP)
-- [ ] View a list of connections (MVP)
-- [ ] Narrow down the browse/index page with selection specs bar (expected, non-MVP)
+- [x] Answer scrolling questions on the UserIndex page while you browse (MVP)
+
 
 
 ## Design Docs
@@ -87,7 +85,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
   - User Show Page
     - [x] `ProfileInfo`
     - [x] `AboutDetail`
-    - [ ] `QuestionDetail` (this might come later)
+    - [x] `QuestionDetail` (this might come later)
     - [ ] `ProfileUpdateForm`
 
 
@@ -103,10 +101,10 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Users can fill out a short questionnaire that is visible on their show page.
 
-- [ ] add `QuestionDetail` component to UserPage
-- [ ] add `Question` Component on UserIndex page
+- [x] add `QuestionDetail` component to UserPage
+- [x] add `Question` Component on UserIndex page
       -- scrolling questions
-- [ ] display a "match" % based on answered questions
+- [x] display a "match" % based on answered questions
 - [ ] Style new elements
 
 ### Phase 6: Connections (2 day)
@@ -125,8 +123,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **objective:** Make the site feel more cohesive and awesome.
 
-- [ ] Get feedback on my UI from others
-- [ ] Refactor HTML classes & CSS rules
+- [x] Get feedback on my UI from others
+- [x] Refactor HTML classes & CSS rules
 - [ ] Add modals, transitions, and other styling flourishes.
 
 ### Phase 8: FilterBar Component (1 day)

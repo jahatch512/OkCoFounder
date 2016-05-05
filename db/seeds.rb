@@ -96,10 +96,7 @@ About.create!(
 )
 
 Question.create!(
-  content: "Do you believe that AI is the future of business?"
-)
-Question.create!(
-  content: "Do you think robots will take over most jobs in the US by 2020?"
+content: "Would you say you work well on a team?"
 )
 Question.create!(
   content: "Do you value teamwork over individual skill?"
@@ -108,21 +105,62 @@ Question.create!(
   content: "Have you ever worked on a start-up before?"
 )
 Question.create!(
-  content: "Are you a motivated person?"
+content: "Can you commit yourself full time to a project?"
 )
+Question.create!(
+  content: "Are you a self-motivating person?"
+)
+Question.create!(
+content: "Do you think robots will take over most jobs in the US by 2020?"
+)
+Question.create!(
+  content: "Are you willing to re-locate?"
+)
+Question.create!(
+  content: "Do you prefer to work remotely?"
+)
+Question.create!(
+  content: "Are you a morning person?"
+)
+Question.create!(
+content: "Do you believe that AI is the future of business?"
+)
+
+5.times do |i|
+  Response.create!(
+  user_id: i+1,
+  question_id: i+1,
+  user_answer: "YES"
+  )
+end
 
 Response.create!(
   user_id: 1,
-  question_id: 1,
-  user_answer: "YES"
+  question_id: 6,
+  user_answer: "NO"
 )
 Response.create!(
   user_id: 2,
-  question_id: 2,
+  question_id: 6,
   user_answer: "YES"
 )
 Response.create!(
   user_id: 3,
-  question_id: 3,
+  question_id: 6,
+  user_answer: "NO"
+)
+Response.create!(
+  user_id: 4,
+  question_id: 6,
+  user_answer: "YES"
+)
+Response.create!(
+  user_id: 5,
+  question_id: 6,
+  user_answer: "NO"
+)
+Response.create!(
+  user_id: 1,
+  question_id: 7,
   user_answer: "YES"
 )

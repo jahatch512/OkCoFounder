@@ -44,10 +44,10 @@ var QuestionIndexItem = React.createClass({
 
   render: function() {
     if (this.state.currentUser.unanswered && this.state.currentUser.unanswered.length > 0){
-      var questionCount = 5 - this.state.currentUser.unanswered.length;
+      var questionCount = 10 - this.state.currentUser.unanswered.length;
       var questionContent = this.state.currentUser.unanswered[0].content;
       var questionRender = (<div className="questions-inner">
-                              <div className="question-box-item"> You have answered {questionCount} Questions! </div>
+                              <div className="question-box-item"> You have answered {questionCount} out of 10 Questions! </div>
                               <div className="question-box-item"> {questionContent} </div>
                               <div className="answer-choice-box question-box-item">
                                 <div onClick={this.handleYes}
