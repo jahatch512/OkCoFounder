@@ -3,7 +3,7 @@ var React = require('react'),
     SessionStore = require('../stores/sessionStore'),
     UserStore = require('../stores/userStore'),
     ClientActions = require('../actions/ClientActions'),
-    ProfileInfo = require('./profileInfo'),
+    CurrentUserProfileInfo = require('./currentUserProfileInfo'),
     AboutDetail = require('./aboutDetail'),
     QuestionDetail = require('./questionDetail'),
     PictureUploadButton = require('./pictureUploadButton'),
@@ -12,7 +12,7 @@ var React = require('react'),
 var ProfilePage = React.createClass({
   getInitialState: function() {
     return {
-      currentUser: UserStore.findUser(SessionStore.currentUser().id),
+      currentUser: SessionStore.currentUser(),
       currentTab: "about",
       aboutSelect: "detail-info-tab selected-tab",
       questionSelect: "detail-info-tab"
@@ -32,7 +32,6 @@ var ProfilePage = React.createClass({
     if (SessionStore.currentUser() === null){
       hashHistory.push('/');
     } else {
-    console.log("prof page updated");
     this.setState({currentUser: SessionStore.currentUser()});
     }
   },
@@ -62,19 +61,25 @@ var ProfilePage = React.createClass({
       <div id="user-page-full">
         {
           <div className="user-page-box">
-            <ProfileInfo user={this.state.currentUser} />
+
+            <CurrentUserProfileInfo />
             <PictureUploadButton user={this.state.currentUser} />
+
             <div id={"detail-info-buttons"}>
+
               <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>
                      About Detail</div>
-                   <div className={this.state.questionSelect}
+              <div className={this.state.questionSelect}
                    onClick={this.questionClick}>
                    Question Detail</div>
+
             </div>
+
             <div>
               {detailBody}
             </div>
+
           </div>
         }
 

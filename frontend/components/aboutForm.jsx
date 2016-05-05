@@ -41,7 +41,7 @@ var AboutForm = React.createClass({
       previous_experience: this.state.previous_experience,
       user_id: this.state.user_id
     }};
-    ClientActions.createAbout(about);
+    ClientActions.updateAbout(about);
   },
 
   render: function() {
@@ -81,7 +81,9 @@ var AboutForm = React.createClass({
               id="previous_experience"/>
             <br/>
 
-            <input type="submit" value="Update Profile"/>
+            <input className="login-button"
+                   type="submit"
+                   value="Update Profile"/>
 
           </form>
         </Modal>

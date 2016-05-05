@@ -99,9 +99,6 @@ Question.create!(
 content: "Would you say you work well on a team?"
 )
 Question.create!(
-  content: "Do you value teamwork over individual skill?"
-)
-Question.create!(
   content: "Have you ever worked on a start-up before?"
 )
 Question.create!(
@@ -109,6 +106,9 @@ content: "Can you commit yourself full time to a project?"
 )
 Question.create!(
   content: "Are you a self-motivating person?"
+)
+Question.create!(
+content: "Do you value teamwork over individual skill?"
 )
 Question.create!(
 content: "Do you think robots will take over most jobs in the US by 2020?"

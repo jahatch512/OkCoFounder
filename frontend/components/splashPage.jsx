@@ -82,7 +82,7 @@ var SplashPage = React.createClass({
             <div id="guest-login-button" onClick={this.loginGuest} >Guest Login</div>
           </span>
           <div id="home-logo-box">
-            <img id="home-logo" src="/assets/logo.png" />
+            <img id="home-logo" src="/assets/LogoPNGnoWatermark.png" />
           </div>
           <span id="initialSignUp">
             <div id="pre-drop-text">I am a...</div>

@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
     .where("r1.user_id = ? AND r2.user_id = ? AND r1.user_answer = r2.user_answer", self.id, current_user.id).count
 
     if same_questions_count > 0
-      match_percent = same_answers_count.to_f / same_questions_count * 100
+      match_percent = (same_answers_count.to_f / same_questions_count * 100).round(1)
     else
       match_percent = 0
     end

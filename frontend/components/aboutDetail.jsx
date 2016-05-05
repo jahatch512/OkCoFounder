@@ -8,6 +8,7 @@ var React = require('react'),
 
 var AboutDetail = React.createClass({
   getInitialState: function() {
+
     return {
       summary: this.props.user.about.summary,
       currentWork: this.props.user.about.current_work,

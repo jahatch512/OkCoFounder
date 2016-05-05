@@ -2,6 +2,7 @@ var Store = require('flux/utils').Store;
 var Dispatcher = require('../dispatcher/dispatcher');
 var UserConstants = require('../constants/userConstants');
 var ResponseConstants = require('../constants/responseConstants');
+var AboutConstants = require('../constants/aboutConstants');
 var myStorage = localStorage;
 var SessionStore = new Store(Dispatcher);
 
@@ -29,17 +30,7 @@ SessionStore.loggedIn = function() {
   return _loggedIn;
 };
 
-// SessionStore.allCurrentQuestions = function() {
-//   var _questions = [];
-//   for (var id in _users) {
-//     if (_users.hasOwnProperty(id)) {
-//       _usersArray.push(_users[id]);
-//     }
-//   }
-//   return _usersArray;
-// }
 var receiveNewResponse = function(response) {
-  console.log("response received in store");
   _currentUser.responses.push(response.response);
   if (_currentUser.unanswered.length > 0){
     _currentUser.unanswered = _currentUser.unanswered.slice(1);
@@ -56,8 +47,6 @@ var loginUser = function(user) {
 };
 
 var receiveCurrent = function(user) {
-  console.log("current received in session store");
-
   if (user.message){
     logoutUser();
   } else {
@@ -80,6 +69,10 @@ var recieveError = function(error) {
     SessionStore.__emitChange();
 };
 
+var updateAbout = function (about) {
+  _currentUser.about = about;
+};
+
 
 SessionStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
@@ -97,6 +90,9 @@ SessionStore.__onDispatch = function (payload) {
       break;
     case ResponseConstants.RECEIVE_SINGLE_RESPONSE:
       receiveNewResponse(payload.response);
+      break;
+    case AboutConstants.RECEIVE_SINGLE_ABOUT:
+      updateAbout(payload.about);
       break;
   }
 

@@ -24,8 +24,6 @@ module.exports = {
       url: "api/users",
       type: "GET",
       success: function (users) {
-        console.log(users);
-
         ServerActions.receiveUsers(users);
       },
       error: function (errors) {
@@ -43,13 +41,12 @@ module.exports = {
     });
   },
 
-  createAbout: function (formData) {
+  updateAbout: function (formData) {
     $.ajax({
       url: "api/abouts",
-      type: "POST",
+      type: "PATCH",
       data: formData,
       success: function (data) {
-        console.log("successfully persisted about to db, here it is:  " + data);
         ServerActions.receiveAbout(data);
         hashHistory.push('/users');
       },
@@ -79,12 +76,14 @@ module.exports = {
   },
 
    createResponse: function (response) {
+     var that = this;
     $.ajax({
       url: "api/responses",
       type: "POST",
       data: response,
       success: function (data) {
         ServerActions.receiveResponse(data);
+        that.fetchUsers();
       },
 
       error: function (data) {
@@ -93,19 +92,15 @@ module.exports = {
     });
   },
 
-   updateUser: function (image, id) {
+   updateUser: function (formData, id) {
     $.ajax({
       url: "api/users/" + id,
       type: "PATCH",
-      data: image,
+      data: formData,
       success: function (currentUser) {
       ServerActions.receiveCurrentUser(currentUser);
-    }
+      }
     });
-    }
-
-
-
-
+  }
 
 };

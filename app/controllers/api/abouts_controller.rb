@@ -10,7 +10,7 @@ class Api::AboutsController < ApplicationController
   end
 
   def update
-    @about = About.find_by(user_id: params[:user_id])
+    @about = About.find_by(user_id: params[:about][:user_id])
     if @about.update_attributes(about_params)
       render json: @about
     else

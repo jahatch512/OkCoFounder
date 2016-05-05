@@ -8,6 +8,7 @@ class Api::UsersController < ApplicationController
 
     if @user.save
       login_user!(@user)
+      About.create!(user_id: @user.id)
       render :show
     else
       @error_messages = @user.errors.full_messages

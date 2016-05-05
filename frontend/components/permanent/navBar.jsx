@@ -40,8 +40,6 @@ var navBar = React.createClass({
 
   logoutUser: function() {
     ClientActions.logoutUser();
-    hashHistory.push('/');
-
   },
 
   openModal: function(event) {
@@ -115,7 +113,7 @@ var navBar = React.createClass({
 
     <div className="navBar">
       <div id="nav-logo" onClick={this.logoClick}>
-        <img id="logo-image" src="/assets/logo.png" />
+        <img id="logo-image" src="/assets/MatchPNGnoWatermark.png" />
       </div>
       {navBarSessionButton}
       <Modal

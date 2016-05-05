@@ -4,6 +4,7 @@ var React = require('react'),
     UserStore = require('../stores/userStore'),
     ClientActions = require('../actions/ClientActions'),
     QuestionWithResponse = require('./questionWithResponse'),
+    QuestionsConstants = require('../constants/questionsConstants'),
     hashHistory = require('react-router').hashHistory;
 
 
@@ -34,12 +35,11 @@ var QuestionDetail = React.createClass({
 
   render: function() {
     var questionsAndResponses = [];
-    var allQuestions = this.state.currentUser.all_questions;
 
     this.state.userPage.responses.forEach(function(response){
       questionsAndResponses.push(<QuestionWithResponse
             key={response.question_id}
-            question={allQuestions[response.question_id - 1].content}
+            question={QuestionsConstants[response.question_id - 1]}
             response={response.user_answer} />);
     });
 

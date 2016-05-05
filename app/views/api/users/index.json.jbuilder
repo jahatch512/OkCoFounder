@@ -7,6 +7,7 @@ json.array! @users do |user|
   json.image_url user.image_url
   json.about user.about
 
+
   # json.sent_connections user.sent_connections, :id
 
   # json.received_connections user.received_connections, :id
