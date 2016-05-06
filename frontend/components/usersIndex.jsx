@@ -64,7 +64,7 @@ var UsersIndex = React.createClass({
         renderUsers
       }
         </div>
-        <div className="questions-box">
+        <div>
           <QuestionIndexItem />
         </div>
         {this.props.children}

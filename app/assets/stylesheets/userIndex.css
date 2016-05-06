@@ -12,7 +12,7 @@
   flex-direction: row;
   justify-content: center;
   background-color: #222222;
-  margin: 50px 0px 0px 50px;
+  margin: 50px 0px 0px 0px;
   min-width: 500px;
   max-width: 1400px;
 }

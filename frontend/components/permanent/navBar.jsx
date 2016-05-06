@@ -113,7 +113,7 @@ var navBar = React.createClass({
 
       logoButton =
       <div id="nav-logo" onClick={this.logoClick}>
-        <img id="logo-image" src="/assets/justOkCoFounder.png" />
+        <img id="logo-image-words" src="/assets/justOkCoFounder.png" />
       </div>;
     }
 

@@ -80,10 +80,15 @@
 	align-items: center;
 }
 
+#logo-image-words {
+	width: auto;
+	height: 18px;
+}
 #logo-image {
 	width: auto;
 	height: 40px;
 }
+
 
 #logo-image:hover {
   cursor: pointer;

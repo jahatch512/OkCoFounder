@@ -27,7 +27,6 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] Create an account (MVP)
 - [x] Log in / Log out
 - [x] Guest/Demo User (MVP)
-- [ ] Update Profile information: location, title, about (MVP)
 - [x] Browse an index of other users (MVP)
 - [x] Visit the profile page of another user ("About" and "Q&A") (MVP)
 - [x] Answer scrolling questions on the UserIndex page while you browse (MVP)
@@ -86,7 +85,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
     - [x] `ProfileInfo`
     - [x] `AboutDetail`
     - [x] `QuestionDetail` (this might come later)
-    - [ ] `ProfileUpdateForm`
+
 
 
 ### Phase 4: Start Styling (1 days)
@@ -105,7 +104,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [x] add `Question` Component on UserIndex page
       -- scrolling questions
 - [x] display a "match" % based on answered questions
-- [ ] Style new elements
+- [x] Style new elements
 
 ### Phase 6: Connections (2 day)
 
@@ -125,7 +124,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] Get feedback on my UI from others
 - [x] Refactor HTML classes & CSS rules
-- [ ] Add modals, transitions, and other styling flourishes.
+- [x] Add modals, transitions, and other styling flourishes.
 
 ### Phase 8: FilterBar Component (1 day)
 

@@ -46,7 +46,9 @@ var QuestionIndexItem = React.createClass({
     if (this.state.currentUser.unanswered && this.state.currentUser.unanswered.length > 0){
       var questionCount = 20 - this.state.currentUser.unanswered.length;
       var questionContent = this.state.currentUser.unanswered[0].content;
-      var questionRender = (<div className="questions-inner">
+      var questionRender = (
+        <div className="questions-box">
+        <div className="questions-inner">
                               <div className="question-box-item"> You have answered {questionCount} out of 20 Questions! </div>
                               <div className="question-box-item"> {questionContent} </div>
                               <div className="answer-choice-box question-box-item">
@@ -55,7 +57,8 @@ var QuestionIndexItem = React.createClass({
                                 <div onClick={this.handleNo}
                                      className="answer-choice-button">NO</div>
                               </div>
-                            </div>);
+                            </div>
+                          </div>);
     } else {
       questionRender = (<div></div>);
     }

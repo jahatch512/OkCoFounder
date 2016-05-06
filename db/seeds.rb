@@ -71,8 +71,8 @@ User.create!(
   title: 'Developer',
   age: 24,
   zipcode: 94295,
-  image_url: 'http://thumb101.shutterstock.com/display_pic_with_logo/833035/340202993/stock-photo-frontal-portrait-of-business-woman-340202993.jpg'
-)
+  image_url: "http://www.neorhino.com/wp-content/uploads/2011/10/business-lady-thinking-300x300.jpg"
+  )
 User.create!(
   username: 'EricLi',
   password: 'password',
@@ -135,7 +135,7 @@ User.create!(
   title: 'Developer',
   age: 26,
   zipcode: 94229,
-  image_url: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQdqmWg2Jef866Kff0s9sA1mPzMmYf5VPjxTwScEdyQ06HVOGXASQ'
+  image_url: 'http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/179/medium/Michael_Gloudeman.jpg?1457739490'
 )
 
 About.create!(
@@ -176,54 +176,60 @@ About.create!(
 )
 About.create!(
   user_id: 7,
+  summary: "I am a hardworking entrepreneur looking for some highly motivated individuals that are interested in joining my team",
+  current_work: "At current, I am working at a small venture capital firm, helping to assess risk and assets.",
+  previous_experience: "I have over 7 years of experience in the start-up industry. I have worked on ground level teams and assessed start-ups from a venture capital perspective"
+)
+About.create!(
+  user_id: 8,
   summary: "My name is Lisa and I am a software developer eager to get her hands in the start-up game. I am flexible with hours and duties, and can start immediately.",
   current_work: "I am a web developer at Google. I work in the emerging products division.",
   previous_experience: "I have 10+ years of experience developing in a broad range of languages including: Ruby, JavaScript, Rails, SQL, Flux, and React."
 )
 About.create!(
-  user_id: 8,
+  user_id: 9,
   summary: "As a highly motivated and extremely passionate individual, I enjoy setting high goals for myself and working long hours to make them become a reality.",
   current_work: "I work in the finance department of a fortune 500 company overseeing mergers and acquisitions of mid-sized businesses.",
   previous_experience: "I have been working in the finance industry for 6 years now and received my degree in finance from UCLA."
 )
 About.create!(
-  user_id: 9,
+  user_id: 10,
   summary: "I am a web designer born and raised in San Francisco. After a few years for big companies, I am ready to try my hand at start-ups. I am flexible with hours and duties, and can start immediately.",
   current_work: "I am a web developer at LinkedIn working in the customer satisfaction division.",
   previous_experience: "I have 10+ years of experience developing in a broad range of languages including: Ruby, JavaScript, Rails, SQL, Flux, and React."
 )
 About.create!(
-  user_id: 10,
+  user_id: 11,
   summary: "I am a hardworking entrepreneur looking for some highly motivated individuals that are interested in joining my team",
   current_work: "At current, I am working at a small venture capital firm, helping to assess risk and assets.",
   previous_experience: "I have over 7 years of experience in the start-up industry. I have worked on ground level teams and assessed start-ups from a venture capital perspective"
 )
 About.create!(
-  user_id: 11,
+  user_id: 12,
   summary: "I am a backend engineer from San Jose. In my free time I enjoy a good book or a cup of coffee and a guitar.",
   current_work: "I have been working as a database admin for a small business for 3 years.",
   previous_experience: "I have significant experience developing backend architecture, mostly in SQL."
 )
 About.create!(
-  user_id: 12,
+  user_id: 13,
   summary: "I am a financial adviser who has been involved with numerous start-ups in the past. I am also a die-hard San Jose Sharks fan!",
   current_work: "I do financial planning for pention fund assets for San Francisco Municipal employees.",
   previous_experience: "I have been a part of the development of multiple successful start-ups. GO SHARKS!"
 )
 About.create!(
-  user_id: 13,
+  user_id: 14,
   summary: "I am from the Sacramento area and I obtained my MBA from UCLA. Just moved to the Bay Area and excited about getting in on the ground level of the next big business.",
   current_work: "I am currently running the management department of a large department store located in the East Bay.",
   previous_experience: "With my time at UCLA, I have learned the ins and outs of what it takes to run a business on a day-to-day basis."
 )
 About.create!(
-  user_id: 14,
+  user_id: 15,
   summary: "I am a hardworking entrepreneur looking for some highly motivated individuals that are interested in joining my team",
   current_work: "At current, I am working at a small venture capital firm, helping to assess risk and assets.",
   previous_experience: "I have over 7 years of experience in the start-up industry. I have worked on ground level teams and assessed start-ups from a venture capital perspective"
 )
 About.create!(
-  user_id: 15,
+  user_id: 16,
   summary: "My name is Henry and I am a software developer eager to get his hands in the start-up game. I am flexible with hours and duties.",
   current_work: "I am a web developer at Google. I work in the emerging products division.",
   previous_experience: "I have 10+ years of experience developing in a broad range of languages including: Ruby, JavaScript, Rails, SQL, Flux, and React."
