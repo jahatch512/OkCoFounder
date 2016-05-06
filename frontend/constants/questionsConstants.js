@@ -8,5 +8,15 @@ module.exports = [
   "Are you willing to re-locate?",
   "Do you prefer to work remotely?",
   "Are you a morning person?",
-  "Do you believe that AI is the future of business?"
+  "Do you believe that AI is the future of business?",
+  "Have you been living in San Francisco for more than 5 years?",
+  "Is your commute longer than 1 hour to get to the Financial District?",
+  "Have you ever owned your own business?",
+  "Do you have aspirations to be an entrepreneur?",
+  "Have you ever worked for a fortune 500 company?",
+  "Do you have experience in a managerial role?",
+  "Have you ever contributed to an open-source project?",
+  "Have you been at your current job for more than 2 years?",
+  "Are you able to work on weekends?",
+  "Do you expect to be an equal partner of any company you join?"
 ];

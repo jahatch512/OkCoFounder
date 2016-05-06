@@ -1,7 +1,7 @@
 .splash_page {
-  background: url("/assets/handshake.jpg") no-repeat;
+  background: url("/assets/GoldenGate.jpg") no-repeat;
   background-size: cover;
-  opacity: 50%;
+  opacity: 80%;
   height: 100%;
   color: white;
   width: 100%
@@ -40,8 +40,8 @@
 }
 
 #home-logo {
-  height: 180px;
-  width: 250px;
+  height: 220px;
+  width: 320px;
   align-items: center;
 }
 
@@ -51,7 +51,7 @@
   justify-content: center;
   align-content: center;
   height: 100px;
-  margin-bottom: 70px;
+  margin-bottom: 120px;
 }
 
 #pre-drop-text {

@@ -57,30 +57,16 @@ var ProfileInfo = React.createClass({
     }
   },
 
-  handleUpdate: function() {
-    console.log("update button clicked");
-  },
-
   render: function() {
 
-    if (this.state.userPage.id === this.state.currentUser.id){
-      var cornerButton =
-      <div id="update-button-box">
-        <div id="update-button"
-             onClick={this.handleUpdate}>
-              Update Profile
-        </div>
-      </div>;
-    }
-     else {
-       cornerButton =
+       var cornerButton =
        <div id="connect-button-box">
           <div id={this._isConnected()}
               onClick={this.toggleConnect}>
                 {this._isConnected()}
           </div>
        </div>;
-     }
+
     return (
 
       <div id="profile-info">

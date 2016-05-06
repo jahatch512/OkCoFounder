@@ -31,7 +31,7 @@ var navBar = React.createClass({
 
   onChange: function() {
     if (SessionStore.currentUser() === null){
-      this.setState({currentUser: SessionStore.currentUser()});
+      this.setState({currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors()});
       hashHistory.push('/');
     } else {
     this.setState({currentUser: SessionStore.currentUser()});
@@ -83,6 +83,10 @@ var navBar = React.createClass({
     if (this.state.currentUser !== null) {
       var navBarSessionButton =
       <div className="nav-session-buttons">
+        <div id="browse-button"
+             onClick={this.logoClick}>
+          Matches
+        </div>
         <div id="profile-button"
              onClick={this.profileClick}>
           Profile
@@ -91,9 +95,13 @@ var navBar = React.createClass({
              onClick={this.sessionClick}>
           Logout
         </div>
-      </div>
+      </div>;
 
-      ;
+      var logoButton =
+      <div id="nav-logo" onClick={this.logoClick}>
+        <img id="logo-image" src="/assets/MatchPNGnoWatermark.png" />
+      </div>;
+
     } else {
       navBarSessionButton =
       <div className="nav-session-buttons">
@@ -101,20 +109,25 @@ var navBar = React.createClass({
              onClick={this.sessionClick}>
             Sign In
         </div>
-      </div>
-      ;
+      </div>;
+
+      logoButton =
+      <div id="nav-logo" onClick={this.logoClick}>
+        <img id="logo-image" src="/assets/justOkCoFounder.png" />
+      </div>;
     }
 
     if (this.state.errors.length > 0) {
+
+
       var errorMessages = <Errors errors={this.state.errors}/>;
     }
+
 
     return (
 
     <div className="navBar">
-      <div id="nav-logo" onClick={this.logoClick}>
-        <img id="logo-image" src="/assets/MatchPNGnoWatermark.png" />
-      </div>
+      {logoButton}
       {navBarSessionButton}
       <Modal
         isOpen={this.state.modalIsOpen}
