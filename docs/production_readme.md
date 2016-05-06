@@ -1,32 +1,54 @@
-# FresherNote
+# OkCoFounder
 
-[FresherNote live][heroku] **NB:** This should be a link to your production site
+[OkCoFounder Site][heroku] **NB:** This should be a link to your production site
 
-[heroku]: http://www.herokuapp.com
+[heroku]: https://okcofounder.herokuapp.com/
 
-FresherNote is a full-stack web application inspired by Evernote.  It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React.js with a Flux architectural framework on the frontend.  
+OkCoFounder is a full-stack web application based on the features and functionality of the dating app OkCupid. It utilizes Ruby on Rails with a PosgreSQL database on the backend, and implements React.js within a Flux architecture pattern on the frontend. Using these tools, the site allows a user to create an account and answer a scrolling index of questions in order to determine his/her compatibility with other entrepreneurs looking for business partners in the Bay Area.
 
-## Features & Implementation
+## Design & Implementation
 
- **NB**: don't copy and paste any of this.  Many folks will implement similar features, and many employers will see the READMEs of a lot of a/A grads.  You must write in a way that distinguishes your README from that of other students', but use this as a guide for what topics to cover.  
+Below are some of the implementation details and code snippets from some of the more challenging, creative, and unique aspects of the application.
 
-### Single-Page App
+### User Authentication
 
-FresherNote is truly a single-page; all content is delivered on one static page.  The root page listens to a `SessionStore` and renders content based on a call to `SessionStore.currentUser()`.  Sensitive information is kept out of the frontend of the app by making an API call to `SessionsController#get_user`.
+One of the most important aspects of any web application is security. When a user creates a new account, BCrypt is implemented on the backend to hash the password before storing it in a user table as a password digest. At the time of login, an API call is made to the Session Controller on the backend to start a new session. If the username and password are a match, the user is assigned a session token on the backend that corresponds to the Rails session hash and shares a connection with the user through the Cookies. Once the connection is established, the current user's information is passed to the Session Store where it is saved to localStorage so that the frontend can access the user information throughout the length of the session. An API call is made in the background on each re-render to ensure the user still has a valid session in Rails, and promptly alerts localStorage to reset if no valid session is found. In this way, the current user can experience seamless and fluid browsing of the site until the session is destroyed (via logout) or the session token fails to match (deleted Cookies).
 
-```ruby
-class Api::SessionsController < ApplicationController
-    def get_user
-      if current_user
-        render :current_user
-      else
-        render json: errors.full_messages
-      end
-    end
- end
+
+### Single Page Application
+
+OkCoFounder is a single page application that uses the properties of React and React Router to deliver all content on a single static page. All communication with the backend happens through API ajax requests.
+
+
+
+```javascript
+    var RouterComponent = (
+    <Router history={hashHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute component={SplashPage}/>
+        <Route path="users" component={UsersIndex}>
+          <Route path="about" component={AboutForm}/>
+        </Route>
+        <Route path="users/profile" component={ProfilePage} />
+        <Route path="users/:userId" component={UserPage} />
+
+      </Route>
+    </Router>
+    );
+
+
+    document.addEventListener('DOMContentLoaded', function(){
+    Modal.setAppElement('#root');
+    var root = document.getElementById('root');
+    ReactDOM.render(RouterComponent, root);
+    });
   ```
 
-### Note Rendering and Editing
+### Browsing an index of other users
+
+  Being that the site aims to connect people with potential business partners, the main components of the site are the users themselves.
+
+  In the database, users are stored in a table containing columns for ``
 
   On the database side, the notes are stored in one table in the database, which contains columns for `id`, `user_id`, `content`, and `updated_at`.  Upon login, an API call is made to the database which joins the user table and the note table on `user_id` and filters by the current user's `id`.  These notes are held in the `NoteStore` until the user's session is destroyed.  
 
@@ -51,7 +73,7 @@ render: function () {
   }
   <ExpandedNotebook notebook={this.state.selectedNotebook} />)
 }
-```
+``
 
 ### Tags
 

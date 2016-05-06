@@ -38,8 +38,8 @@ var QuestionWithResponse = React.createClass({
 
     return (
       <div className="question-with-response">
-        <div>{this.props.question}</div>
-        <div>{this.props.response}</div>
+        <div id="question-detail-body">{this.props.question}</div>
+        <div id="question-detail-response">{this.props.response}</div>
       </div>
 
     );

@@ -1,4 +1,5 @@
 var SessionApi = require('../util/sessionApi'),
+    Dispatcher = require('../dispatcher/dispatcher'),
     UserApi = require('../util/userApi');
 
 
@@ -33,6 +34,13 @@ module.exports = {
 
   updateUser: function(data, id) {
     UserApi.updateUser(data, id);
+  },
+
+  clearErrors: function () {
+    Dispatcher.dispatch({
+      actionType: "CLEAR_ERROR",
+    });
   }
+
 
 };

@@ -6,7 +6,6 @@ var HashHistory = require('react-router').hashHistory;
 var Errors = React.createClass({
 
   componentWillReceiveProps: function(newProps){
-    debugger
   },
 
   shouldComponentUpdate: function(){
@@ -14,7 +13,8 @@ var Errors = React.createClass({
   },
 
   render: function() {
-    debugger
+    // console.log(this.props.errors);
+
     if (typeof this.props.errors === "string"){
       var errorsList = this.props.errors;
     } else {
@@ -26,7 +26,7 @@ var Errors = React.createClass({
       });
     }
 
-    console.log(errorsList);
+
 
 
     return (

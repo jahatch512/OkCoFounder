@@ -52,7 +52,6 @@ module.exports = {
       },
 
       error: function (errors) {
-        console.log("error in createAbout ajax request");
       }
     });
   },
@@ -87,7 +86,7 @@ module.exports = {
       },
 
       error: function (data) {
-        console.log("error saving response to DB");
+
       }
     });
   },

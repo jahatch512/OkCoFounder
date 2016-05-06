@@ -22,8 +22,9 @@ SessionStore.allErrors = function() {
   return _authenticationErrors;
 };
 
-SessionStore.clearErrors = function() {
+var clearErrors = function() {
   _authenticationErrors = [];
+  SessionStore.__emitChange();
 };
 
 SessionStore.loggedIn = function() {
@@ -42,7 +43,7 @@ var loginUser = function(user) {
   _currentUser = user;
   myStorage.setItem("currentUser", JSON.stringify(user));
   _loggedIn = true;
-  SessionStore.clearErrors();
+  clearErrors();
   SessionStore.__emitChange();
 };
 
@@ -59,7 +60,7 @@ var logoutUser = function() {
   myStorage.setItem("currentUser", "false");
   _loggedIn = false;
   _currentUser = null;
-  SessionStore.clearErrors();
+  clearErrors();
   SessionStore.__emitChange();
 };
 
@@ -87,6 +88,9 @@ SessionStore.__onDispatch = function (payload) {
       break;
     case UserConstants.ERROR_RECEIVED:
       recieveError(payload.error);
+      break;
+    case "CLEAR_ERROR":
+      clearErrors();
       break;
     case ResponseConstants.RECEIVE_SINGLE_RESPONSE:
       receiveNewResponse(payload.response);

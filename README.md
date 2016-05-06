@@ -10,11 +10,11 @@ OkCoFounder is a web application inspired by OkCupid that will be built using Ru
 
 - [x] New account creation, login
 - [x] Guest/demo login
-- [ ] Smooth, bug-free navigation
-- [ ] Adequate seed data to demonstrate the site's features
-- [ ] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), answer scrolling questions on user index page, select to "connect" with another user, view all connections.
+- [x] Smooth, bug-free navigation
+- [x] Adequate seed data to demonstrate the site's features
+- [x] The minimally necessary features for an OkCupid-inspired site: browse potential matches (index), view a specific profile (with "About" and "Q&A" sections), answer scrolling questions on user index page, select to "connect" with another user.
 - [x] Hosting on Heroku
-- [ ] CSS styling that is satisfactorily visually appealing
+- [x] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
 
 ## Product Goals and Priorities

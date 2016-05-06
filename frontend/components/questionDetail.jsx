@@ -44,7 +44,7 @@ var QuestionDetail = React.createClass({
     });
 
     return (
-      <div>{questionsAndResponses}</div>
+      <div className="question-detail-list">{questionsAndResponses}</div>
     );
   }
 

@@ -44,15 +44,21 @@ var SplashPage = React.createClass({
     } else if (event.target.id === "guestLogin") {
       this.setState({modalIsOpen: true, guestLogin: true});
     }
-    this.setState({errors: SessionStore.allErrors()});
+    // this.setState({errors: SessionStore.allErrors()});
   },
 
   afterOpenModal: function() {
     ModalStyling.content.opacity = 100;
+    ClientActions.clearErrors();
+
   },
 
   closeModal: function() {
     this.setState({modalIsOpen: false, guestLogin: false, clickedSignUp: false, errors: []});
+    console.log("closed splash modal");
+
+    ClientActions.clearErrors();
+
   },
 
   titleChange: function(event){
@@ -93,14 +99,13 @@ var SplashPage = React.createClass({
               <option value="Developer">Developer</option>
             </select>
             <div onClick={this.openModal} id='sign-up-box'>
-              <div id="sign-up-button">Find a Match!</div>
+              <div id="sign-up-button">Browse Matches</div>
             </div>
           </span>
     </div>;
 
     if (this.state.errors.length > 0) {
       var errorMessages = <Errors errors={this.state.errors}/>;
-      SessionStore.clearErrors();
     }
 
     return (
