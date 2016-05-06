@@ -13,7 +13,6 @@ var Errors = React.createClass({
   },
 
   render: function() {
-    // console.log(this.props.errors);
 
     if (typeof this.props.errors === "string"){
       var errorsList = this.props.errors;

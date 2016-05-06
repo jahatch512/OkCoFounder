@@ -44,7 +44,6 @@ var SplashPage = React.createClass({
     } else if (event.target.id === "guestLogin") {
       this.setState({modalIsOpen: true, guestLogin: true});
     }
-    // this.setState({errors: SessionStore.allErrors()});
   },
 
   afterOpenModal: function() {
@@ -55,9 +54,7 @@ var SplashPage = React.createClass({
 
   closeModal: function() {
     this.setState({modalIsOpen: false, guestLogin: false, clickedSignUp: false, errors: []});
-    console.log("closed splash modal");
 
-    ClientActions.clearErrors();
 
   },
 

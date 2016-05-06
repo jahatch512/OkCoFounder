@@ -31,9 +31,7 @@ var navBar = React.createClass({
 
   onChange: function() {
     if (SessionStore.currentUser() === null){
-      console.log("nav on change called");
-
-      this.setState({errors: SessionStore.allErrors()});
+      this.setState({currentUser: SessionStore.currentUser(), errors: SessionStore.allErrors()});
       hashHistory.push('/');
     } else {
     this.setState({currentUser: SessionStore.currentUser()});
@@ -51,12 +49,11 @@ var navBar = React.createClass({
   afterOpenModal: function() {
     ModalStyling.content.opacity = 100;
     ClientActions.clearErrors();
+
   },
 
   closeModal: function() {
     this.setState({modalIsOpen: false, logInClicked: false, errors: []});
-    ClientActions.clearErrors();
-
   },
 
   logoClick: function() {
@@ -80,7 +77,6 @@ var navBar = React.createClass({
   },
 
   render: function() {
-    console.log(this.state.errors);
 
     var modalContents = null;
     if (this.state.logInClicked === true) {
