@@ -119,7 +119,7 @@ Users can browse an index of other users, who represent potential business conne
 
 They can also view a specific profile, which includes the "about me" data as well as any responses the user has recorded for questions:
 
-![image of user index page](https://github.com/jahatch512/OkCoFounder/blob/master/docs/sampleImages/userIndex.png)
+![image of user profile page](https://github.com/jahatch512/OkCoFounder/blob/master/docs/sampleImages/profilePage.png)
 
 
 ## Future Directions for the Project
@@ -132,7 +132,7 @@ Currently, you can select to "Connect" with a user. The next step is to create a
 
 ### Index Filter
 
-Another feature that will be added to OkCoFounder is the ability to narrow your index list of users using some simple filter parameters. For instance, if a user comes to the site and is only looking for CFO's, he/she should be able to select this option from a menu on the side of the index page and filter out all non-matching users. 
+Another feature that will be added to OkCoFounder is the ability to narrow your index list of users using some simple filter parameters. For instance, if a user comes to the site and is only looking for CFO's, he/she should be able to select this option from a menu on the side of the index page and filter out all non-matching users.
 
 ### Direct Messaging
 
