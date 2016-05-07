@@ -51,7 +51,7 @@ OkCoFounder is a single page application that uses the properties of React and R
   In the database, users are stored in a table containing columns for `username`, `password_digest`, `session_token`, `title` (CEO, CFO, MBA, DEVELOPER), `zipcode`, `age`, and `image_url` where a profile picture can be stored using Cloudinary. Along with this information, extended data about the users is stored in an "about" table. This information includes a `summary`, `current_work`, and `previous_experience`. Users are prompted to fill in this data by a modal that appears upon successful creation of a new account:
 
 
-![image of about me modal](https://github.com/jahatch512/OkCoFounder/blob/master/docs/logos/aboutMeModal.png)
+![image of about me modal](https://github.com/jahatch512/OkCoFounder/blob/master/docs/sampleImages/aboutMeModal.png)
 
 ### Matches and Match Percentage
 
@@ -115,17 +115,25 @@ end
 
 Users can browse an index of other users, who represent potential business connections:
 
-![image of user index page](https://github.com/jahatch512/OkCoFounder/blob/master/docs/logos/aboutMeModal.png)
+![image of user index page](https://github.com/jahatch512/OkCoFounder/blob/master/docs/sampleImages/userIndex.png)
+
+They can also view a specific profile, which includes the "about me" data as well as any responses the user has recorded for questions:
+
+![image of user index page](https://github.com/jahatch512/OkCoFounder/blob/master/docs/sampleImages/userIndex.png)
 
 
 ## Future Directions for the Project
 
-In addition to the features already implemented, I plan to continue work on this project.  The next steps for FresherNote are outlined below.
+In addition to the features already implemented, I plan to continue work on this project.  The next steps for OkCoFounder are outlined below.
 
-### Search
+### Browse Connections
 
-Searching notes is a standard feature of Evernote.  I plan to utilize the Fuse.js library to create a fuzzy search of notes and notebooks.  This search will look go through tags, note titles, notebook titles, and note content.  
+Currently, you can select to "Connect" with a user. The next step is to create an index page where you can view sent connections, received connections, and mutual connections.
+
+### Index Filter
+
+Another feature that will be added to OkCoFounder is the ability to narrow your index list of users using some simple filter parameters. For instance, if a user comes to the site and is only looking for CFO's, he/she should be able to select this option from a menu on the side of the index page and filter out all non-matching users. 
 
 ### Direct Messaging
 
-Although this is less essential functionality, I also plan to implement messaging between FresherNote users.  To do this, I will use WebRTC so that notifications of messages happens seamlessly.  
+Although this is less essential functionality, I also plan to implement messaging between OkCoFounder users.  To do this, I will use WebRTC so that notifications of messages happens seamlessly.  
