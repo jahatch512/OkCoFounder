@@ -48,23 +48,19 @@ OkCoFounder is a single page application that uses the properties of React and R
 
   Being that the site aims to connect people with potential business partners, the main components of the site are the users themselves.
 
-  In the database, users are stored in a table containing columns for ``
+  In the database, users are stored in a table containing columns for `username`, `password_digest`, `session_token`, `title` (CEO, CFO, MBA, DEVELOPER), `zipcode`, `age`, and `image_url` where a profile picture can be stored using Cloudinary. Along with this information, extended data about the users is stored in an "about" table. This information includes a `summary`, `current_work`, and `previous_experience`. Users are prompted to fill in this data by a modal that appears upon successful creation of a new account:
 
-  On the database side, the notes are stored in one table in the database, which contains columns for `id`, `user_id`, `content`, and `updated_at`.  Upon login, an API call is made to the database which joins the user table and the note table on `user_id` and filters by the current user's `id`.  These notes are held in the `NoteStore` until the user's session is destroyed.  
 
-  Notes are rendered in two different components: the `CondensedNote` components, which show the title and first few words of the note content, and the `ExpandedNote` components, which are editable and show all note text.  The `NoteIndex` renders all of the `CondensedNote`s as subcomponents, as well as one `ExpandedNote` component, which renders based on `NoteStore.selectedNote()`. The UI of the `NoteIndex` is taken directly from Evernote for a professional, clean look:  
+![image of about me modal](https://github.com/jahatch512/OkCoFounder/blob/master/docs/logos/aboutMeModal.png)
 
-![image of notebook index](https://github.com/appacademy/sample-project-proposal/blob/master/docs/noteIndex.png)
+### Matches and Match Percentage
 
-Note editing is implemented using the Quill.js library, allowing for a Word-processor-like user experience.
+The most important feature of this application is the ability to find a compatible business partner. In order to determine compatibility, a user answers a long list of questions that are present on the side of the screen as he/she browses the other users (potential matches). This data is stored on a "responses" table, which includes the `user_id`, `question_id`, and the `user_answer`. The matching algorithm takes two users and first determines the total number of unique questions that both users have provided an answer for. It then calculates the total number of identical answers from these questions and divides by the first number to get a percentage: (total number of identical answers / total number of identical questions answered). ActiveRecord queries are used on the User model to retrieve this data in just two queries:
 
-### Notebooks
+```ruby
 
-Implementing Notebooks started with a notebook table in the database.  The `Notebook` table contains two columns: `title` and `id`.  Additionally, a `notebook_id` column was added to the `Note` table.  
 
-The React component structure for notebooks mirrored that of notes: the `NotebookIndex` component renders a list of `CondensedNotebook`s as subcomponents, along with one `ExpandedNotebook`, kept track of by `NotebookStore.selectedNotebook()`.  
 
-`NotebookIndex` render method:
 
 ```javascript
 render: function () {

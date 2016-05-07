@@ -7,11 +7,6 @@ json.array! @users do |user|
   json.image_url user.image_url
   json.about user.about
 
-
-  # json.sent_connections user.sent_connections, :id
-
-  # json.received_connections user.received_connections, :id
-
   json.receive_connection_from_current user.received_connection_from(@current_user)
   json.sent_connection_to_current @current_user.received_connection_from(user)
 
