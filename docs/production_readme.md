@@ -58,26 +58,65 @@ OkCoFounder is a single page application that uses the properties of React and R
 The most important feature of this application is the ability to find a compatible business partner. In order to determine compatibility, a user answers a long list of questions that are present on the side of the screen as he/she browses the other users (potential matches). This data is stored on a "responses" table, which includes the `user_id`, `question_id`, and the `user_answer`. The matching algorithm takes two users and first determines the total number of unique questions that both users have provided an answer for. It then calculates the total number of identical answers from these questions and divides by the first number to get a percentage: (total number of identical answers / total number of identical questions answered). ActiveRecord queries are used on the User model to retrieve this data in just two queries:
 
 ```ruby
+  def match_percent_with_current(current_user)
+    same_questions_count = Question.joins("LEFT OUTER JOIN responses r1 ON r1.question_id = questions.id")
+    .joins("LEFT OUTER JOIN responses AS r2 ON r2.question_id = questions.id")
+    .where("r1.user_id = ? AND r2.user_id = ?", self.id, current_user.id).count
+
+    same_answers_count = Question.joins("LEFT OUTER JOIN responses r1 ON r1.question_id = questions.id")
+    .joins("LEFT OUTER JOIN responses AS r2 ON r2.question_id = questions.id")
+    .where("r1.user_id = ? AND r2.user_id = ? AND r1.user_answer = r2.user_answer", self.id, current_user.id).count
+
+    if same_questions_count > 0
+      match_percent = (same_answers_count.to_f / same_questions_count * 100).round(1)
+    else
+      match_percent = 0
+    end
+
+    return match_percent
+  end
+  ```
 
 
+### Connections
 
+Another unique feature to this application is the ability to "Connect" with another user. This is analagous to "following" a user on Twitter, in that connections can be uni-directional, and not all connections are mutual. I can select to "connect" with you, but you don't have to "connect" with me. All of the information about each user (about me, match percentages, and sent/received connections) is fetched by an API call as soon as there is a successful login to the site. This is accomplished through the following associations on the user model, which are then used in Jbuilder:
 
-```javascript
-render: function () {
-  return ({this.state.notebooks.map(function (notebook) {
-    return <CondensedNotebook notebook={notebook} />
-  }
-  <ExpandedNotebook notebook={this.state.selectedNotebook} />)
-}
-``
+```ruby
+has_many :responses
+has_one :about
 
-### Tags
+has_many :connections
+has_many :sent_connections, through: :connections, source: :lucky_user
+has_many :reverse_connections, foreign_key: :lucky_user_id, class_name: "Connection"
+has_many :received_connections, through: :reverse_connections, source: :user
+```
 
-As with notebooks, tags are stored in the database through a `tag` table and a join table.  The `tag` table contains the columns `id` and `tag_name`.  The `tagged_notes` table is the associated join table, which contains three columns: `id`, `tag_id`, and `note_id`.  
+```json
+json.array! @users do |user|
+  json.id user.id
+  json.username user.username
+  json.title user.title
+  json.age user.age
+  json.zipcode user.zipcode
+  json.image_url user.image_url
+  json.about user.about
 
-Tags are maintained on the frontend in the `TagStore`.  Because creating, editing, and destroying notes can potentially affect `Tag` objects, the `NoteIndex` and the `NotebookIndex` both listen to the `TagStore`.  It was not necessary to create a `Tag` component, as tags are simply rendered as part of the individual `Note` components.  
+  json.receive_connection_from_current user.received_connection_from(@current_user)
+  json.sent_connection_to_current @current_user.received_connection_from(user)
 
-![tag screenshot](https://github.com/appacademy/sample-project-proposal/blob/master/docs/tagScreenshot.png)
+  json.responses user.responses
+
+  json.match user.match_percent_with_current(@current_user)
+end
+```
+
+### General Functionality
+
+Users can browse an index of other users, who represent potential business connections:
+
+![image of user index page](https://github.com/jahatch512/OkCoFounder/blob/master/docs/logos/aboutMeModal.png)
+
 
 ## Future Directions for the Project
 
