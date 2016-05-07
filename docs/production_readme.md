@@ -1,6 +1,6 @@
 # OkCoFounder
 
-[OkCoFounder Site][heroku] **NB:** This should be a link to your production site
+[OkCoFounder Site][heroku] 
 
 [heroku]: https://okcofounder.herokuapp.com/
 
