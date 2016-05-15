@@ -1,8 +1,8 @@
 # OkCoFounder
 
-[OkCoFounder Site][heroku] 
+[OkCoFounder Site][heroku]
 
-[heroku]: https://okcofounder.herokuapp.com/
+[heroku]: https://www.okcofounder.site/
 
 OkCoFounder is a full-stack web application based on the features and functionality of the dating app OkCupid. It utilizes Ruby on Rails with a PosgreSQL database on the backend, and implements React.js within a Flux architecture pattern on the frontend. Using these tools, the site allows a user to create an account and answer a scrolling index of questions in order to determine his/her compatibility with other entrepreneurs looking for business partners in the Bay Area.
 
