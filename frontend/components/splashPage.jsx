@@ -96,7 +96,7 @@ var SplashPage = React.createClass({
               <option value="Developer">Developer</option>
             </select>
             <div onClick={this.openModal} id='sign-up-box'>
-              <div id="sign-up-button">Browse Matches</div>
+              <div id="sign-up-button">Sign Up</div>
             </div>
           </span>
     </div>;

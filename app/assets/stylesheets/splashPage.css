@@ -87,6 +87,7 @@ select {
 #sign-up-button {
   margin-top: 20px;
   border: 2px solid white;
+  border-radius: 3px;
   font-size: 25px;
   position: relative;
   top: 50%;
@@ -131,4 +132,8 @@ select {
   width: 200px;
   text-align: center;
   margin: auto;
+}
+
+#guest {
+  margin-top: 10px;
 }
