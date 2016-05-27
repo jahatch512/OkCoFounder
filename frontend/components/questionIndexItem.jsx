@@ -5,6 +5,7 @@ var React = require('react'),
     ClientActions = require('../actions/ClientActions'),
     UserIndexItem = require('./userIndexItem'),
     UserPage = require('./userPage'),
+    RecentConnectionsIndex = require('./recentConnectionsIndex'),
     hashHistory = require('react-router').hashHistory;
 
 var QuestionIndexItem = React.createClass({
@@ -47,26 +48,32 @@ var QuestionIndexItem = React.createClass({
       var questionCount = 20 - this.state.currentUser.unanswered.length;
       var questionContent = this.state.currentUser.unanswered[0].content;
       var questionRender = (
-        <div className="questions-box">
-        <div className="questions-inner">
-                              <div className="question-box-item"> You have answered {questionCount} out of 20 Questions! </div>
-                              <div className="question-box-item"> {questionContent} </div>
-                              <div className="answer-choice-box question-box-item">
-                                <div onClick={this.handleYes}
-                                     className="answer-choice-button">YES</div>
-                                <div onClick={this.handleNo}
-                                     className="answer-choice-button">NO</div>
-                              </div>
-                            </div>
-                          </div>);
+        <div>
+          <h1 className="index-right-headers">Improve Your Matches</h1>
+          <div className="questions-box">
+            <div className="questions-inner">
+                                  <div className="question-box-item"> {questionContent} </div>
+                                  <div className="answer-choice-box question-box-item">
+                                    <div onClick={this.handleYes}
+                                         className="answer-choice-button">YES</div>
+                                    <div onClick={this.handleNo}
+                                         className="answer-choice-button">NO</div>
+                                  </div>
+                                  <div className="question-box-item"> {questionCount} of 20 </div>
+            </div>
+          </div>
+        </div>);
     } else {
       questionRender = (<div></div>);
     }
 
 
     return (
-      <div>
+      <div className="index-right-panel">
         {questionRender}
+
+        <RecentConnectionsIndex />
+
       </div>
     );
   }

@@ -59,14 +59,10 @@ var UsersIndex = React.createClass({
     return (
       <div className="user_index_page">
         <div className="user_index_box">
+          { renderUsers }
+        </div>
 
-      {
-        renderUsers
-      }
-        </div>
-        <div>
-          <QuestionIndexItem />
-        </div>
+        <QuestionIndexItem />
         {this.props.children}
       </div>
     );
