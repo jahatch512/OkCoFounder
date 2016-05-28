@@ -16,9 +16,16 @@ var RecentIndexItem = React.createClass({
     return (
       <div className="recent_index_item"
            onClick={this.handleClick}>
-          <div id="index-username">{this.props.user.username}</div>
-          <div className="basic-info">{this.props.user.title} - {this.props.user.age} - {this.props.user.zipcode}
-          </div>
+           <div id="small-picture-box">
+             <img className="small-picture" src={this.props.user.image_url}
+                  alt="Profile Picture" />
+           </div>
+           
+           <div id="thumbnail-user-info">
+             <div id="index-username">{this.props.user.username}</div>
+             <div className="basic-info">{this.props.user.title} - {this.props.user.age} - {this.props.user.zipcode}
+             </div>
+           </div>
       </div>
     );
   }

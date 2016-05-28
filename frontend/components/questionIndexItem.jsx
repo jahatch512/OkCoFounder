@@ -55,8 +55,10 @@ var QuestionIndexItem = React.createClass({
                                   <div className="question-box-item"> {questionContent} </div>
                                   <div className="answer-choice-box question-box-item">
                                     <div onClick={this.handleYes}
+                                         id="yes-button"
                                          className="answer-choice-button">YES</div>
                                     <div onClick={this.handleNo}
+                                         id="no-button"
                                          className="answer-choice-button">NO</div>
                                   </div>
                                   <div className="question-box-item"> {questionCount} of 20 </div>

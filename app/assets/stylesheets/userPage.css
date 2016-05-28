@@ -116,11 +116,12 @@
 }
 
 #picture-text {
-  width: 140px;
+  width: 120px;
   padding: 5px;
   border-bottom: 1px solid white;
   border-radius: 3px;
   color: white;
+  font-size: 12px;
 }
 
 #detail-info-buttons {

@@ -311,34 +311,14 @@ Question.create!(
   end
 end
 
-
-# Response.create!(
-#   user_id: 1,
-#   question_id: 6,
-#   user_answer: "NO"
-# )
-# Response.create!(
-#   user_id: 2,
-#   question_id: 6,
-#   user_answer: "YES"
-# )
-# Response.create!(
-#   user_id: 3,
-#   question_id: 6,
-#   user_answer: "NO"
-# )
-# Response.create!(
-#   user_id: 4,
-#   question_id: 6,
-#   user_answer: "YES"
-# )
-# Response.create!(
-#   user_id: 5,
-#   question_id: 6,
-#   user_answer: "NO"
-# )
-# Response.create!(
-#   user_id: 1,
-#   question_id: 7,
-#   user_answer: "YES"
-# )
+repeats = []
+15.times do |i|
+  rando = rand(15)
+  next if rando == 6
+  next if repeats.include?(rando)
+  repeats.push(rando)
+  Connection.create!(
+    user_id: 7,
+    lucky_user_id: rando
+  )
+end

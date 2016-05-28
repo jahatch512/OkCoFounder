@@ -76,10 +76,10 @@ var ProfilePage = React.createClass({
 
               <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>
-                     About Detail</div>
+                     About </div>
               <div className={this.state.questionSelect}
                    onClick={this.questionClick}>
-                   Question Detail</div>
+                   Q&A </div>
 
             </div>
 

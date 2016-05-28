@@ -15,7 +15,7 @@ var UploadButton = React.createClass({
   render: function () {
     return (
       <div className="picture-upload-button">
-        <div onClick={this.upload} id="picture-text">Upload new image!</div>
+        <div onClick={this.upload} id="picture-text">Change Profile Picture</div>
       </div>
     );
   }
