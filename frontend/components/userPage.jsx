@@ -21,10 +21,12 @@ var UserPage = React.createClass({
 
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
+    $('.app').css("background-color", "#222222");
     },
 
   componentWillUnmount: function () {
     this.sessionListener.remove();
+    $('.app').css("background-color", "#0284cf");
   },
 
 
@@ -40,6 +42,10 @@ var UserPage = React.createClass({
     this.setState({currentTab: "about",
                    aboutSelect: "detail-info-tab selected-tab",
                    questionSelect: "detail-info-tab"});
+  },
+
+  backClick: function() {
+    hashHistory.push('/');
   },
 
   questionClick: function() {
@@ -61,14 +67,15 @@ var UserPage = React.createClass({
       <div id="user-page-full">
         {
           <div className="user-page-box">
+            <div onClick={this.backClick} id="back-button">back to matches</div>
             <ProfileInfo user={this.state.userPage} />
             <div id={"detail-info-buttons"}>
               <div className={this.state.aboutSelect}
                    onClick={this.aboutClick}>
-                    About Detail</div>
+                    About</div>
               <div className={this.state.questionSelect}
                    onClick={this.questionClick}>
-                    Question Detail</div>
+                    Q&A</div>
             </div>
               {detailBody}
           </div>

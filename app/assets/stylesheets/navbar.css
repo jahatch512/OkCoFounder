@@ -4,7 +4,7 @@
   flex-direction: row;
   z-index: 1000;
   height: 50px;
-  background-color: transparent;
+  background-color: #222222;
   width: 100%;
   justify-content: flex-end;
   align-items: center;
