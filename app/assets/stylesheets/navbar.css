@@ -76,20 +76,18 @@
 #nav-logo {
   color: white;
   margin-right: auto;
-  margin-left: 80px;
+  margin-left: 40px;
 	align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #logo-image-words {
 	width: auto;
 	height: 18px;
 }
-#logo-image {
-	width: auto;
-	height: 40px;
-}
 
-
-#logo-image:hover {
+#logo-image-words:hover {
   cursor: pointer;
 }

@@ -100,11 +100,6 @@ var navBar = React.createClass({
         </div>
       </div>;
 
-      var logoButton =
-      <div id="nav-logo" onClick={this.logoClick}>
-        <img id="logo-image" src="/assets/MatchPNGnoWatermark.png" />
-      </div>;
-
     } else {
       navBarSessionButton =
       <div className="nav-session-buttons">
@@ -112,11 +107,6 @@ var navBar = React.createClass({
              onClick={this.sessionClick}>
             Sign In
         </div>
-      </div>;
-
-      logoButton =
-      <div id="nav-logo" onClick={this.logoClick}>
-        <img id="logo-image-words" src="/assets/justOkCoFounder.png" />
       </div>;
     }
 
@@ -130,7 +120,9 @@ var navBar = React.createClass({
     return (
 
     <div className="navBar">
-      {logoButton}
+      <div id="nav-logo" onClick={this.logoClick}>
+        <img id="logo-image-words" src="/assets/justOkCoFounder.png" />
+      </div>;
       {navBarSessionButton}
       <Modal
         isOpen={this.state.modalIsOpen}
