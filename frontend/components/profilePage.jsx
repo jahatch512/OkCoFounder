@@ -22,11 +22,13 @@ var ProfilePage = React.createClass({
   componentDidMount: function () {
     this.sessionListener = SessionStore.addListener(this.onSessionChange);
     $('.app').css("background-color", "#222222");
+    $('body').css("background-color", "#222222");
   },
 
   componentWillUnmount: function () {
     this.sessionListener.remove();
     $('.app').css("background-color", "#0284cf");
+    $('body').css("background-color", "#0284cf");
   },
 
 

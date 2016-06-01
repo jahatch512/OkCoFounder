@@ -9,7 +9,6 @@ var App = React.createClass({
       <div className="app">
         <NavBar/>
         {this.props.children}
-        <Footer/>
       </div>
     );
   }
