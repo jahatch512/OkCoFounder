@@ -21,11 +21,11 @@ var Footer = React.createClass({
     if (this.state.currentUser !== null) {
       console.log(this.state.currentUser);
 
-      return <div id="footer">logged in</div>;
+      return <div id="footer"></div>;
     } else {
       console.log(this.state.currentUser);
 
-      return <div id="splash-footer">splash</div>;
+      return <div id="splash-footer"></div>;
     }
   }
 
